@@ -25,4 +25,4 @@ The versions used in the latest version are:
 
 This container can be run using the following command:
 
-	docker run -v <local path to the reports' folder>:/opt/robotframework/reports:Z -v <local path to the test suites' folder>:/opt/robotframework/tests:Z ppodgorsek/robotframework:<version>
+	docker run -v <local path to the reports' folder>:/opt/robotframework/reports:Z -v <local path to the test suites' folder>:/opt/robotframework/tests:Z ppodgorsek/robot-framework:<version>
