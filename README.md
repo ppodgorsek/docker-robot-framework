@@ -4,7 +4,7 @@
 
 This project consists of a Docker image containing a Robot Framework installation.
 
-This installation also contains the Selenium and database libraries for Robot Framework. The test cases and reports should be mounted as volumes.
+This installation also contains Firefox and the Selenium library for Robot Framework. The test cases and reports should be mounted as volumes.
 
 ## Versioning
 
@@ -17,9 +17,7 @@ The versions used in the latest version are:
 
 * Robot Framework 3.0
 * Robot Framework selenium2library 1.8.0
-* Robot Framework databaselibrary 0.8.1
 * Firefox 49.0
-* Java 8 (OpenJDK)
 
 ## Running the container
 
