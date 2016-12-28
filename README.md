@@ -1,10 +1,10 @@
-# Robot Framework in Docker
+# Robot Framework in Docker, with Firefox and Chrome
 
 ## What is it?
 
 This project consists of a Docker image containing a Robot Framework installation.
 
-This installation also contains Firefox and the Selenium library for Robot Framework. The test cases and reports should be mounted as volumes.
+This installation also contains Firefox, Chrome and the Selenium library for Robot Framework. The test cases and reports should be mounted as volumes.
 
 ## Versioning
 
@@ -17,7 +17,8 @@ The versions used in the latest version are:
 
 * Robot Framework 3.0
 * Robot Framework selenium2library 1.8.0
-* Firefox 49.0
+* Firefox 50.1
+* Google Chrome 55.0
 
 ## Running the container
 
