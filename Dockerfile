@@ -9,19 +9,18 @@ VOLUME /opt/robotframework/tests
 COPY dnf/google-chrome.repo /etc/yum.repos.d/google-chrome.repo
 
 RUN dnf upgrade -y\
-	&& dnf install -y firefox-50.1.0-1.fc25\
+	&& dnf install -y chromedriver-55.0.2883.87-1.fc25\
+		firefox-50.1.0-3.fc25\
 		google-chrome-stable-55.0.2883.87-1\
-		python-pip\
-		wxPython\
-		xorg-x11-server-Xvfb\
+		python-pip-8.1.2-2.fc25\
+		xorg-x11-server-Xvfb-1.19.1-2.fc25\
 	&& dnf clean all
 
-RUN pip install robotframework==3.0\
+RUN pip install robotframework==3.0.1\
 	robotframework-selenium2library==1.8.0
 
-COPY bin/firefox.sh /opt/robotframework/bin/firefox
-COPY bin/google-chrome.sh /opt/robotframework/bin/google-chrome
+ADD drivers/geckodriver-v0.13.0-linux64.tar.gz /opt/drivers/
 
-ENV PATH=/opt/robotframework/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV PATH=/opt/drivers:$PATH
 
-ENTRYPOINT ["robot", "--outputDir", "/opt/robotframework/reports", "/opt/robotframework/tests"]
+ENTRYPOINT ["xvfb-run", "--server-args='-screen 0 1920x1080x24'", "robot", "--outputDir", "/opt/robotframework/reports", "/opt/robotframework/tests"]
