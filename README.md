@@ -15,10 +15,10 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used in the latest version are:
 
-* Robot Framework 3.0
+* Robot Framework 3.0.1
 * Robot Framework selenium2library 1.8.0
-* Firefox 50.1
-* Google Chrome 55.0
+* Firefox 51.0
+* Google Chrome 56.0
 
 ## Running the container
 
