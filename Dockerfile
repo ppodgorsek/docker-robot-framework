@@ -9,19 +9,25 @@ VOLUME /opt/robotframework/tests
 COPY dnf/google-chrome.repo /etc/yum.repos.d/google-chrome.repo
 
 RUN dnf upgrade -y\
-	&& dnf install -y firefox-50.1.0-1.fc25\
-		google-chrome-stable-55.0.2883.87-1\
-		python-pip\
-		wxPython\
-		xorg-x11-server-Xvfb\
+	&& dnf install -y\
+		chromedriver-55.0.2883.87-1.fc25\
+		firefox-51.0.1-1.fc25\
+		google-chrome-stable-56.0.2924.76-1\
+		python-pip-8.1.2-2.fc25\
+		xorg-x11-server-Xvfb-1.19.1-2.fc25\
 	&& dnf clean all
 
-RUN pip install robotframework==3.0\
+RUN pip install robotframework==3.0.1\
 	robotframework-selenium2library==1.8.0
 
-COPY bin/firefox.sh /opt/robotframework/bin/firefox
+ADD drivers/geckodriver-v0.13.0-linux64.tar.gz /opt/robotframework/drivers/
+
 COPY bin/google-chrome.sh /opt/robotframework/bin/google-chrome
 
-ENV PATH=/opt/robotframework/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# FIXME: below is a workaround, as the path is ignored
+RUN mv /opt/google/chrome/google-chrome /opt/google/chrome/google-chrome-original\
+	&& ln -sfv /opt/robotframework/bin/google-chrome /opt/google/chrome/google-chrome
 
-ENTRYPOINT ["robot", "--outputDir", "/opt/robotframework/reports", "/opt/robotframework/tests"]
+ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
+
+ENTRYPOINT ["xvfb-run", "--server-args=-screen 0 1920x1080x24 -ac", "robot", "--outputDir", "/opt/robotframework/reports", "/opt/robotframework/tests"]
