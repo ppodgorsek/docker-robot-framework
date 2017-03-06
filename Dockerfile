@@ -10,14 +10,14 @@ COPY dnf/google-chrome.repo /etc/yum.repos.d/google-chrome.repo
 
 RUN dnf upgrade -y\
 	&& dnf install -y\
-		chromedriver-55.0.2883.87-1.fc25\
-		firefox-51.0.1-1.fc25\
-		google-chrome-stable-56.0.2924.76-1\
+		chromedriver-56.0.2924.87-3.fc25\
+		firefox-51.0.1-2.fc25\
+		google-chrome-stable-56.0.2924.87-1\
 		python-pip-8.1.2-2.fc25\
-		xorg-x11-server-Xvfb-1.19.1-2.fc25\
+		xorg-x11-server-Xvfb-1.19.1-3.fc25\
 	&& dnf clean all
 
-RUN pip install robotframework==3.0.1\
+RUN pip install robotframework==3.0.2\
 	robotframework-selenium2library==1.8.0
 
 ADD drivers/geckodriver-v0.13.0-linux64.tar.gz /opt/robotframework/drivers/
