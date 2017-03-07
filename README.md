@@ -30,6 +30,6 @@ This container can be run using the following command:
 
 ## Switching browsers
 
-Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWSER}` in your Robot variables and to use ${BROWSER} in your test cases. This allows you to set the browser in a single place if needed.
+Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWSER}` in your Robot variables and to use `${BROWSER}` in your test cases. This allows to set the browser in a single place if needed.
 
 When running your tests, simply add `-e BROWSER=chrome` or `-e BROWSER=firefox` to the run command.
