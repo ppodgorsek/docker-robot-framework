@@ -15,7 +15,7 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used in the latest version are:
 
-* Robot Framework 3.0.1
+* Robot Framework 3.0.2
 * Robot Framework selenium2library 1.8.0
 * Firefox 51.0
 * Google Chrome 56.0
@@ -24,4 +24,12 @@ The versions used in the latest version are:
 
 This container can be run using the following command:
 
-	docker run -v <local path to the reports' folder>:/opt/robotframework/reports:Z -v <local path to the test suites' folder>:/opt/robotframework/tests:Z ppodgorsek/robot-framework:<version>
+    docker run -v <local path to the reports' folder>:/opt/robotframework/reports:Z\
+        -v <local path to the test suites' folder>:/opt/robotframework/tests:Z\
+        ppodgorsek/robot-framework:<version>
+
+## Switching browsers
+
+Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWSER}` in your Robot variables and to use `${BROWSER}` in your test cases. This allows to set the browser in a single place if needed.
+
+When running your tests, simply add `-e BROWSER=chrome` or `-e BROWSER=firefox` to the run command.
