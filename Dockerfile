@@ -10,11 +10,11 @@ COPY dnf/google-chrome.repo /etc/yum.repos.d/google-chrome.repo
 
 RUN dnf upgrade -y\
 	&& dnf install -y\
-		chromedriver-56.0.2924.87-3.fc25\
-		firefox-52.0-4.fc25\
-		google-chrome-stable-57.0.2987.110-1\
+		chromedriver-59.0.3071.104-1.fc25\
+		firefox-54.0-2.fc25\
+		google-chrome-stable-59.0.3071.115-1\
 		python-pip-8.1.2-2.fc25\
-		xorg-x11-server-Xvfb-1.19.1-3.fc25\
+		xorg-x11-server-Xvfb-1.19.3-1.fc25\
 	&& dnf clean all
 
 RUN pip install robotframework==3.0.2\
