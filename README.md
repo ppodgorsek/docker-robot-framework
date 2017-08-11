@@ -28,7 +28,7 @@ This container can be run using the following command:
         -v <local path to the test suites' folder>:/opt/robotframework/tests:Z\
         ppodgorsek/robot-framework:<version>
 
-## Switching browsers
+### Switching browsers
 
 Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWSER}` in your Robot variables and to use `${BROWSER}` in your test cases. This allows to set the browser in a single place if needed.
 
