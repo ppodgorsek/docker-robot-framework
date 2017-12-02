@@ -6,6 +6,10 @@ LABEL description Robot Framework in Docker.
 VOLUME /opt/robotframework/reports
 VOLUME /opt/robotframework/tests
 
+ENV SCREEN_COLOUR_DEPTH 24
+ENV SCREEN_HEIGHT 1080
+ENV SCREEN_WIDTH 1920
+
 RUN dnf upgrade -y\
 	&& dnf install -y\
 		chromedriver-61.0.3163.100-1.fc26\
@@ -30,5 +34,4 @@ RUN mv /usr/lib64/chromium-browser/chromium-browser /usr/lib64/chromium-browser/
 
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
 
-ENTRYPOINT ["xvfb-run", "--server-args=-screen 0 1920x1080x24 -ac", "robot", "--outputDir", "/opt/robotframework/reports", "/opt/robotframework/tests"]
-
+ENTRYPOINT ["xvfb-run", "--server-args=-screen 0 ${SCREEN_HEIGHT}x${SCREEN_WIDTH}x${SCREEN_COLOUR_DEPTH} -ac", "robot", "--outputDir", "/opt/robotframework/reports", "/opt/robotframework/tests"]

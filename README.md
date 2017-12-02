@@ -17,8 +17,8 @@ The versions used in the latest version are:
 
 * Robot Framework 3.0.2
 * Robot Framework selenium2library 1.8.0
-* Firefox 55.0
-* Chromium 60.0
+* Firefox 57.0
+* Chromium 61.0
 
 ## Running the container
 
@@ -33,3 +33,11 @@ This container can be run using the following command:
 Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWSER}` in your Robot variables and to use `${BROWSER}` in your test cases. This allows to set the browser in a single place if needed.
 
 When running your tests, simply add `-e BROWSER=chrome` or `-e BROWSER=firefox` to the run command.
+
+### Changing the container screen's resolution
+
+It is possible to define the settings of the virtual screen in which the browser is run by changing several environment variables:
+
+* `SCREEN_COLOUR_DEPTH` (default: 24)
+* `SCREEN_HEIGHT` (default: 1080)
+* `SCREEN_WIDTH` (default: 1920)
