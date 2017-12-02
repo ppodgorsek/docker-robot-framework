@@ -23,7 +23,7 @@ RUN dnf upgrade -y\
 RUN pip install robotframework==3.0.2\
 	robotframework-seleniumlibrary==3.0.0
 
-ADD drivers/geckodriver-v0.18.0-linux64.tar.gz /opt/robotframework/drivers/
+ADD drivers/geckodriver-v0.19.1-linux64.tar.gz /opt/robotframework/drivers/
 
 COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
 COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
