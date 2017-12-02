@@ -8,9 +8,9 @@ VOLUME /opt/robotframework/tests
 
 RUN dnf upgrade -y\
 	&& dnf install -y\
-		chromedriver-60.0.3112.101-1.fc26\
-		chromium-60.0.3112.101-1.fc26\
-		firefox-55.0.2-3.fc26\
+		chromedriver-61.0.3163.100-1.fc26\
+		chromium-61.0.3163.100-1.fc26\
+		firefox-57.0-2.fc26\
 		python2-pip-9.0.1-9.fc26\
 		xorg-x11-server-Xvfb-1.19.3-4.fc26\
 		which-2.21-2.fc26\
