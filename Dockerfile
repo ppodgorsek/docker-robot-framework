@@ -16,8 +16,8 @@ RUN dnf upgrade -y\
 		chromium-61.0.3163.100-1.fc26\
 		firefox-57.0-2.fc26\
 		python2-pip-9.0.1-9.fc26\
-		xorg-x11-server-Xvfb-1.19.3-4.fc26\
 		which-2.21-2.fc26\
+		xorg-x11-server-Xvfb-1.19.3-4.fc26\
 	&& dnf clean all
 
 RUN pip install robotframework==3.0.2\
@@ -27,6 +27,7 @@ ADD drivers/geckodriver-v0.18.0-linux64.tar.gz /opt/robotframework/drivers/
 
 COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
 COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
+COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
 # FIXME: below is a workaround, as the path is ignored
 RUN mv /usr/lib64/chromium-browser/chromium-browser /usr/lib64/chromium-browser/chromium-browser-original\
@@ -34,4 +35,4 @@ RUN mv /usr/lib64/chromium-browser/chromium-browser /usr/lib64/chromium-browser/
 
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
 
-ENTRYPOINT ["xvfb-run", "--server-args=-screen 0 ${SCREEN_HEIGHT}x${SCREEN_WIDTH}x${SCREEN_COLOUR_DEPTH} -ac", "robot", "--outputDir", "/opt/robotframework/reports", "/opt/robotframework/tests"]
+CMD ["run-tests-in-virtual-screen.sh"]
