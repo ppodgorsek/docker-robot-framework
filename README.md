@@ -18,7 +18,7 @@ The versions used in the latest version are:
 * Robot Framework 3.0.2
 * Robot Framework selenium2library 1.8.0
 * Firefox 57.0
-* Chromium 61.0
+* Chromium 62.0
 
 ## Running the container
 
