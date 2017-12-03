@@ -16,7 +16,7 @@ The versioning of this image follows the one of Robot Framework:
 The versions used in the latest version are:
 
 * Robot Framework 3.0.2
-* Robot Framework selenium2library 1.8.0
+* Robot Framework SeleniumLibrary 3.0.0
 * Firefox 57.0
 * Chromium 62.0
 
