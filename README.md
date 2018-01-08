@@ -10,8 +10,8 @@ This installation also contains Firefox, Chrome and the Selenium library for Rob
 
 The versioning of this image follows the one of Robot Framework:
 
-* Major and minor versions match the ones of Robot Framework
-* Patch version is specific to this project (allows to update the versions of the other dependencies)
+* Major version matches the one of Robot Framework
+* Minor and patch versions are specific to this project (allows to update the versions of the other dependencies)
 
 The versions used in the latest version are:
 
