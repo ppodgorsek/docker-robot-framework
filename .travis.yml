@@ -3,7 +3,7 @@ sudo: required
 services:
   - docker
 
-before_install:
+script:
   - docker build -t docker-robot-framework .
 
 after_success:
