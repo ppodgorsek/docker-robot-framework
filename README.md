@@ -41,3 +41,8 @@ It is possible to define the settings of the virtual screen in which the browser
 * `SCREEN_COLOUR_DEPTH` (default: 24)
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
+
+## Please contribute!
+
+Have you found an issue? Do you have an idea for an improvement? Feel free to contribute by submitting it [on the GitHub project](https://github.com/ppodgorsek/docker-robot-framework/issues).
+
