@@ -44,10 +44,21 @@ It is possible to define the settings of the virtual screen in which the browser
 
 ## Testing this project
 
-Not convinced yet? Simple tests have been prepared in the `test/` folder, you can run them using the following command:
+Not convinced yet? Simple tests have been prepared in the `test/` folder, you can run them using the following commands:
 
-    docker run -v ./test:/opt/robotframework/tests:Z\
+    # Using Chromium
+    docker run -v `pwd`/reports:/opt/robotframework/reports:Z\
+        -v `pwd`/test:/opt/robotframework/tests:Z\
+        -e BROWSER=chrome\
         ppodgorsek/robot-framework:latest
+    
+    # Using Firefox
+    docker run -v `pwd`/reports:/opt/robotframework/reports:Z\
+        -v `pwd/test:/opt/robotframework/tests:Z\
+        -e BROWSER=firefox\
+        ppodgorsek/robot-framework:latest
+
+Screenshots of the results will be available in the `reports` folder.
 
 ## Please contribute!
 
