@@ -42,6 +42,13 @@ It is possible to define the settings of the virtual screen in which the browser
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
 
+## Testing this project
+
+Not convinced yet? Simple tests have been prepared in the `test/` folder, you can run them using the following command:
+
+    docker run -v ./test:/opt/robotframework/tests:Z\
+        ppodgorsek/robot-framework:latest
+
 ## Please contribute!
 
 Have you found an issue? Do you have an idea for an improvement? Feel free to contribute by submitting it [on the GitHub project](https://github.com/ppodgorsek/docker-robot-framework/issues).
