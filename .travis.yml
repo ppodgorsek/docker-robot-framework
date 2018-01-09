@@ -1,0 +1,10 @@
+sudo: required
+
+services:
+  - docker
+
+script:
+  - docker build -t docker-robot-framework .
+  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome docker-robot-framework
+  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox docker-robot-framework
+
