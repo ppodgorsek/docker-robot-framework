@@ -7,5 +7,6 @@ script:
   - docker build -t docker-robot-framework .
 
 after_success:
-  - docker run -v test:/opt/robotframework/tests:Z docker-robot-framework
+  - docker run -v test:/opt/robotframework/tests:Z -e BROWSER=chrome docker-robot-framework
+  - docker run -v test:/opt/robotframework/tests:Z -e BROWSER=firefox docker-robot-framework
 
