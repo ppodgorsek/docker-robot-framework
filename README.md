@@ -54,11 +54,11 @@ Not convinced yet? Simple tests have been prepared in the `test/` folder, you ca
     
     # Using Firefox
     docker run -v `pwd`/reports:/opt/robotframework/reports:Z\
-        -v `pwd/test:/opt/robotframework/tests:Z\
+        -v `pwd`/test:/opt/robotframework/tests:Z\
         -e BROWSER=firefox\
         ppodgorsek/robot-framework:latest
 
-Screenshots of the results will be available in the `reports` folder.
+Screenshots of the results will be available in the `reports/` folder.
 
 ## Please contribute!
 
