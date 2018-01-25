@@ -20,6 +20,8 @@ The versions used in the latest version are:
 * Firefox 57.0
 * Chromium 63.0
 
+As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning.
+
 ## Running the container
 
 This container can be run using the following command:
