@@ -8,8 +8,8 @@ script:
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome docker-robot-framework
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox docker-robot-framework
 
-  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_COLOUR_DEPTH=2 docker-robot-framework
-  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_COLOUR_DEPTH=2 docker-robot-framework
+  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_COLOUR_DEPTH=8 docker-robot-framework
+  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_COLOUR_DEPTH=8 docker-robot-framework
 
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=800 -e SCREEN_HEIGHT=600 docker-robot-framework
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=1024 -e SCREEN_HEIGHT=768 docker-robot-framework
