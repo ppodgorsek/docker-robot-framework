@@ -14,9 +14,11 @@ RUN dnf upgrade -y\
 	&& dnf install -y\
 		chromedriver-63.0.*\
 		chromium-63.0.*\
-		firefox-58.0-*\
+		firefox-58.0*\
 		python2-pip-9.0.1-*\
+		xauth\
 		xorg-x11-server-Xvfb-1.19.*\
+		which\
 	&& dnf clean all
 
 RUN pip install robotframework==3.0.2\
