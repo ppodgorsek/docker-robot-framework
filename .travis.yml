@@ -5,7 +5,6 @@ services:
 
 script:
   - docker build -t docker-robot-framework .
-  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e ROBOT_OPTIONS="--loglevel DEBUG" docker-robot-framework
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome docker-robot-framework
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox docker-robot-framework
 
@@ -23,3 +22,6 @@ script:
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_WIDTH=1280 -e SCREEN_HEIGHT=1024 docker-robot-framework
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_WIDTH=2560 -e SCREEN_HEIGHT=1440 docker-robot-framework
   - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_WIDTH=3840 -e SCREEN_HEIGHT=2160 docker-robot-framework
+
+  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e ROBOT_OPTIONS="--loglevel DEBUG" docker-robot-framework
+  - docker run -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e ROBOT_OPTIONS="--loglevel DEBUG" docker-robot-framework
