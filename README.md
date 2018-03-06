@@ -45,6 +45,15 @@ It is possible to define the settings of the virtual screen in which the browser
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
 
+## Passing robot options
+
+Robotframework comes with many options such as `--exclude`, `--variable`, `--help`, etc. Passing options using `OPTIONS` environment variable.
+
+    docker run \
+        -e OPTIONS="--help" \
+        ppodgorsek/robot-framework:latest
+
+
 ## Testing this project
 
 Not convinced yet? Simple tests have been prepared in the `test/` folder, you can run them using the following commands:
