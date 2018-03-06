@@ -17,6 +17,7 @@ The versions used in the latest version are:
 
 * Robot Framework 3.0.2
 * Robot Framework SeleniumLibrary 3.0.1
+* Robot Framework Faker 4.2.0
 * Firefox 58.0
 * Chromium 63.0
 

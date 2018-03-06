@@ -18,6 +18,7 @@ ENV FIREFOX_VERSION 58.0*
 ENV GECKO_DRIVER_VERSION v0.19.1
 ENV ROBOT_FRAMEWORK_VERSION 3.0.2
 ENV SELENIUM_LIBRARY_VERSION 3.0.1
+ENV FAKER_VERSION 4.2.0
 
 # Install system dependencies
 RUN dnf upgrade -y \
@@ -35,7 +36,8 @@ RUN dnf upgrade -y \
 # Install Robot Framework and Selenium Library
 RUN pip install \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
-  robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION
+  robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
+  robotframework-faker==$FAKER_VERSION
 
 # Download Gecko drivers directly from the GitHub repository
 RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
