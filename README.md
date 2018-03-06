@@ -26,8 +26,9 @@ As stated by [the official GitHub project](https://github.com/robotframework/Sel
 
 This container can be run using the following command:
 
-    docker run -v <local path to the reports' folder>:/opt/robotframework/reports:Z\
-        -v <local path to the test suites' folder>:/opt/robotframework/tests:Z\
+    docker run \
+        -v <local path to the reports' folder>:/opt/robotframework/reports:Z \
+        -v <local path to the test suites' folder>:/opt/robotframework/tests:Z \
         ppodgorsek/robot-framework:<version>
 
 ### Switching browsers
@@ -49,15 +50,33 @@ It is possible to define the settings of the virtual screen in which the browser
 Not convinced yet? Simple tests have been prepared in the `test/` folder, you can run them using the following commands:
 
     # Using Chromium
-    docker run -v `pwd`/reports:/opt/robotframework/reports:Z\
-        -v `pwd`/test:/opt/robotframework/tests:Z\
-        -e BROWSER=chrome\
+    docker run \
+        -v `pwd`/reports:/opt/robotframework/reports:Z \
+        -v `pwd`/test:/opt/robotframework/tests:Z \
+        -e BROWSER=chrome \
         ppodgorsek/robot-framework:latest
     
     # Using Firefox
-    docker run -v `pwd`/reports:/opt/robotframework/reports:Z\
-        -v `pwd`/test:/opt/robotframework/tests:Z\
-        -e BROWSER=firefox\
+    docker run \
+        -v `pwd`/reports:/opt/robotframework/reports:Z \
+        -v `pwd`/test:/opt/robotframework/tests:Z \
+        -e BROWSER=firefox \
+        ppodgorsek/robot-framework:latest
+
+For Windows users, the commands are slightly different:
+
+    # Using Chromium
+    docker run \
+        -v ${PWD}/reports:/opt/robotframework/reports:Z \
+        -v ${PWD}/test:/opt/robotframework/tests:Z \
+        -e BROWSER=chrome \
+        ppodgorsek/robot-framework:latest
+    
+    # Using Firefox
+    docker run \
+        -v ${PWD}/reports:/opt/robotframework/reports:Z \
+        -v ${PWD}/test:/opt/robotframework/tests:Z \
+        -e BROWSER=firefox \
         ppodgorsek/robot-framework:latest
 
 Screenshots of the results will be available in the `reports/` folder.
@@ -65,4 +84,3 @@ Screenshots of the results will be available in the `reports/` folder.
 ## Please contribute!
 
 Have you found an issue? Do you have an idea for an improvement? Feel free to contribute by submitting it [on the GitHub project](https://github.com/ppodgorsek/docker-robot-framework/issues).
-
