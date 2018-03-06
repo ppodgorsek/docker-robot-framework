@@ -47,7 +47,7 @@ It is possible to define the settings of the virtual screen in which the browser
 
 ## Passing additional options
 
-RobotFramework supports many options such as `--exclude`, `--variable`, `--help`, etc. These can be passed by using the `ROBOT_OPTIONS` environment variable, for example:
+RobotFramework supports many options such as `--exclude`, `--variable`, `--loglevel`, etc. These can be passed by using the `ROBOT_OPTIONS` environment variable, for example:
 
     docker run \
         -e ROBOT_OPTIONS="--loglevel DEBUG" \
