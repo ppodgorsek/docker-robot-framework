@@ -15,8 +15,9 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used in the latest version are:
 
-* Robot Framework 3.0.2
-* Robot Framework SeleniumLibrary 3.0.1
+* [Robot Framework](https://github.com/robotframework/robotframework) 3.0.2
+* [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 4.2.0
+* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 3.0.1
 * Firefox 58.0
 * Chromium 63.0
 
@@ -63,7 +64,7 @@ Not convinced yet? Simple tests have been prepared in the `test/` folder, you ca
         -v `pwd`/test:/opt/robotframework/tests:Z \
         -e BROWSER=chrome \
         ppodgorsek/robot-framework:latest
-    
+
     # Using Firefox
     docker run \
         -v `pwd`/reports:/opt/robotframework/reports:Z \
@@ -79,7 +80,7 @@ For Windows users, the commands are slightly different:
         -v ${PWD}/test:/opt/robotframework/tests:Z \
         -e BROWSER=chrome \
         ppodgorsek/robot-framework:latest
-    
+
     # Using Firefox
     docker run \
         -v ${PWD}/reports:/opt/robotframework/reports:Z \

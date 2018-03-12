@@ -14,6 +14,7 @@ ENV SCREEN_WIDTH 1920
 
 # Dependency versions
 ENV CHROMIUM_VERSION 63.0.*
+ENV FAKER_VERSION 4.2.0
 ENV FIREFOX_VERSION 58.0*
 ENV GECKO_DRIVER_VERSION v0.19.1
 ENV ROBOT_FRAMEWORK_VERSION 3.0.2
@@ -35,6 +36,7 @@ RUN dnf upgrade -y \
 # Install Robot Framework and Selenium Library
 RUN pip install \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
+  robotframework-faker==$FAKER_VERSION \
   robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION
 
 # Download Gecko drivers directly from the GitHub repository
