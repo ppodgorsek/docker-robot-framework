@@ -72,7 +72,7 @@ Not convinced yet? Simple tests have been prepared in the `test/` folder, you ca
         -e BROWSER=firefox \
         ppodgorsek/robot-framework:latest
 
-For Windows users, the commands are slightly different:
+For Windows users who use **PowerShell**, the commands are slightly different:
 
     # Using Chromium
     docker run \
@@ -89,6 +89,17 @@ For Windows users, the commands are slightly different:
         ppodgorsek/robot-framework:latest
 
 Screenshots of the results will be available in the `reports/` folder.
+
+## Troubleshooting
+Chrome drivers might crash due to the small size of `/dev/shm` in the docker container:
+> UnknownError: session deleted because of page crash
+
+To fix this issue please do one of the following:
+- Change the shm size, e.g. `--shm-size=1g` or `shm_size: 1G`
+- Mount a volume for /dev/shm `-v /dev/shm:/dev/shm` (not working on Windows hosts)
+- Add the parameter `--tmpfs /dev/shm` to your `docker run` command to enable tmpfs
+
+More info available here: https://github.com/elgalu/docker-selenium/issues/20
 
 ## Please contribute!
 
