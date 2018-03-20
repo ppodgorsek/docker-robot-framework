@@ -46,7 +46,7 @@ It is possible to define the settings of the virtual screen in which the browser
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
 
-## Passing additional options
+### Passing additional options
 
 RobotFramework supports many options such as `--exclude`, `--variable`, `--loglevel`, etc. These can be passed by using the `ROBOT_OPTIONS` environment variable, for example:
 
@@ -72,7 +72,7 @@ Not convinced yet? Simple tests have been prepared in the `test/` folder, you ca
         -e BROWSER=firefox \
         ppodgorsek/robot-framework:latest
 
-For Windows users, the commands are slightly different:
+For Windows users who use **PowerShell**, the commands are slightly different:
 
     # Using Chromium
     docker run \
@@ -89,6 +89,15 @@ For Windows users, the commands are slightly different:
         ppodgorsek/robot-framework:latest
 
 Screenshots of the results will be available in the `reports/` folder.
+
+## Troubleshooting
+
+Chrome drivers might crash due to the small size of `/dev/shm` in the docker container:
+> UnknownError: session deleted because of page crash
+
+This is [a known bug of Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=715363).
+
+To avoid this error, please change the shm size when starting the container by adding the following parameter: `--shm-size=1g` (or any other size more suited to your tests)
 
 ## Please contribute!
 
