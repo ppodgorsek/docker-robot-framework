@@ -97,7 +97,7 @@ Chrome drivers might crash due to the small size of `/dev/shm` in the docker con
 
 This is [a known bug of Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=715363).
 
-To avoid this error from happening, please change the shm size when starting the container by adding the following parameter: `--shm-size=1g`
+To avoid this error, please change the shm size when starting the container by adding the following parameter: `--shm-size=1g` (or any other size more suited to your tests)
 
 ## Please contribute!
 
