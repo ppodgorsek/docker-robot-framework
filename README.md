@@ -105,16 +105,8 @@ To avoid this error, please change the shm size when starting the container by a
 
 In case further investigation is required, the logs can be accessed by mounting their folder. Simply add the following parameter to your `run` command:
 
-* Linux/Mac:
-
-```
--v `pwd`/logs:/var/log:Z
-```
-
-* Windows:
-```
--v ${PWD}/logs:/var/log:Z
-```
+* Linux/Mac: ``-v `pwd`/logs:/var/log:Z``
+* Windows: ``-v ${PWD}/logs:/var/log:Z``
 
 ## Please contribute!
 
