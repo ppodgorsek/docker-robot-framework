@@ -92,12 +92,29 @@ Screenshots of the results will be available in the `reports/` folder.
 
 ## Troubleshooting
 
+### Chromium is crashing
+
 Chrome drivers might crash due to the small size of `/dev/shm` in the docker container:
 > UnknownError: session deleted because of page crash
 
 This is [a known bug of Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=715363).
 
 To avoid this error, please change the shm size when starting the container by adding the following parameter: `--shm-size=1g` (or any other size more suited to your tests)
+
+### Accessing the logs
+
+In case further investigation is required, the logs can be accessed by mounting their folder. Simply add the following parameter to your `run` command:
+
+* Linux/Mac:
+
+```
+-v `pwd`/logs:/var/log:Z
+```
+
+* Windows:
+```
+-v ${PWD}/logs:/var/log:Z
+```
 
 ## Please contribute!
 
