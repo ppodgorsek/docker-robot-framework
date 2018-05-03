@@ -15,7 +15,7 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used in the latest version are:
 
-* [Robot Framework](https://github.com/robotframework/robotframework) 3.0.2
+* [Robot Framework](https://github.com/robotframework/robotframework) 3.0.4
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 4.2.0
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 3.1.1
 * Firefox 59.0
