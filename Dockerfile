@@ -17,8 +17,10 @@ ENV CHROMIUM_VERSION 65.0.*
 ENV FAKER_VERSION 4.2.0
 ENV FIREFOX_VERSION 59.0*
 ENV GECKO_DRIVER_VERSION v0.19.1
+ENV PIP_VERSION 9.0.*
 ENV ROBOT_FRAMEWORK_VERSION 3.0.4
 ENV SELENIUM_LIBRARY_VERSION 3.1.1
+ENV XVFB_VERSION 1.19.*
 
 # Install system dependencies
 RUN dnf upgrade -y \
@@ -26,9 +28,9 @@ RUN dnf upgrade -y \
     chromedriver-$CHROMIUM_VERSION \
     chromium-$CHROMIUM_VERSION \
     firefox-$FIREFOX_VERSION \
-    python2-pip-9.0.1-* \
+    python2-pip-$PIP_VERSION \
     xauth \
-    xorg-x11-server-Xvfb-1.19.* \
+    xorg-x11-server-Xvfb-$XVFB_VERSION \
     which \
     wget \
   && dnf clean all
