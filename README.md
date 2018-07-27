@@ -17,6 +17,7 @@ The versions used in the latest version are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 3.0.4
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 4.2.0
+* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 0.43
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 3.1.1
 * Firefox 61.0
 * Chromium 67.0
@@ -45,6 +46,16 @@ It is possible to define the settings of the virtual screen in which the browser
 * `SCREEN_COLOUR_DEPTH` (default: 24)
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
+
+### Parallelisation
+
+It is possible to parallelise the execution of your test suites. Simply define the `ROBOT_THREADS` environment variable, for example:
+
+    docker run \
+        -e ROBOT_THREADS=4 \
+        ppodgorsek/robot-framework:latest
+
+By default, there is no parallelisation.
 
 ### Passing additional options
 
