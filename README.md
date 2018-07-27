@@ -108,7 +108,7 @@ In case further investigation is required, the logs can be accessed by mounting 
 * Linux/Mac: ``-v `pwd`/logs:/var/log:Z``
 * Windows: ``-v ${PWD}/logs:/var/log:Z``
 
-### Error Suite contains no tests
+### Error: Suite contains no tests
 
 When running tests, an unexpected error sometimes occurs:
 
