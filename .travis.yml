@@ -3,8 +3,7 @@ sudo: required
 services:
   - docker
 
-script:
-  - docker build -t docker-robot-framework:travis . \
+script: docker build -t docker-robot-framework:travis . \
   && docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome docker-robot-framework:travis \
   && docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox docker-robot-framework:travis \
 \
