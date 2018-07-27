@@ -116,7 +116,7 @@ When running tests, an unexpected error sometimes occurs:
 
 There are two main causes to this:
 * Either the test folder is not the right one,
-* Or the permissions on the test folder are too restrictive.
+* Or the permissions on the test folder/test files are too restrictive.
 
 As there can sometimes be issues as to where the tests are run from, make sure the correct folder is used by trying the following actions:
 * Use a full path to the folder instead of a relative one,
