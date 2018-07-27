@@ -12,11 +12,16 @@ ENV SCREEN_COLOUR_DEPTH 24
 ENV SCREEN_HEIGHT 1080
 ENV SCREEN_WIDTH 1920
 
+# Set number of threads for parallel execution
+# By default, no parallelisation
+ENV ROBOT_THREADS 1
+
 # Dependency versions
 ENV CHROMIUM_VERSION 67.0.*
 ENV FAKER_VERSION 4.2.0
 ENV FIREFOX_VERSION 61.0*
 ENV GECKO_DRIVER_VERSION v0.19.1
+ENV PABOT_VERSION 0.43
 ENV PYTHON_PIP_VERSION 9.0.*
 ENV ROBOT_FRAMEWORK_VERSION 3.0.4
 ENV SELENIUM_LIBRARY_VERSION 3.1.1
@@ -39,6 +44,7 @@ RUN dnf upgrade -y \
 RUN pip install \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
   robotframework-faker==$FAKER_VERSION \
+  robotframework-pabot==$PABOT_VERSION \
   robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION
 
 # Download Gecko drivers directly from the GitHub repository
