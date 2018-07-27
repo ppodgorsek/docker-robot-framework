@@ -5,6 +5,18 @@ Library			SeleniumLibrary
 ${BROWSER}		%{BROWSER}
 
 *** Test Cases ***
+Visit Baidu
+	Open Browser			https://www.baidu.com	${BROWSER}
+	Capture Page Screenshot
+
+Visit Bing
+	Open Browser			https://www.bing.com	${BROWSER}
+	Capture Page Screenshot
+
 Visit Google
-	Open Browser			http://www.google.com	${BROWSER}
+	Open Browser			https://www.google.com	${BROWSER}
+	Capture Page Screenshot
+
+Visit Yahoo
+	Open Browser			https://www.yahoo.com	${BROWSER}
 	Capture Page Screenshot
