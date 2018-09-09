@@ -23,6 +23,7 @@ ENV FIREFOX_VERSION 62.0*
 ENV GECKO_DRIVER_VERSION v0.19.1
 ENV PABOT_VERSION 0.43
 ENV PYTHON_PIP_VERSION 9.0.*
+ENV REQUESTS_VERSION 0.4.7
 ENV ROBOT_FRAMEWORK_VERSION 3.0.4
 ENV SELENIUM_LIBRARY_VERSION 3.1.1
 ENV XVFB_VERSION 1.19.*
@@ -45,6 +46,7 @@ RUN pip install \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
   robotframework-faker==$FAKER_VERSION \
   robotframework-pabot==$PABOT_VERSION \
+  robotframework-requests==$REQUESTS_VERSION \
   robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION
 
 # Download Gecko drivers directly from the GitHub repository
