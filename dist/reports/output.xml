@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20180909 11:42:42.408" generator="Robot 3.0.4 (Python 2.7.15 on linux2)">
+<suite source="/opt/robotframework/tests" id="s1" name="Tests">
+<suite source="/opt/robotframework/tests/test" id="s1-s1" name="Test">
+<suite source="/opt/robotframework/tests/test/#108-include-RequestsLibrary.robot" id="s1-s1-s1" name="#108-include-RequestsLibrary">
+<test id="s1-s1-s1-t1" name="Create Session On Google">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>Test-Session</arg>
+<arg>https://www.google.com</arg>
+</arguments>
+<msg timestamp="20180909 11:42:42.471" level="INFO">Creating Session using : alias=Test-Session, url=https://www.google.com, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20180909 11:42:42.472" starttime="20180909 11:42:42.471"></status>
+</kw>
+<tags>
+<tag>108</tag>
+<tag>RequestsLibrary</tag>
+</tags>
+<status status="PASS" endtime="20180909 11:42:42.472" critical="yes" starttime="20180909 11:42:42.471"></status>
+</test>
+<status status="PASS" endtime="20180909 11:42:42.473" starttime="20180909 11:42:42.430"></status>
+</suite>
+<suite source="/opt/robotframework/tests/test/simpletest.robot" id="s1-s1-s2" name="Simpletest">
+<test id="s1-s1-s2-t1" name="Visit Baidu">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>https://www.baidu.com</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180909 11:42:42.542" level="INFO">Opening browser 'firefox' to base url 'https://www.baidu.com'.</msg>
+<status status="PASS" endtime="20180909 11:42:54.294" starttime="20180909 11:42:42.542"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180909 11:42:54.371" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180909 11:42:54.371" starttime="20180909 11:42:54.294"></status>
+</kw>
+<status status="PASS" endtime="20180909 11:42:54.371" critical="yes" starttime="20180909 11:42:42.541"></status>
+</test>
+<test id="s1-s1-s2-t2" name="Visit Bing">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>https://www.bing.com</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180909 11:42:54.373" level="INFO">Opening browser 'firefox' to base url 'https://www.bing.com'.</msg>
+<status status="PASS" endtime="20180909 11:43:02.107" starttime="20180909 11:42:54.373"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180909 11:43:02.659" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180909 11:43:02.660" starttime="20180909 11:43:02.107"></status>
+</kw>
+<status status="PASS" endtime="20180909 11:43:02.660" critical="yes" starttime="20180909 11:42:54.372"></status>
+</test>
+<test id="s1-s1-s2-t3" name="Visit Google">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>https://www.google.com</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180909 11:43:02.662" level="INFO">Opening browser 'firefox' to base url 'https://www.google.com'.</msg>
+<status status="PASS" endtime="20180909 11:43:10.893" starttime="20180909 11:43:02.662"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180909 11:43:10.969" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180909 11:43:10.969" starttime="20180909 11:43:10.893"></status>
+</kw>
+<status status="PASS" endtime="20180909 11:43:10.969" critical="yes" starttime="20180909 11:43:02.661"></status>
+</test>
+<test id="s1-s1-s2-t4" name="Visit Yahoo">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>https://search.yahoo.com</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180909 11:43:10.971" level="INFO">Opening browser 'firefox' to base url 'https://search.yahoo.com'.</msg>
+<status status="PASS" endtime="20180909 11:43:21.244" starttime="20180909 11:43:10.970"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180909 11:43:21.421" html="yes" level="INFO">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-8.png"&gt;&lt;img src="selenium-screenshot-8.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" endtime="20180909 11:43:21.422" starttime="20180909 11:43:21.245"></status>
+</kw>
+<status status="PASS" endtime="20180909 11:43:21.422" critical="yes" starttime="20180909 11:43:10.970"></status>
+</test>
+<status status="PASS" endtime="20180909 11:43:21.423" starttime="20180909 11:42:42.474"></status>
+</suite>
+<status status="PASS" endtime="20180909 11:43:21.427" starttime="20180909 11:42:42.427"></status>
+</suite>
+<status status="PASS" endtime="20180909 11:43:21.430" starttime="20180909 11:42:42.410"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="5">Critical Tests</stat>
+<stat fail="0" pass="5">All Tests</stat>
+</total>
+<tag>
+<stat fail="0" pass="1">108</stat>
+<stat fail="0" pass="1">RequestsLibrary</stat>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Tests" pass="5">Tests</stat>
+<stat fail="0" id="s1-s1" name="Test" pass="5">Tests.Test</stat>
+<stat fail="0" id="s1-s1-s1" name="#108-include-RequestsLibrary" pass="1">Tests.Test.#108-include-RequestsLibrary</stat>
+<stat fail="0" id="s1-s1-s2" name="Simpletest" pass="4">Tests.Test.Simpletest</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

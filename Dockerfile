@@ -23,6 +23,7 @@ ENV FIREFOX_VERSION 62.0*
 ENV GECKO_DRIVER_VERSION v0.19.1
 ENV PABOT_VERSION 0.43
 ENV PYTHON_PIP_VERSION 9.0.*
+ENV REQUESTS_VERSION 0.4.7
 ENV ROBOT_FRAMEWORK_VERSION 3.0.4
 ENV SELENIUM_LIBRARY_VERSION 3.1.1
 ENV XVFB_VERSION 1.19.*
@@ -30,14 +31,14 @@ ENV XVFB_VERSION 1.19.*
 # Install system dependencies
 RUN dnf upgrade -y \
   && dnf install -y \
-    chromedriver-$CHROMIUM_VERSION \
-    chromium-$CHROMIUM_VERSION \
-    firefox-$FIREFOX_VERSION \
-    python2-pip-$PYTHON_PIP_VERSION \
-    xauth \
-    xorg-x11-server-Xvfb-$XVFB_VERSION \
-    which \
-    wget \
+  chromedriver-$CHROMIUM_VERSION \
+  chromium-$CHROMIUM_VERSION \
+  firefox-$FIREFOX_VERSION \
+  python2-pip-$PYTHON_PIP_VERSION \
+  xauth \
+  xorg-x11-server-Xvfb-$XVFB_VERSION \
+  which \
+  wget \
   && dnf clean all
 
 # Install Robot Framework and Selenium Library
@@ -45,14 +46,15 @@ RUN pip install \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
   robotframework-faker==$FAKER_VERSION \
   robotframework-pabot==$PABOT_VERSION \
+  robotframework-requests==$REQUESTS_VERSION \
   robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION
 
 # Download Gecko drivers directly from the GitHub repository
 RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
-      && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
-      && mkdir -p /opt/robotframework/drivers/ \
-      && mv geckodriver /opt/robotframework/drivers/geckodriver \
-      && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz
+  && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+  && mkdir -p /opt/robotframework/drivers/ \
+  && mv geckodriver /opt/robotframework/drivers/geckodriver \
+  && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz
 
 # Prepare binaries to be executed
 COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
