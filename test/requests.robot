@@ -3,7 +3,6 @@ Library  Collections
 Library  String
 Library  RequestsLibrary
 Library  OperatingSystem
-Library  customAuthenticator.py
 
 Suite Teardown  Delete All Sessions
 
@@ -11,12 +10,12 @@ Suite Teardown  Delete All Sessions
 Get Requests
     [Tags]  get
     Create Session  google  http://www.google.com
-    Create Session  github  https://api.github.com   verify=${CURDIR}${/}cacert.pem
+    Create Session  github  https://api.github.com
     ${resp}=  Get Request  google  /
     Should Be Equal As Strings  ${resp.status_code}  200
-    ${resp}=  Get Request  github  /users/bulkan
+    ${resp}=  Get Request  github  /repos/ppodgorsek/docker-robot-framework
     Should Be Equal As Strings  ${resp.status_code}  200
-    Dictionary Should Contain Value  ${resp.json()}  Bulkan Evcimen
+    Dictionary Should Contain Value  ${resp.json()}  Robot Framework in Docker
 
 Get Requests with Url Parameters
     [Tags]  get
@@ -27,57 +26,11 @@ Get Requests with Url Parameters
     ${jsondata}=  To Json  ${resp.content}
     Should Be Equal     ${jsondata['args']}     ${params}
 
-Get Requests with Json Data
-    [Tags]  get
-    Create Session  httpbin     http://httpbin.org
-    &{data}=    Create Dictionary   latitude=30.496346  longitude=-87.640356
-    ${resp}=     Get Request  httpbin  /get    json=${data}
-    Should Be Equal As Strings  ${resp.status_code}  200
-    ${jsondata}=  To Json  ${resp.content}
-    # httpbin does not support this... Should Be Equal     ${jsondata['json]}     ${data}
-
 Get HTTPS & Verify Cert
     [Tags]  get     get-cert
     Create Session    httpbin    https://httpbin.org   verify=True
     ${resp}=  Get Request  httpbin  /get
     Should Be Equal As Strings  ${resp.status_code}  200
-
-Get HTTPS & Verify Cert with a CA bundle
-    [Tags]  get     get-cert
-    Create Session    httpbin    https://httpbin.org   verify=${CURDIR}${/}cacert.pem
-    ${resp}=  Get Request  httpbin  /get
-    Should Be Equal As Strings  ${resp.status_code}  200
-
-Get HTTPS with Client Side Certificates
-    [Tags]  get     get-cert
-    @{client_certs}=    Create List     ${CURDIR}${/}clientcert.pem     ${CURDIR}${/}clientkey.pem
-    Create Client Cert Session  crtsession  https://server.cryptomix.com/secure     client_certs=@{client_certs}
-    ${resp}=    Get Request     crtsession  /
-    Should Be Equal As Strings  ${resp.status_code}     200
-
-Get With Auth
-    [Tags]  get     get-cert
-    ${auth}=  Create List  user   passwd
-    Create Session    httpbin    https://httpbin.org     auth=${auth}   verify=${CURDIR}${/}cacert.pem
-    ${resp}=  Get Request  httpbin  /basic-auth/user/passwd
-    Should Be Equal As Strings  ${resp.status_code}  200
-    Should Be Equal As Strings  ${resp.json()['authenticated']}  True
-
-Get With Custom Auth
-    [Tags]  get
-    ${auth}=    Get Custom Auth    user   passwd
-    Create Custom Session    httpbin    https://httpbin.org     auth=${auth}   verify=${CURDIR}${/}cacert.pem
-    ${resp}=  Get Request  httpbin  /basic-auth/user/passwd
-    Should Be Equal As Strings  ${resp.status_code}  200
-    Should Be Equal As Strings  ${resp.json()['authenticated']}  True
-
-Get With Digest Auth
-    [Tags]    get   get-cert
-    ${auth}=    Create List    user    pass
-    Create Digest Session    httpbin    https://httpbin.org    auth=${auth}    debug=3   verify=${CURDIR}${/}cacert.pem
-    ${resp}=    Get Request    httpbin    /digest-auth/auth/user/pass
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Be Equal As Strings    ${resp.json()['authenticated']}    True
 
 Post Request With URL Params
     [Tags]  post
@@ -85,24 +38,6 @@ Post Request With URL Params
     &{params}=   Create Dictionary   key=value     key2=value2
     ${resp}=  Post Request  httpbin  /post		params=${params}
     Should Be Equal As Strings  ${resp.status_code}  200
-
-Post Requests with Json Data
-    [Tags]  post
-    Create Session  httpbin     http://httpbin.org
-    &{data}=    Create Dictionary   latitude=30.496346  longitude=-87.640356
-    ${resp}=     Post Request  httpbin  /post    json=${data}
-    Should Be Equal As Strings  ${resp.status_code}  200
-    ${jsondata}=  To Json  ${resp.content}
-    Should Be Equal     ${jsondata['json']}     ${data}
-
-Put Requests with Json Data
-    [Tags]  put
-    Create Session  httpbin     http://httpbin.org
-    &{data}=    Create Dictionary   latitude=30.496346  longitude=-87.640356
-    ${resp}=     Put Request  httpbin  /put    json=${data}
-    Should Be Equal As Strings  ${resp.status_code}  200
-    ${jsondata}=  To Json  ${resp.content}
-    Should Be Equal     ${jsondata['json']}     ${data}
 
 Post Request With No Data
     [Tags]  post
@@ -164,56 +99,6 @@ Post Request With Unicode Data
     ${resp}=  Post Request  httpbin  /post  data=${data}  headers=${headers}
     Dictionary Should Contain Value  ${resp.json()['form']}  度假村
 
-Post Request With Binary Data in Dictionary
-    [Tags]  post
-    Create Session  httpbin  http://httpbin.org    debug=3
-    ${file_data}=  Get Binary File  ${CURDIR}${/}data.json
-    &{data}=  Create Dictionary  name=${file_data.strip()}
-    &{headers}=  Create Dictionary  Content-Type=application/x-www-form-urlencoded
-    ${resp}=  Post Request  httpbin  /post  data=${data}  headers=${headers}
-    Log  ${resp.json()['form']}
-    Should Contain  ${resp.json()['form']['name']}  \u5ea6\u5047\u6751
-
-Post Request With Binary Data
-    [Tags]  post
-    Create Session  httpbin  http://httpbin.org    debug=3
-    ${data}=  Get Binary File  ${CURDIR}${/}data.json
-    &{headers}=  Create Dictionary  Content-Type=application/x-www-form-urlencoded
-    ${resp}=  Post Request  httpbin  /post  data=${data}  headers=${headers}
-    Log  ${resp.json()['form']}
-    ${value}=  evaluate  list(${resp.json()}['form'].keys())[0]
-    Should Contain  ${value}  度假村
-
-Post Request With Arbitrary Binary Data
-    [Tags]  post
-    Create Session  httpbin  http://httpbin.org    debug=3
-    ${data}=  Get Binary File  ${CURDIR}${/}randombytes.bin
-    &{headers}=  Create Dictionary  Content-Type=application/octet-stream   Accept=application/octet-stream
-    ${resp}=  Post Request  httpbin  /post  data=${data}  headers=&{headers}
-    # TODO Compare binaries. Content is json with base64 encoded data
-    Log    "Success"
-
-Post With File
-    [Tags]  post
-    Create Session  httpbin  http://httpbin.org
-    ${file_data}=  Get Binary File  ${CURDIR}${/}data.json
-    &{files}=  Create Dictionary  file=${file_data}
-    ${resp}=  Post Request  httpbin  /post  files=${files}
-    ${file}=  To Json  ${resp.json()['files']['file']}
-    Dictionary Should Contain Key  ${file}  one
-    Dictionary Should Contain Key  ${file}  two
-
-
-Post Request With File
-    [Tags]  post
-    Create Session  httpbin  http://httpbin.org
-    ${file_data}=  Get Binary File  ${CURDIR}${/}data.json
-    &{files}=  Create Dictionary  file=${file_data}
-    ${resp}=  Post Request  httpbin  /post  files=${files}
-    ${file}=  To Json  ${resp.json()['files']['file']}
-    Dictionary Should Contain Key  ${file}  one
-    Dictionary Should Contain Key  ${file}  two
-
 Post Request With Data and File
     [Tags]    post
     Create Session    httpbin    http://httpbin.org
@@ -223,7 +108,7 @@ Post Request With Data and File
     &{files}=    Create Dictionary    file=${file_data}
     ${resp}=    Post Request    httpbin    /post    files=${files}    data=${data}
     Should Be Equal As Strings    ${resp.status_code}    200
-    
+
 Put Requests
     [Tags]  put
     Create Session  httpbin  http://httpbin.org
@@ -246,7 +131,6 @@ Options Request
     Should Be Equal As Strings  ${resp.status_code}  200
     Dictionary Should Contain Key  ${resp.headers}  allow
 
-
 Delete Request With URL Params
     [Tags]  delete
     Create Session  httpbin  http://httpbin.org
@@ -254,13 +138,11 @@ Delete Request With URL Params
     ${resp}=  Delete Request  httpbin  /delete		${params}
     Should Be Equal As Strings  ${resp.status_code}  200
 
-
 Delete Request With No Data
     [Tags]  delete
     Create Session  httpbin  http://httpbin.org
     ${resp}=  Delete Request  httpbin  /delete
     Should Be Equal As Strings  ${resp.status_code}  200
-
 
 Delete Request With Data
     [Tags]  delete
@@ -272,15 +154,6 @@ Delete Request With Data
     Comment  Dictionary Should Contain Value  ${resp.json()['data']}  bulkan
     Comment  Dictionary Should Contain Value  ${resp.json()['data']}  evcimen
 
-Delete Requests with Json Data
-    [Tags]  delete
-    Create Session  httpbin     http://httpbin.org
-    &{data}=    Create Dictionary   latitude=30.496346  longitude=-87.640356
-    ${resp}=     Delete Request  httpbin  /delete    json=${data}
-    Should Be Equal As Strings  ${resp.status_code}  200
-    ${jsondata}=  To Json  ${resp.content}
-    Should Be Equal     ${jsondata['json']}     ${data}
-
 Patch Requests
     [Tags]    patch
     Create Session    httpbin    http://httpbin.org
@@ -290,21 +163,11 @@ Patch Requests
     Dictionary Should Contain Value    ${resp.json()['form']}    bulkan
     Dictionary Should Contain Value    ${resp.json()['form']}    evcimen
 
-Patch Requests with Json Data
-    [Tags]  patch
-    Create Session  httpbin     http://httpbin.org
-    &{data}=    Create Dictionary   latitude=30.496346  longitude=-87.640356
-    ${resp}=     Patch Request  httpbin  /patch    json=${data}
-    Should Be Equal As Strings  ${resp.status_code}  200
-    ${jsondata}=  To Json  ${resp.content}
-    Should Be Equal     ${jsondata['json']}     ${data}
-
 Get Request With Redirection
     [Tags]  get
     Create Session  httpbin  http://httpbin.org    debug=3
     ${resp}=  Get Request  httpbin  /redirect/1
     Should Be Equal As Strings  ${resp.status_code}  200
-
     ${resp}=  Get Request  httpbin  /redirect/1  allow_redirects=${true}
     Should Be Equal As Strings  ${resp.status_code}  200
 
