@@ -10,12 +10,11 @@ Suite Teardown  Delete All Sessions
 Get Requests
     [Tags]  get
     Create Session  google  http://www.google.com
-    Create Session  github  https://api.github.com   verify=True
+    Create Session  bing  https://www.bing.com   verify=True
     ${resp}=  Get Request  google  /
     Should Be Equal As Strings  ${resp.status_code}  200
-    ${resp}=  Get Request  github  /repos/ppodgorsek/docker-robot-framework
+    ${resp}=  Get Request  bing  /
     Should Be Equal As Strings  ${resp.status_code}  200
-    Dictionary Should Contain Value  ${resp.json()}  Robot Framework in Docker
 
 Get Requests with Url Parameters
     [Tags]  get
