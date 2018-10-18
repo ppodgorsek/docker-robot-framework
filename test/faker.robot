@@ -15,23 +15,6 @@ Two Calls To Faker Should Give Different Results
     Should Not Be Empty    ${name2}
     Should Not Be Equal As Strings    ${name}    ${name2}
 
-Two Calls To Faker With Same Seed Should Give Same Results
-    FakerLibrary.Seed    5
-    ${name}=    FakerLibrary.Name
-    Should Not Be Empty    ${name}
-    FakerLibrary.Seed    ${5}
-    ${name2}=    FakerLibrary.Name
-    Should Not Be Empty    ${name2}
-    Should Be Equal As Strings    ${name}    ${name2}
-
-Can Seed Faker
-    FakerLibrary.Seed    ${5}
-    FakerLibrary.Seed    seed
-    FakerLibrary.Seed
-
-Can Seed Faker with str integer arguement
-    FakerLibrary.Seed    5
-
 Can call Words with integer argument
     ${WordsList}=    Words    nb=${10}
     Log    ${WordsList}
