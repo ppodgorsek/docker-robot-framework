@@ -13,12 +13,12 @@ The versioning of this image follows the one of Robot Framework:
 * Major version matches the one of Robot Framework
 * Minor and patch versions are specific to this project (allows to update the versions of the other dependencies)
 
-The versions used in the latest version are:
+The versions used are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 3.0.4
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 4.2.0
 * [Robot Framework Pabot](https://github.com/mkorpela/pabot) 0.46
-* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.4.7
+* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.5.0
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 3.3.1
 * Firefox 64.0
 * Chromium 71.0
