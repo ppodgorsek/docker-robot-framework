@@ -17,7 +17,7 @@ The versions used are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 3.1.1
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 4.2.0
-* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 0.46
+* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 0.53
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.5.0
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 3.3.1
 * Firefox 66.0
