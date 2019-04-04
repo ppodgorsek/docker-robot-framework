@@ -3,9 +3,8 @@ FROM fedora:29
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
 
-# Setup volumes for input and output
+# Setup volume for output
 VOLUME /opt/robotframework/reports
-VOLUME /opt/robotframework/tests
 
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
