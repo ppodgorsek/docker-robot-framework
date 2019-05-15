@@ -12,23 +12,23 @@ ENV SCREEN_HEIGHT 1080
 ENV SCREEN_WIDTH 1920
 
 # Set number of threads for parallel execution
-# By default, no parallelisation
+# By default, no parallelization
 ENV ROBOT_THREADS 1
 
 # Dependency versions
 ENV CHROMIUM_VERSION 73.0.*
+ENV DATABASE_LIBRARY_VERSION 1.2
 ENV FAKER_VERSION 4.2.0
 ENV FIREFOX_VERSION 66.0*
+ENV FTP_LIBRARY_VERSION 1.6
 ENV GECKO_DRIVER_VERSION v0.22.0
 ENV PABOT_VERSION 0.53
 ENV PYTHON_PIP_VERSION 19.0*
 ENV REQUESTS_VERSION 0.5.0
 ENV ROBOT_FRAMEWORK_VERSION 3.1.1
 ENV SELENIUM_LIBRARY_VERSION 3.3.1
-ENV XVFB_VERSION 1.20.*
-ENV DATABASE_LIBRARY_VERSION 1.2
 ENV SSH_LIBRARY_VERSION 3.3.0
-ENV FTP_LIBRARY_VERSION 1.6
+ENV XVFB_VERSION 1.20.*
 
 # Install system dependencies
 RUN dnf upgrade -y \
@@ -49,13 +49,13 @@ RUN dnf upgrade -y \
 RUN pip install \
   --no-cache-dir \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
+  robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
   robotframework-faker==$FAKER_VERSION \
+  robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
   robotframework-pabot==$PABOT_VERSION \
   robotframework-requests==$REQUESTS_VERSION \
   robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
-  robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
-  robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
-  robotframework-ftplibrary==$FTP_LIBRARY_VERSION
+  robotframework-sshlibrary==$SSH_LIBRARY_VERSION
 
 # Download Gecko drivers directly from the GitHub repository
 RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
