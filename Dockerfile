@@ -12,7 +12,7 @@ ENV SCREEN_HEIGHT 1080
 ENV SCREEN_WIDTH 1920
 
 # Set number of threads for parallel execution
-# By default, no parallelization
+# By default, no parallelisation
 ENV ROBOT_THREADS 1
 
 # Dependency versions
@@ -30,6 +30,11 @@ ENV SELENIUM_LIBRARY_VERSION 3.3.1
 ENV SSH_LIBRARY_VERSION 3.3.0
 ENV XVFB_VERSION 1.20.*
 
+# Prepare binaries to be executed
+COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
+COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
+COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
+
 # Install system dependencies
 RUN dnf upgrade -y \
   && dnf install -y \
@@ -43,6 +48,7 @@ RUN dnf upgrade -y \
     wget \
   && dnf clean all \
   && mv /usr/lib64/chromium-browser/chromium-browser /usr/lib64/chromium-browser/chromium-browser-original
+  && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib64/chromium-browser/chromium-browser
 # FIXME: above is a workaround, as the path is ignored
 
 # Install Robot Framework and Selenium Library
@@ -63,14 +69,6 @@ RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRI
       && mkdir -p /opt/robotframework/drivers/ \
       && mv geckodriver /opt/robotframework/drivers/geckodriver \
       && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz
-
-# Prepare binaries to be executed
-COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
-COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
-COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
-
-# FIXME: below is a workaround, as the path is ignored
-RUN ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib64/chromium-browser/chromium-browser
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
