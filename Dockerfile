@@ -47,7 +47,7 @@ RUN dnf upgrade -y \
     which \
     wget \
   && dnf clean all \
-  && mv /usr/lib64/chromium-browser/chromium-browser /usr/lib64/chromium-browser/chromium-browser-original
+  && mv /usr/lib64/chromium-browser/chromium-browser /usr/lib64/chromium-browser/chromium-browser-original \
   && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib64/chromium-browser/chromium-browser
 # FIXME: above is a workaround, as the path is ignored
 
