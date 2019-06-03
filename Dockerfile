@@ -43,6 +43,10 @@ RUN dnf upgrade -y \
     firefox-$FIREFOX_VERSION \
     python2-pip-$PYTHON_PIP_VERSION \
     python3-pip-$PYTHON_PIP_VERSION \
+	python2-crypto-2.6.1* \
+	python2-devel-2.7.16* \
+	python3-crypto-2.6.1* \
+	python3-devel-3.7.3* \
     xauth \
     xorg-x11-server-Xvfb-$XVFB_VERSION \
     which \
