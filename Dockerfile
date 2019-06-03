@@ -12,7 +12,7 @@ ENV SCREEN_HEIGHT 1080
 ENV SCREEN_WIDTH 1920
 
 # Set number of threads for parallel execution
-# By default, no parallelization
+# By default, no parallelisation
 ENV ROBOT_THREADS 1
 
 # Dependency versions
@@ -22,7 +22,7 @@ ENV FAKER_VERSION 4.2.0
 ENV FIREFOX_VERSION 66.0
 ENV FTP_LIBRARY_VERSION 1.6
 ENV GECKO_DRIVER_VERSION v0.22.0
-ENV PABOT_VERSION 0.53
+ENV PABOT_VERSION 0.63
 ENV REQUESTS_VERSION 0.5.0
 ENV ROBOT_FRAMEWORK_VERSION 3.1.1
 ENV SELENIUM_LIBRARY_VERSION 3.3.1
@@ -32,6 +32,11 @@ ENV XVFB_VERSION 1.20
 RUN echo '@edge-community http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories && \
   echo '@edge-testing http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
   echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories
+
+# Prepare binaries to be executed
+COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
+COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
+COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
 # Install system dependencies
 RUN apk upgrade --no-cache \
@@ -68,6 +73,7 @@ RUN apk upgrade --no-cache \
     coreutils \
     xvfb=~$XVFB_VERSION \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
+  && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome \
 # FIXME: above is a workaround, as the path is ignored
 
 # Install Robot Framework and Selenium Library
@@ -92,14 +98,6 @@ RUN apk upgrade --no-cache \
    && mv xvfb-run /usr/bin/xvfb-run \
    && chmod +x /usr/bin/xvfb-run \
   && apk del --no-cache --update-cache .build-deps
-
-# Prepare binaries to be executed
-COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
-COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
-COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
-
-# FIXME: below is a workaround, as the path is ignored
-RUN ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
