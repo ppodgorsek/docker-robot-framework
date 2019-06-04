@@ -36,6 +36,9 @@ stages:
   - test
 script:
   - ls -la $CACHE_FOLDER
+  - echo $CACHE_FOLDER
+  - echo $TEST_COMMAND  
+  - echo $IMAGE 
   - if [[ -f $CACHE_FILE ]]; then docker load -i $CACHE_FILE; fi
   - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z $TEST_COMMAND $IMAGE
 jobs:
