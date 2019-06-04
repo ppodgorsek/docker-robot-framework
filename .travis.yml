@@ -9,7 +9,7 @@ env:
   global:
     - IMAGE=docker-robot-framework:ci
     - CACHE_FOLDER=$HOME/docker-images
-    - CACHE_FILE=${CACHE_FOLDER}/${NAME}-${TRAVIS_COMMIT}.tgz
+    - CACHE_FILE=$CACHE_FOLDER/$NAME-$TRAVIS_COMMIT.tgz
   matrix:
     # test chrome
     - TEST_COMMAND=-e BROWSER=chrome
@@ -35,16 +35,16 @@ stages:
   - build
   - test
 script:
-  - ls -la ${CACHE_FOLDER}
-  - if [[ -f ${CACHE_FILE} ]]; then docker load -i ${CACHE_FILE}; fi
-  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z ${TEST_COMMAND} ${IMAGE}
+  - ls -la $CACHE_FOLDER
+  - if [[ -f $CACHE_FILE ]]; then docker load -i $CACHE_FILE; fi
+  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z $TEST_COMMAND $IMAGE
 jobs:
   include:
     - stage: build
       script:
-        - docker build -t ${IMAGE} .
-        - mkdir -p ${CACHE_FOLDER}
-        - docker save ${IMAGE} | gzip -c > ${CACHE_FILE}
+        - docker build -t $IMAGE .
+        - mkdir -p $CACHE_FOLDER
+        - docker save $IMAGE | gzip -c > $CACHE_FILE
 
 cache:
   bundler: true
