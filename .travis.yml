@@ -34,7 +34,7 @@ env:
 stages:
   - build
   - test
-scripts:
+script:
   - ls -la ${CACHE_FOLDER}
   - if [[ -f ${CACHE_FILE} ]]; then docker load -i ${CACHE_FILE}; fi
   - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z ${TEST_COMMAND} ${IMAGE}
