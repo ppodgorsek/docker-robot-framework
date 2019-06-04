@@ -42,7 +42,6 @@ RUN dnf upgrade -y \
     chromium-$CHROMIUM_VERSION \
     firefox-$FIREFOX_VERSION \
     python3-pip-$PYTHON_PIP_VERSION \
-    python3-devel-3.7.3* \
     xauth \
     xorg-x11-server-Xvfb-$XVFB_VERSION \
     which \
