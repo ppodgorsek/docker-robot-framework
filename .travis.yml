@@ -34,6 +34,10 @@ env:
 stages:
   - build
   - test
+scripts:
+  - ls -la ${CACHE_FOLDER}
+  - if [[ -f ${CACHE_FILE} ]]; then docker load -i ${CACHE_FILE}; fi
+  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z ${TEST_COMMAND} ${IMAGE}
 jobs:
   include:
     - stage: build
@@ -41,11 +45,6 @@ jobs:
         - docker build -t ${IMAGE} .
         - mkdir -p ${CACHE_FOLDER}
         - docker save ${IMAGE} | gzip -c > ${CACHE_FILE}
-    - stage: test
-      script:
-        - ls -la ${CACHE_FOLDER}
-        - if [[ -f ${CACHE_FILE} ]]; then docker load -i ${CACHE_FILE}; fi
-        - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z ${TEST_COMMAND} ${IMAGE}
 
 cache:
   bundler: true
