@@ -31,7 +31,9 @@ env:
     - TEST_COMMAND=-e BROWSER=firefox -e SCREEN_WIDTH=3840 -e SCREEN_HEIGHT=2160 
     - TEST_COMMAND=-e BROWSER=firefox -e ROBOT_OPTIONS="--loglevel DEBUG" 
     - TEST_COMMAND=-e BROWSER=firefox -e ROBOT_THREADS=4 
-
+stages:
+  - build
+  - test
 jobs:
   include:
     - stage: build
@@ -39,7 +41,7 @@ jobs:
         - docker build -t ${IMAGE} .
         - mkdir -p ${CACHE_FOLDER}
         - docker save ${IMAGE} | gzip -c > ${CACHE_FILE}
-    - stage: tests
+    - stage: test
       script:
         - ls -la ${CACHE_FOLDER}
         - if [[ -f ${CACHE_FILE} ]]; then docker load -i ${CACHE_FILE}; fi
