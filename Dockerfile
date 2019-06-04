@@ -41,7 +41,7 @@ RUN dnf upgrade -y \
     chromedriver-$CHROMIUM_VERSION \
     chromium-$CHROMIUM_VERSION \
     firefox-$FIREFOX_VERSION \
-    python2-pip-$PYTHON_PIP_VERSION \
+    python3-pip-$PYTHON_PIP_VERSION \
     xauth \
     xorg-x11-server-Xvfb-$XVFB_VERSION \
     which \
@@ -51,8 +51,12 @@ RUN dnf upgrade -y \
   && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib64/chromium-browser/chromium-browser
 # FIXME: above is a workaround, as the path is ignored
 
+# Make python 3 the default python      
+RUN alternatives --install /usr/bin/python python /usr/bin/python3.7 2 \
+  && alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+
 # Install Robot Framework and Selenium Library
-RUN pip install \
+RUN pip3 install \
   --no-cache-dir \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
   robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
