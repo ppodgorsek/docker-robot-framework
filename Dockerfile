@@ -42,8 +42,7 @@ RUN dnf upgrade -y \
     chromium-$CHROMIUM_VERSION \
     firefox-$FIREFOX_VERSION \
     python3-pip-$PYTHON_PIP_VERSION \
-	python3-crypto-2.6.1* \
-	python3-devel-3.7.3* \
+    python3-devel-3.7.3* \
     xauth \
     xorg-x11-server-Xvfb-$XVFB_VERSION \
     which \
@@ -55,7 +54,7 @@ RUN dnf upgrade -y \
 
 # Make python 3 the default python      
 RUN alternatives --install /usr/bin/python python /usr/bin/python3.7 2 \
-	&& alternatives --install /usr/bin/python python /usr/bin/python2.7 1
+  && alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 
 # Install Robot Framework and Selenium Library
 RUN pip3 install \
