@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # No need for the overhead of Pabot if no parallelisation is required
 if [ $ROBOT_THREADS -eq 1 ]

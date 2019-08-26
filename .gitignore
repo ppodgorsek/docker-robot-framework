@@ -1,4 +1,6 @@
 *~
+logs/
+reports/
 
 # Eclipse
 .settings/
@@ -7,4 +9,3 @@
 # IntelliJ
 .idea/
 *.iml
-

@@ -1,4 +1,4 @@
-# Robot Framework in Docker, with Firefox and Chrome
+# Robot Framework in Docker Alpine, with Firefox and Chrome
 
 ## What is it?
 
