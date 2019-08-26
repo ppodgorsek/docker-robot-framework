@@ -41,36 +41,19 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk update \
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
-	bzip2-dev \
-	dpkg-dev dpkg \
-	expat-dev \
-	findutils \
-	gcc \
-	gdbm-dev \
-	libc-dev \
-	libffi-dev \
-	libnsl-dev \
-	libtirpc-dev \
-	linux-headers \
-	make \
+    gcc \
+    libffi-dev \
+    linux-headers \
+    make \
     musl-dev \
-	ncurses-dev \
-	openssl-dev \
-	pax-utils \
-	readline-dev \
-	tcl-dev \
-	tk \
-	tk-dev \
-	zlib-dev \
+    openssl-dev \
     which \
     wget \
   && apk --no-cache add \
-    icu-libs \
     "firefox~$FIREFOX_VERSION" \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
     xauth \
-    coreutils \
     "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
   && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome \
