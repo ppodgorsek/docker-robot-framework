@@ -1,4 +1,4 @@
-FROM alpine:3.10.2
+FROM python:3.7-alpine3.10
 
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
@@ -23,7 +23,6 @@ ENV FIREFOX_VERSION 68.0
 ENV FTP_LIBRARY_VERSION 1.6
 ENV GECKO_DRIVER_VERSION v0.22.0
 ENV PABOT_VERSION 0.84
-ENV PYTHON_VERSION 3.7
 ENV REQUESTS_VERSION 0.5.0
 ENV ROBOT_FRAMEWORK_VERSION 3.1.2
 ENV SELENIUM_LIBRARY_VERSION 3.3.1
@@ -41,27 +40,44 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
   && apk update \
   && apk --no-cache upgrade \
-  && apk --no-cache add \
-    "chromium~$CHROMIUM_VERSION" \
-    "chromium-chromedriver~$CHROMIUM_VERSION" \
-    "firefox~${FIREFOX_VERSION}" \
-    gcc \
-    libffi-dev \
-    make \
+  && apk --no-cache --virtual .build-deps add \
+	bzip2-dev \
+	dpkg-dev dpkg \
+	expat-dev \
+	findutils \
+	gcc \
+	gdbm-dev \
+	libc-dev \
+	libffi-dev \
+	libnsl-dev \
+	libtirpc-dev \
+	linux-headers \
+	make \
     musl-dev \
-    openssl-dev \
-    "python3~$PYTHON_VERSION" \
-    "python3-dev~$PYTHON_VERSION" \
-    xauth \
-    "xvfb-run~$XVFB_VERSION" \
+	ncurses-dev \
+	openssl-dev \
+	pax-utils \
+	readline-dev \
+	tcl-dev \
+	tk \
+	tk-dev \
+	zlib-dev \
     which \
     wget \
+  && apk --no-cache add \
+    icu-libs \
+    "firefox~$FIREFOX_VERSION" \
+    "chromium~$CHROMIUM_VERSION" \
+    "chromium-chromedriver~$CHROMIUM_VERSION" \
+    xauth \
+    coreutils \
+    "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
-  && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome
+  && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome \
 # FIXME: above is a workaround, as the path is ignored
 
 # Install Robot Framework and Selenium Library
-RUN pip3 install \
+  && pip3 install \
   --no-cache-dir \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
   robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
@@ -71,14 +87,15 @@ RUN pip3 install \
   robotframework-requests==$REQUESTS_VERSION \
   robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
   robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
-  PyYAML
+  PyYAML \
 
 # Download Gecko drivers directly from the GitHub repository
-RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
+  && wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
       && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
       && mkdir -p /opt/robotframework/drivers/ \
       && mv geckodriver /opt/robotframework/drivers/geckodriver \
-      && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz
+      && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+  && apk del --no-cache --update-cache .build-deps
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
