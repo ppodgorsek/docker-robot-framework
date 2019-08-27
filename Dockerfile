@@ -50,9 +50,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     which \
     wget \
   && apk --no-cache add \
-    "firefox~$FIREFOX_VERSION" \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
+    "firefox~$FIREFOX_VERSION" \
     xauth \
     "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
@@ -61,23 +61,23 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
 
 # Install Robot Framework and Selenium Library
   && pip3 install \
-  --no-cache-dir \
-  robotframework==$ROBOT_FRAMEWORK_VERSION \
-  robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
-  robotframework-faker==$FAKER_VERSION \
-  robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
-  robotframework-pabot==$PABOT_VERSION \
-  robotframework-requests==$REQUESTS_VERSION \
-  robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
-  robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
-  PyYAML \
+    --no-cache-dir \
+    robotframework==$ROBOT_FRAMEWORK_VERSION \
+    robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
+    robotframework-faker==$FAKER_VERSION \
+    robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
+    robotframework-pabot==$PABOT_VERSION \
+    robotframework-requests==$REQUESTS_VERSION \
+    robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
+    robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
+    PyYAML \
 
 # Download Gecko drivers directly from the GitHub repository
   && wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
-      && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
-      && mkdir -p /opt/robotframework/drivers/ \
-      && mv geckodriver /opt/robotframework/drivers/geckodriver \
-      && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+    && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+    && mkdir -p /opt/robotframework/drivers/ \
+    && mv geckodriver /opt/robotframework/drivers/geckodriver \
+    && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
   && apk del --no-cache --update-cache .build-deps
 
 # Update system path
