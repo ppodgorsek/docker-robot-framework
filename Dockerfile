@@ -22,6 +22,7 @@ ENV FAKER_VERSION 4.2.0
 ENV FIREFOX_VERSION 70.0
 ENV FTP_LIBRARY_VERSION 1.6
 ENV GECKO_DRIVER_VERSION v0.22.0
+ENV IMAP_LIBRARY_VERSION 0.3.0
 ENV PABOT_VERSION 0.89
 ENV REQUESTS_VERSION 0.6.2
 ENV ROBOT_FRAMEWORK_VERSION 3.1.2
@@ -66,6 +67,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
     robotframework-faker==$FAKER_VERSION \
     robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
+    robotframework-imaplibrary==$IMAP_LIBRARY_VERSION \
     robotframework-pabot==$PABOT_VERSION \
     robotframework-requests==$REQUESTS_VERSION \
     robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
