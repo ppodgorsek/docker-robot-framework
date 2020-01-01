@@ -70,6 +70,12 @@ RobotFramework supports many options such as `--exclude`, `--variable`, `--logle
         -e ROBOT_OPTIONS="--loglevel DEBUG" \
         ppodgorsek/robot-framework:latest
 
+### Testing emails
+
+This project includes the IMAP library which allows Robot Framework to connect to email servers.
+
+A suggestion to automate email testing is to run a [Mailcatcher instance in Docker which allows IMAP connections](https://github.com/estelora/docker-mailcatcher-imap). This will ensure emails are discarded once the tests have been run.
+
 ## Testing this project
 
 Not convinced yet? Simple tests have been prepared in the `test/` folder, you can run them using the following commands:
