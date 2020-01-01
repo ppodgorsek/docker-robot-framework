@@ -17,15 +17,15 @@ The versions used are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 3.1.2
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2 
-* [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 4.2.0
+* [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 4.3.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.6
 * [Robot Framework IMAPLibrary](https://github.com/rickypc/robotframework-imaplibrary) 0.3.0
-* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 0.91
+* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 0.96
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.6.2
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.1.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.4.0
-* Firefox 70.0
-* Chromium 78.0
+* Firefox 71.0
+* Chromium 79.0
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
 
