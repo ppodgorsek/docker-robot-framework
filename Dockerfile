@@ -16,12 +16,13 @@ ENV SCREEN_WIDTH 1920
 ENV ROBOT_THREADS 1
 
 # Dependency versions
+ENV ALPINE_GLIBC 2.30-r0
 ENV CHROMIUM_VERSION 79.0
 ENV DATABASE_LIBRARY_VERSION 1.2
 ENV FAKER_VERSION 4.3.0
 ENV FIREFOX_VERSION 71.0
 ENV FTP_LIBRARY_VERSION 1.8
-ENV GECKO_DRIVER_VERSION v0.22.0
+ENV GECKO_DRIVER_VERSION v0.26.0
 ENV IMAP_LIBRARY_VERSION 0.3.0
 ENV PABOT_VERSION 0.96
 ENV REQUESTS_VERSION 0.6.2
@@ -74,12 +75,23 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
     PyYAML \
 
+# Download the glibc package for Alpine Linux from its GitHub repository
+  && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
+    && wget -q "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC/glibc-$ALPINE_GLIBC.apk" \
+    && wget -q "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC/glibc-bin-$ALPINE_GLIBC.apk" \
+    && apk add glibc-$ALPINE_GLIBC.apk \
+    && apk add glibc-bin-$ALPINE_GLIBC.apk \
+    && rm glibc-$ALPINE_GLIBC.apk \
+    && rm glibc-bin-$ALPINE_GLIBC.apk \
+    && rm /etc/apk/keys/sgerrand.rsa.pub \
+
 # Download Gecko drivers directly from the GitHub repository
   && wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
     && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
     && mkdir -p /opt/robotframework/drivers/ \
     && mv geckodriver /opt/robotframework/drivers/geckodriver \
     && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+
   && apk del --no-cache --update-cache .build-deps
 
 # Update system path
