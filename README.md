@@ -52,6 +52,13 @@ It is possible to define the settings of the virtual screen in which the browser
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
 
+### Changing the container tests and results directories
+
+It is possible to tell the container to use a different directory for reading from tests and outputting results. This is useful for things that automatically inject volumes into containers in certain spots. To change the defaults set the following environment variables:
+
+* `ROBOT_OUTPUT_DIR` (default: /opt/robotframework/reports)
+* `ROBOT_TESTS_DIR` (default: /opt/robotframework/tests)
+
 ### Parallelisation
 
 It is possible to parallelise the execution of your test suites. Simply define the `ROBOT_THREADS` environment variable, for example:
