@@ -36,6 +36,9 @@ COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
 COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
 COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
+RUN addgroup -S robot \
+  && adduser -S robot -G robot
+
 # Install system dependencies
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
   && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
@@ -93,13 +96,12 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
   && apk del --no-cache --update-cache .build-deps \
-  && chmod 777 /var/log
+  && chown robot:robot /var/log \
+  && chown robot:robot /opt/robotframework
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
 
-RUN addgroup -S robot && \
-  adduser -S robot -G robot
 USER robot
 WORKDIR /home/robot
 
