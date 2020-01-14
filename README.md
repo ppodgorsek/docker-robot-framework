@@ -24,7 +24,7 @@ The versions used are:
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.6.2
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.1.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.4.0
-* Firefox 71.0
+* Firefox 72.0
 * Chromium 79.0
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
@@ -44,13 +44,20 @@ Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWS
 
 When running your tests, simply add `-e BROWSER=chrome` or `-e BROWSER=firefox` to the run command.
 
-### Changing the container screen's resolution
+### Changing the container's screen resolution
 
 It is possible to define the settings of the virtual screen in which the browser is run by changing several environment variables:
 
 * `SCREEN_COLOUR_DEPTH` (default: 24)
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
+
+### Changing the container's tests and reports directories
+
+It is possible to use different directories to read tests from and to generate reports to. This is useful when using a complex test file structure. To change the defaults, set the following environment variables:
+
+* `ROBOT_REPORTS_DIR` (default: /opt/robotframework/reports)
+* `ROBOT_TESTS_DIR` (default: /opt/robotframework/tests)
 
 ### Parallelisation
 

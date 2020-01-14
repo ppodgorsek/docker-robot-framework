@@ -3,6 +3,14 @@ FROM python:3.7-alpine3.10
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
 
+# Set the reports directory environment variable
+# By default, the directory is /opt/robotframework/reports
+ENV ROBOT_REPORTS_DIR /opt/robotframework/reports
+
+# Set the tests directory environment variable
+# By default, the directory is /opt/robotframework/tests
+ENV ROBOT_TESTS_DIR /opt/robotframework/tests
+
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
 ENV SCREEN_HEIGHT 1080
@@ -17,7 +25,7 @@ ENV ALPINE_GLIBC 2.30-r0
 ENV CHROMIUM_VERSION 79.0
 ENV DATABASE_LIBRARY_VERSION 1.2
 ENV FAKER_VERSION 4.3.0
-ENV FIREFOX_VERSION 71.0
+ENV FIREFOX_VERSION 72.0
 ENV FTP_LIBRARY_VERSION 1.8
 ENV GECKO_DRIVER_VERSION v0.26.0
 ENV IMAP_LIBRARY_VERSION 0.3.0
@@ -93,13 +101,13 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
   && apk del --no-cache --update-cache .build-deps \
-  && mkdir -p /opt/robotframework/reports \
+  && mkdir -p ${ROBOT_REPORTS_DIR} \
   && chown robot:robot /var/log \
   && chown robot:robot /opt/robotframework \
-  && chown robot:robot /opt/robotframework/reports
+  && chown robot:robot ${ROBOT_REPORTS_DIR}
 
-# Setup volume for output
-VOLUME /opt/robotframework/reports
+# Set up a volume for the generated reports
+VOLUME ${ROBOT_REPORTS_DIR}
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
