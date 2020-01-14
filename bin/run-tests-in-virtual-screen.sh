@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ls -la /opt/robotframework
+
 # No need for the overhead of Pabot if no parallelisation is required
 if [ $ROBOT_THREADS -eq 1 ]
 then
