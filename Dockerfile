@@ -11,8 +11,8 @@ ENV ROBOT_REPORTS_DIR /opt/robotframework/reports
 # By default, the directory is /opt/robotframework/tests
 ENV ROBOT_TESTS_DIR /opt/robotframework/tests
 
-# Setup volume for output
-VOLUME ${ROBOT_OUTPUT_DIR}
+# Set up a volume for the generated reports
+VOLUME ${ROBOT_REPORTS_DIR}
 
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
