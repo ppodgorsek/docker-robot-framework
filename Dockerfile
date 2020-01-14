@@ -54,7 +54,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk --no-cache add \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
-    # "firefox~$FIREFOX_VERSION" \
+    "firefox~$FIREFOX_VERSION" \
     xauth \
     "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
