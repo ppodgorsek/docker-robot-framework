@@ -3,6 +3,9 @@ sudo: required
 services:
   - docker
 
+before_script:
+    - chown 1000:1000 -R /test
+
 script:
   - docker build -t docker-robot-framework:ci .
 
