@@ -3,11 +3,11 @@ FROM python:3.7-alpine3.10
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
 
-# Set the reports directory env variable
+# Set the reports directory environment variable
 # By default, the directory is /opt/robotframework/reports
-ENV ROBOT_OUTPUT_DIR /opt/robotframework/reports
+ENV ROBOT_REPORTS_DIR /opt/robotframework/reports
 
-# Set the tests directory env variable
+# Set the tests directory environment variable
 # By default, the directory is /opt/robotframework/tests
 ENV ROBOT_TESTS_DIR /opt/robotframework/tests
 
