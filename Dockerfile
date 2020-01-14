@@ -3,9 +3,6 @@ FROM python:3.7-alpine3.10
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
 
-# Setup volume for output
-VOLUME /opt/robotframework/reports
-
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
 ENV SCREEN_HEIGHT 1080
@@ -57,7 +54,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk --no-cache add \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
-    "firefox~$FIREFOX_VERSION" \
+    # "firefox~$FIREFOX_VERSION" \
     xauth \
     "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
@@ -96,9 +93,13 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
   && apk del --no-cache --update-cache .build-deps \
+  && mkdir -p /opt/robotframework/reports \
   && chown robot:robot /var/log \
   && chown robot:robot /opt/robotframework \
   && chown robot:robot /opt/robotframework/reports
+
+# Setup volume for output
+VOLUME /opt/robotframework/reports
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
