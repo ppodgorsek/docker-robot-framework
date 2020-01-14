@@ -44,7 +44,7 @@ Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWS
 
 When running your tests, simply add `-e BROWSER=chrome` or `-e BROWSER=firefox` to the run command.
 
-### Changing the container screen's resolution
+### Changing the container's screen resolution
 
 It is possible to define the settings of the virtual screen in which the browser is run by changing several environment variables:
 
@@ -52,11 +52,11 @@ It is possible to define the settings of the virtual screen in which the browser
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
 
-### Changing the container tests and results directories
+### Changing the container's tests and reports directories
 
-It is possible to tell the container to use a different directory for reading from tests and outputting results. This is useful for things that automatically inject volumes into containers in certain spots. To change the defaults set the following environment variables:
+It is possible to use different directories to read tests from and to generate reports to. This is useful when using a complex test file structure. To change the defaults, set the following environment variables:
 
-* `ROBOT_OUTPUT_DIR` (default: /opt/robotframework/reports)
+* `ROBOT_REPORTS_DIR` (default: /opt/robotframework/reports)
 * `ROBOT_TESTS_DIR` (default: /opt/robotframework/tests)
 
 ### Parallelisation
