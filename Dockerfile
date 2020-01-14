@@ -97,7 +97,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
 
   && apk del --no-cache --update-cache .build-deps \
   && chown robot:robot /var/log \
-  && chown robot:robot /opt/robotframework
+  && chown robot:robot /opt/robotframework \
+  && chown robot:robot /opt/robotframework/reports
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
