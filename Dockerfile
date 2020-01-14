@@ -3,8 +3,16 @@ FROM python:3.7-alpine3.10
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
 
-# Setup volume for output
-VOLUME /opt/robotframework/reports
+# Set the reports directory environment variable
+# By default, the directory is /opt/robotframework/reports
+ENV ROBOT_REPORTS_DIR /opt/robotframework/reports
+
+# Set the tests directory environment variable
+# By default, the directory is /opt/robotframework/tests
+ENV ROBOT_TESTS_DIR /opt/robotframework/tests
+
+# Set up a volume for the generated reports
+VOLUME ${ROBOT_REPORTS_DIR}
 
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
