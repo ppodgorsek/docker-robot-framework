@@ -11,6 +11,9 @@ ENV ROBOT_REPORTS_DIR /opt/robotframework/reports
 # By default, the directory is /opt/robotframework/tests
 ENV ROBOT_TESTS_DIR /opt/robotframework/tests
 
+# Set up a volume for the generated reports
+VOLUME ${ROBOT_REPORTS_DIR}
+
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
 ENV SCREEN_HEIGHT 1080
@@ -40,9 +43,6 @@ ENV XVFB_VERSION 1.20
 COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
 COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
 COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
-
-RUN addgroup -S robot \
-  && adduser -S robot -G robot
 
 # Install system dependencies
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
@@ -100,20 +100,10 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
     && mv geckodriver /opt/robotframework/drivers/geckodriver \
     && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
-  && apk del --no-cache --update-cache .build-deps \
-  && mkdir -p ${ROBOT_REPORTS_DIR} \
-  && chown robot:robot /var/log \
-  && chown robot:robot /opt/robotframework \
-  && chown robot:robot ${ROBOT_REPORTS_DIR}
-
-# Set up a volume for the generated reports
-VOLUME ${ROBOT_REPORTS_DIR}
+  && apk del --no-cache --update-cache .build-deps
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
-
-USER robot
-WORKDIR /home/robot
 
 # Execute all robot tests
 CMD ["run-tests-in-virtual-screen.sh"]
