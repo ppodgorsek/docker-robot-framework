@@ -15,6 +15,7 @@ else
         pabot \
         --verbose \
         --processes $ROBOT_THREADS \
+        ${PABOT_OPTIONS} \
         --outputDir $ROBOT_REPORTS_DIR \
         ${ROBOT_OPTIONS} \
         $ROBOT_TESTS_DIR

@@ -69,6 +69,15 @@ It is possible to parallelise the execution of your test suites. Simply define t
 
 By default, there is no parallelisation.
 
+#### Parallelisation options
+
+When using parallelisation, it is possible to pass additional [pabot options](https://github.com/mkorpela/pabot#command-line-options), such as `--testlevelsplit`, `--argumentfile`, `--ordering`, etc. These can be passed by using the `PABOT_OPTIONS` environment variable, for example:
+
+    docker run \
+        -e ROBOT_THREADS=4 \
+        -e PABOT_OPTIONS="--testlevelsplit" \
+        ppodgorsek/robot-framework:latest
+
 ### Passing additional options
 
 RobotFramework supports many options such as `--exclude`, `--variable`, `--loglevel`, etc. These can be passed by using the `ROBOT_OPTIONS` environment variable, for example:
