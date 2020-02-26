@@ -234,9 +234,9 @@ Put Request Without Redirection
 Do Not Pretty Print a JSON object
     [Tags]    json
     Comment    Define json variable.
+    Create Session  httpbin  http://httpbin.org
     &{var}=    Create Dictionary    key_one=true    key_two=this is a test string
     ${resp}=    Get Request    httpbin    /get    params=${var}
-    Set Suite Variable    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${jsondata}=    To Json    ${resp.content}
     Dictionaries Should Be Equal   ${jsondata['args']}    ${var}
@@ -244,6 +244,9 @@ Do Not Pretty Print a JSON object
 Pretty Print a JSON object
     [Tags]    json
     Comment    Define json variable.
+    Create Session  httpbin  http://httpbin.org
+    &{var}=    Create Dictionary    key_one=true    key_two=this is a test string
+    ${resp}=    Get Request    httpbin    /get    params=${var}
     Log    ${resp}
     ${output}=    To Json    ${resp.content}    pretty_print=True
     Log    ${output}
@@ -254,6 +257,9 @@ Pretty Print a JSON object
 Set Pretty Print to non-Boolean value
     [Tags]    json
     Comment    Define json variable.
+    Create Session  httpbin  http://httpbin.org
+    &{var}=    Create Dictionary    key_one=true    key_two=this is a test string
+    ${resp}=    Get Request    httpbin    /get    params=${var}
     Log    ${resp}
     ${output}=    To Json    ${resp.content}    pretty_print="Hello"
     Log    ${output}
