@@ -29,3 +29,6 @@ script:
 
   - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e ROBOT_THREADS=4 docker-robot-framework:ci
   - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e ROBOT_THREADS=4 docker-robot-framework:ci
+
+  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e ROBOT_THREADS=4 -e PABOT_OPTIONS="--testlevelsplit" docker-robot-framework:ci
+  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e ROBOT_THREADS=4 -e PABOT_OPTIONS="--testlevelsplit" docker-robot-framework:ci
