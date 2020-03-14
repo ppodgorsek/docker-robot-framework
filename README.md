@@ -146,6 +146,11 @@ In case further investigation is required, the logs can be accessed by mounting 
 * Linux/Mac: ``-v `pwd`/logs:/var/log:Z``
 * Windows: ``-v ${PWD}/logs:/var/log:Z``
 
+Chromium allows to set additional environment properties, which can be useful when debugging:
+
+* `webdriver.chrome.verboseLogging=true`: enables the verbose logging mode
+* `webdriver.chrome.logfile=/path/to/chromedriver.log`: sets the path to Chromium's log file
+
 ### Error: Suite contains no tests
 
 When running tests, an unexpected error sometimes occurs:
