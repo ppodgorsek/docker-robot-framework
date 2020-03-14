@@ -92,6 +92,45 @@ This project includes the IMAP library which allows Robot Framework to connect t
 
 A suggestion to automate email testing is to run a [Mailcatcher instance in Docker which allows IMAP connections](https://github.com/estelora/docker-mailcatcher-imap). This will ensure emails are discarded once the tests have been run.
 
+## Continuous integration
+
+It is possible to run the project from within a Jenkins pipeline by relying on the shell command line directly:
+
+    pipeline {
+        agent any
+        stages {
+            stage('Functional regression tests') {
+                steps {
+                    sh "docker run --shm-size=1g -e BROWSER=firefox -v $WORKSPACE/robot-tests:/opt/robotframework/tests:Z -v $WORKSPACE/robot-reports:/opt/robotframework/reports:Z ppodgorsek/robot-framework:latest"
+                }
+            }
+        }
+    }
+
+The pipeline stage can also rely on a Docker agent, as shown in the example below:
+
+    pipeline {
+        agent none
+        stages {
+            stage('Functional regression tests') {
+                agent { docker {
+                    image 'ppodgorsek/robot-framework:latest'
+                    args '--shm-size=1g -u root' }
+                }
+                environment {
+                    BROWSER = 'firefox'
+                    ROBOT_TESTS_DIR = "$WORKSPACE/robot-tests"
+                    ROBOT_REPORTS_DIR = "$WORKSPACE/robot-reports"
+                }
+                steps {
+                    sh '''
+                        /opt/robotframework/bin/run-tests-in-virtual-screen.sh
+                    '''
+                }
+            }
+        }
+    }
+
 ## Testing this project
 
 Not convinced yet? Simple tests have been prepared in the `test/` folder, you can run them using the following commands:
