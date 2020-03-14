@@ -9,8 +9,8 @@ script:
   - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome docker-robot-framework:ci
   - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox docker-robot-framework:ci
 
-  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_COLOUR_DEPTH=48 docker-robot-framework:ci
-  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_COLOUR_DEPTH=48 docker-robot-framework:ci
+  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_COLOUR_DEPTH=32 docker-robot-framework:ci
+  - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_COLOUR_DEPTH=32 docker-robot-framework:ci
 
   - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=800 -e SCREEN_HEIGHT=600 docker-robot-framework:ci
   - docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=1024 -e SCREEN_HEIGHT=768 docker-robot-framework:ci
