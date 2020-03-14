@@ -24,8 +24,8 @@ The versions used are:
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.6.2
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.3.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.4.0
-* Firefox 73.0
-* Chromium 79.0
+* Firefox 74.0
+* Chromium 80.0
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
 
