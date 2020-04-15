@@ -21,7 +21,7 @@ The versions used are:
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
 * [Robot Framework IMAPLibrary](https://github.com/rickypc/robotframework-imaplibrary) 0.3.0
 * [Robot Framework Pabot](https://github.com/mkorpela/pabot) 1.2.1
-* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.6.5
+* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.6.6
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.3.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.4.0
 * Firefox 74.0
