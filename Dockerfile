@@ -53,6 +53,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
     gcc \
+    libffi~$FFI_VERSION \
     libffi-dev~$FFI_VERSION \
     linux-headers \
     make \
