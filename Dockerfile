@@ -28,7 +28,6 @@ ENV ALPINE_GLIBC 2.31-r0
 ENV CHROMIUM_VERSION 80.0
 ENV DATABASE_LIBRARY_VERSION 1.2
 ENV FAKER_VERSION 5.0.0
-ENV FFI_VERSION 3.3
 ENV FIREFOX_VERSION 75.0
 ENV FTP_LIBRARY_VERSION 1.9
 ENV GECKO_DRIVER_VERSION v0.26.0
@@ -53,7 +52,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
     gcc \
-    libffi-dev~$FFI_VERSION \
     linux-headers \
     make \
     musl-dev \
@@ -63,7 +61,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk --no-cache add \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
-    libffi~$FFI_VERSION \
     "firefox~$FIREFOX_VERSION" \
     xauth \
     "xvfb-run~$XVFB_VERSION" \
