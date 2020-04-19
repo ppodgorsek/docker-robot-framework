@@ -53,7 +53,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
     gcc \
-    libffi~$FFI_VERSION \
     libffi-dev~$FFI_VERSION \
     linux-headers \
     make \
@@ -64,6 +63,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk --no-cache add \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
+    libffi~$FFI_VERSION \
     "firefox~$FIREFOX_VERSION" \
     xauth \
     "xvfb-run~$XVFB_VERSION" \
