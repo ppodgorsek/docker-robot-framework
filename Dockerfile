@@ -49,6 +49,7 @@ RUN apk update \
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
     gcc \
+    libffi-dev \
     linux-headers \
     make \
     musl-dev \
