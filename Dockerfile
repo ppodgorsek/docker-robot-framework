@@ -1,4 +1,4 @@
-FROM python:3.7-alpine3.10
+FROM python:3.8-alpine3.11
 
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
@@ -24,11 +24,11 @@ ENV SCREEN_WIDTH 1920
 ENV ROBOT_THREADS 1
 
 # Dependency versions
-ENV ALPINE_GLIBC 2.30-r0
-ENV CHROMIUM_VERSION 80.0
+ENV ALPINE_GLIBC 2.31-r0
+ENV CHROMIUM_VERSION 81.0
 ENV DATABASE_LIBRARY_VERSION 1.2
 ENV FAKER_VERSION 5.0.0
-ENV FIREFOX_VERSION 74.0
+ENV FIREFOX_VERSION 68.7
 ENV FTP_LIBRARY_VERSION 1.9
 ENV GECKO_DRIVER_VERSION v0.26.0
 ENV IMAP_LIBRARY_VERSION 0.3.0
@@ -45,10 +45,7 @@ COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
 COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
 # Install system dependencies
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
-  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-  && echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-  && apk update \
+RUN apk update \
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
     gcc \
@@ -62,7 +59,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositori
   && apk --no-cache add \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
-    "firefox~$FIREFOX_VERSION" \
+    "firefox-esr~$FIREFOX_VERSION" \
     xauth \
     "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
