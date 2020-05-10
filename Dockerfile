@@ -31,7 +31,7 @@ ENV FAKER_VERSION 5.0.0
 ENV FIREFOX_VERSION 68
 ENV FTP_LIBRARY_VERSION 1.9
 ENV GECKO_DRIVER_VERSION v0.26.0
-ENV IMAP_LIBRARY_VERSION 0.3.0
+ENV IMAP_LIBRARY_VERSION 0.3.6
 ENV PABOT_VERSION 1.2.1
 ENV REQUESTS_VERSION 0.6.6
 ENV ROBOT_FRAMEWORK_VERSION 3.1.2
@@ -73,7 +73,7 @@ RUN apk update \
     robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
     robotframework-faker==$FAKER_VERSION \
     robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
-    robotframework-imaplibrary==$IMAP_LIBRARY_VERSION \
+    robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \
     robotframework-pabot==$PABOT_VERSION \
     robotframework-requests==$REQUESTS_VERSION \
     robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
