@@ -1,5 +1,7 @@
 #!/bin/sh
 
+HOME=${ROBOT_WORK_DIR}
+
 # No need for the overhead of Pabot if no parallelisation is required
 if [ $ROBOT_THREADS -eq 1 ]
 then

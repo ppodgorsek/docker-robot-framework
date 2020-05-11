@@ -109,6 +109,10 @@ RUN mkdir -p ${ROBOT_REPORTS_DIR} \
   && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_WORK_DIR} \
   && chmod ugo+w ${ROBOT_REPORTS_DIR} ${ROBOT_WORK_DIR}
 
+# Allow any user to write logs
+RUN chmod ugo+w /var/log \
+  && chown ${ROBOT_UID}:${ROBOT_GID} /var/log
+
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
 
