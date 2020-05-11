@@ -4,15 +4,13 @@ MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
 
 # Set the reports directory environment variable
-# By default, the directory is /opt/robotframework/reports
 ENV ROBOT_REPORTS_DIR /opt/robotframework/reports
 
 # Set the tests directory environment variable
-# By default, the directory is /opt/robotframework/tests
 ENV ROBOT_TESTS_DIR /opt/robotframework/tests
 
-# Set up a volume for the generated reports
-VOLUME ${ROBOT_REPORTS_DIR}
+# Set the working directory environment variable
+ENV ROBOT_WORK_DIR /opt/robotframework/temp
 
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
@@ -22,6 +20,10 @@ ENV SCREEN_WIDTH 1920
 # Set number of threads for parallel execution
 # By default, no parallelisation
 ENV ROBOT_THREADS 1
+
+# Define the default user who'll run the tests
+ENV ROBOT_UID 1000
+ENV ROBOT_GID 1000
 
 # Dependency versions
 ENV ALPINE_GLIBC 2.31-r0
@@ -99,8 +101,24 @@ RUN apk update \
 
   && apk del --no-cache --update-cache .build-deps
 
+# Create the default report and work folders with the default user to avoid runtime issues
+# These folders are writeable by anyone, to ensure the user can be changed on the command line.
+RUN mkdir -p ${ROBOT_REPORTS_DIR} \
+  && mkdir -p ${ROBOT_WORK_DIR} \
+  && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_REPORTS_DIR} \
+  && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_WORK_DIR} \
+  && chmod ugo+w ${ROBOT_REPORTS_DIR} ${ROBOT_WORK_DIR}
+
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
+
+# Set up a volume for the generated reports
+VOLUME ${ROBOT_REPORTS_DIR}
+
+USER ${ROBOT_UID}:${ROBOT_GID}
+
+# A dedicated work folder to allow for the creation of temporary files
+WORKDIR ${ROBOT_WORK_DIR}
 
 # Execute all robot tests
 CMD ["run-tests-in-virtual-screen.sh"]
