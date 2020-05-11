@@ -92,6 +92,23 @@ This project includes the IMAP library which allows Robot Framework to connect t
 
 A suggestion to automate email testing is to run a [Mailcatcher instance in Docker which allows IMAP connections](https://github.com/estelora/docker-mailcatcher-imap). This will ensure emails are discarded once the tests have been run.
 
+## Security consideration
+
+By default, containers are implicitly run using `--user=1000:1000`, please remember to adjust that command-line setting accordingly, for example:
+
+    docker run \
+        --user=1001:1001 \
+        ppodgorsek/robot-framework:latest
+
+Remember that that UID/GID should be allowed to access the mounted volumes in order to read the test suites and to write the output.
+
+Additionally, it is possible to rely on user namespaces to further secure the execution. This is well described in the official container documentation:
+
+* Docker: [Introduction to User Namespaces in Docker Engine](https://success.docker.com/article/introduction-to-user-namespaces-in-docker-engine)
+* Podman: [Running rootless Podman as a non-root user](https://www.redhat.com/sysadmin/rootless-podman-makes-sense)
+
+This is a good security practice to make sure containers cannot perform unwanted changes on the host. In that sense, Podman is probably well ahead of Docker by not relying on a root daemon to run its containers.
+
 ## Continuous integration
 
 It is possible to run the project from within a Jenkins pipeline by relying on the shell command line directly:
