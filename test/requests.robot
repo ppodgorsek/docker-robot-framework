@@ -162,45 +162,6 @@ Patch Requests
     Dictionary Should Contain Value    ${resp.json()['form']}    bulkan
     Dictionary Should Contain Value    ${resp.json()['form']}    evcimen
 
-Get Request With Redirection
-    [Tags]  get
-    Create Session  httpbin  http://httpbin.org    debug=3
-    ${resp}=  Get Request  httpbin  /redirect/1
-    Should Be Equal As Strings  ${resp.status_code}  200
-    ${resp}=  Get Request  httpbin  /redirect/1  allow_redirects=${true}
-    Should Be Equal As Strings  ${resp.status_code}  200
-
-Get Request Without Redirection
-    [Tags]  get
-    Create Session  httpbin  http://httpbin.org
-    ${resp}=  Get Request  httpbin  /redirect/1  allow_redirects=${false}
-    ${status}=  Convert To String  ${resp.status_code}
-    Should Start With  ${status}  30
-
-Options Request With Redirection
-    [Tags]  options
-    Create Session  httpbin  http://httpbin.org
-    ${resp}=  Options Request  httpbin  /redirect/1
-    Should Be Equal As Strings  ${resp.status_code}  200
-    ${resp}=  Options Request  httpbin  /redirect/1  allow_redirects=${true}
-    Should Be Equal As Strings  ${resp.status_code}  200
-
-Head Request With Redirection
-    [Tags]  head
-    Create Session  httpbin  http://httpbin.org
-    ${resp}=  Head Request  httpbin  /redirect/1  allow_redirects=${true}
-    Should Be Equal As Strings  ${resp.status_code}  200
-
-Head Request Without Redirection
-    [Tags]  head
-    Create Session  httpbin  http://httpbin.org
-    ${resp}=  Head Request  httpbin  /redirect/1
-    ${status}=  Convert To String  ${resp.status_code}
-    Should Start With  ${status}  30
-    ${resp}=  Head Request  httpbin  /redirect/1  allow_redirects=${false}
-    ${status}=  Convert To String  ${resp.status_code}
-    Should Start With  ${status}  30
-
 Post Request With Redirection
     [Tags]  post
     Create Session  jigsaw  http://jigsaw.w3.org
