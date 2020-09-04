@@ -16,7 +16,7 @@ The versioning of this image follows the one of Robot Framework:
 The versions used are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 3.2
-* [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2 
+* [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
 * [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.3.6
@@ -224,6 +224,16 @@ As there can sometimes be issues as to where the tests are run from, make sure t
 It is also important to check if Robot Framework is allowed to access the resources it needs, i.e.:
 * The folder where the tests are located,
 * The test files themselves.
+
+### Database tests are failing in spite of the DatabaseLibrary being present
+
+As per their official project page, the [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) contains utilities meant for Robot Framework's usage. This can allow you to query your database after an action has been made to verify the results. This is compatible with any Database API Specification 2.0 module.
+
+It is anyway mandatory to extend the container image to install the specific database module relevant to your tests, such as:
+* [MS SQL](https://pymssql.readthedocs.io/en/latest/intro.html): `pip install pymssql`
+* [MySQL](https://dev.mysql.com/downloads/connector/python/): `pip install pymysql`
+* [Oracle](https://www.oracle.com/uk/database/technologies/appdev/python.html): `pip install py2oracle`
+* [PostgreSQL](http://pybrary.net/pg8000/index.html): `pip install pg8000`
 
 ## Please contribute!
 
