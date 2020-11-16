@@ -1,4 +1,4 @@
-FROM python:3.8-alpine3.12
+FROM python:3.9.0-alpine3.12
 
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
@@ -29,6 +29,7 @@ ENV ROBOT_GID 1000
 ENV ALPINE_GLIBC 2.31-r0
 ENV CHROMIUM_VERSION 86.0
 ENV DATABASE_LIBRARY_VERSION 1.2
+END DATADRIVER_VERSION 1.0.0
 ENV FAKER_VERSION 5.0.0
 ENV FIREFOX_VERSION 78
 ENV FTP_LIBRARY_VERSION 1.9
@@ -51,6 +52,7 @@ RUN apk update \
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
     gcc \
+    g++ \
     libffi-dev \
     linux-headers \
     make \
@@ -73,6 +75,7 @@ RUN apk update \
     --no-cache-dir \
     robotframework==$ROBOT_FRAMEWORK_VERSION \
     robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
+    robotframework-datadriver[XLS]==$DATADRIVER_VERSION \
     robotframework-faker==$FAKER_VERSION \
     robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
     robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \

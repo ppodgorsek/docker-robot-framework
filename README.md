@@ -17,6 +17,7 @@ The versions used are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 3.2.2
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2
+* [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.0.0
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
 * [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.3.8
