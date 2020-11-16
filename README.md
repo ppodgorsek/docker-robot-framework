@@ -15,7 +15,7 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used are:
 
-* [Robot Framework](https://github.com/robotframework/robotframework) 3.2
+* [Robot Framework](https://github.com/robotframework/robotframework) 3.2.2
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
