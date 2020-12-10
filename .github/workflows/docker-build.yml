@@ -1,0 +1,75 @@
+name: Docker
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: docker-robot-framework:ci-$(date +%s)
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build image
+        run: |
+          docker build . --tag $IMAGE_NAME --file Dockerfile
+      - name: Basic
+        run: |
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox $IMAGE_NAME
+      - name: Colour Depth 16
+        run: | 
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_COLOUR_DEPTH=16 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_COLOUR_DEPTH=16 $IMAGE_NAME
+      - name: Screen Width Chrome
+        run: | 
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=800 -e SCREEN_HEIGHT=600 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=1024 -e SCREEN_HEIGHT=768 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=1280 -e SCREEN_HEIGHT=1024 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=2560 -e SCREEN_HEIGHT=1440 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e SCREEN_WIDTH=3840 -e SCREEN_HEIGHT=2160 $IMAGE_NAME
+      - name: Screen Width Firefox
+        run: | 
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_WIDTH=800 -e SCREEN_HEIGHT=600 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_WIDTH=1024 -e SCREEN_HEIGHT=768 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_WIDTH=1280 -e SCREEN_HEIGHT=1024 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_WIDTH=2560 -e SCREEN_HEIGHT=1440 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e SCREEN_WIDTH=3840 -e SCREEN_HEIGHT=2160 $IMAGE_NAME
+      - name: Debug Log Level
+        run: | 
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e ROBOT_OPTIONS="--loglevel DEBUG" $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e ROBOT_OPTIONS="--loglevel DEBUG" $IMAGE_NAME
+      - name: Basic Multithreaded
+        run: |
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e ROBOT_THREADS=4 $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e ROBOT_THREADS=4 $IMAGE_NAME
+      - name: Test Level Multithreaded
+        run: |
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome -e ROBOT_THREADS=4 -e PABOT_OPTIONS="--testlevelsplit" $IMAGE_NAME
+          docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox -e ROBOT_THREADS=4 -e PABOT_OPTIONS="--testlevelsplit" $IMAGE_NAME
+      - name: Custom User and Group
+        run: |
+          docker run --user=2000 --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome $IMAGE_NAME
+          docker run --user=2000 --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox $IMAGE_NAME
+          docker run --user=2000:2000 --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=chrome $IMAGE_NAME
+          docker run --user=2000:2000 --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=firefox $IMAGE_NAME
+          
+          
+          
+          
