@@ -17,6 +17,9 @@ ENV SCREEN_COLOUR_DEPTH 24
 ENV SCREEN_HEIGHT 1080
 ENV SCREEN_WIDTH 1920
 
+# Setup the timezone to use, defaults to UTC
+ENV TZ UTC
+
 # Set number of threads for parallel execution
 # By default, no parallelisation
 ENV ROBOT_THREADS 1
@@ -64,6 +67,7 @@ RUN apk update \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
     "firefox-esr~$FIREFOX_VERSION" \
     xauth \
+    tzdata \
     "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
   && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome \
@@ -101,7 +105,8 @@ RUN apk update \
     && mv geckodriver /opt/robotframework/drivers/geckodriver \
     && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
-  && apk del --no-cache --update-cache .build-deps
+# Clean up buildtime dependencies
+  && apk del --no-cache --update-cache .build-deps \
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.

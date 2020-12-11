@@ -93,6 +93,16 @@ This project includes the IMAP library which allows Robot Framework to connect t
 
 A suggestion to automate email testing is to run a [Mailcatcher instance in Docker which allows IMAP connections](https://github.com/estelora/docker-mailcatcher-imap). This will ensure emails are discarded once the tests have been run.
 
+### Dealing with Datetimes and Timezones
+
+This project is meant to allow your tests to run anywhere. Sometimes that can be in a different timezone than your local or the location under test. To help with that this library includes the [DateTimeTZ Library](https://testautomation.github.io/DateTimeTZ/doc/DateTimeTZ.html)
+
+To set the timezone used inside the docker image, you can set env variable TZ
+
+    docker run \
+        -e TZ=America/New_York \
+        ppodgorsek/robot-framework:latest
+
 ## Security consideration
 
 By default, containers are implicitly run using `--user=1000:1000`, please remember to adjust that command-line setting accordingly, for example:
