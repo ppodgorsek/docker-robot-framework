@@ -40,10 +40,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build image
-        uses: docker/build-push-action@v1
-        with:
-          repository: localhost:5000
-          tags: ${{ env.IMAGE_NAME }}
+        run: |
+          docker build . --tag localhost:5000/$IMAGE_NAME --file Dockerfile
+          docker push localhost:5000/$IMAGE_NAME
       - name: Basic Test
         run: |
           docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=$BROWSER localhost:5000/$IMAGE_NAME
