@@ -34,7 +34,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build image
-        run: docker build . --tag $IMAGE_NAME --file Dockerfile
+        run:
+          docker build . --tag $IMAGE_NAME --file Dockerfile
       - name: Basic Test
         run:
           docker run --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=$BROWSER $IMAGE_NAME
