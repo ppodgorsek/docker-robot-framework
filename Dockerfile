@@ -29,6 +29,7 @@ ENV ROBOT_GID 1000
 ENV ALPINE_GLIBC 2.31-r0
 ENV CHROMIUM_VERSION 86.0
 ENV DATABASE_LIBRARY_VERSION 1.2
+ENV DATETIMETZ_VERSION 1.0.6
 ENV FAKER_VERSION 5.0.0
 ENV FIREFOX_VERSION 78
 ENV FTP_LIBRARY_VERSION 1.9
@@ -73,6 +74,7 @@ RUN apk update \
     --no-cache-dir \
     robotframework==$ROBOT_FRAMEWORK_VERSION \
     robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
+    robotframework-datetime-tz==$DATETIMETZ_VERSION \
     robotframework-faker==$FAKER_VERSION \
     robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
     robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \
