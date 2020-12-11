@@ -5,6 +5,7 @@ Library           DateTimeTZ
 
 *** Test Cases ***
 Get Time with Datetime
-    ${tz}=    DateTimeTZ.Get Timestamp
-    ${utc}=    Get Utc Timestamp
-    Should Be Equal As Strings    ${tz}    ${utc}
+    ${utc}=    Get Unix Time
+    ${tz}=    Convert Timestamp Format    ${utc}    time_format=dd LLL y H:mm:ss
+    Log    ${tz}
+    Log    ${utc}
