@@ -75,7 +75,7 @@ RUN apk update \
     --no-cache-dir \
     robotframework==$ROBOT_FRAMEWORK_VERSION \
     robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
-    robotframework-datadriver[XLS]==$DATADRIVER_VERSION \
+    robotframework-datadriver==$DATADRIVER_VERSION \
     robotframework-faker==$FAKER_VERSION \
     robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
     robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \
