@@ -5,7 +5,5 @@ Library           DateTimeTZ
 
 *** Test Cases ***
 Get Time with Datetime
-    ${utc}=    Get Unix Time
-    ${tz}=    Convert Timestamp Format    ${utc}    time_format=dd LLL y H:mm:ss
-    Log    ${tz}
-    Log    ${utc}
+    ${ts}=    Get Timestamp
+    Set Test Message	${ts}
