@@ -17,6 +17,9 @@ ENV SCREEN_COLOUR_DEPTH 24
 ENV SCREEN_HEIGHT 1080
 ENV SCREEN_WIDTH 1920
 
+# Setup the timezone to use, defaults to UTC
+ENV TZ UTC
+
 # Set number of threads for parallel execution
 # By default, no parallelisation
 ENV ROBOT_THREADS 1
@@ -29,6 +32,7 @@ ENV ROBOT_GID 1000
 ENV ALPINE_GLIBC 2.31-r0
 ENV CHROMIUM_VERSION 86.0
 ENV DATABASE_LIBRARY_VERSION 1.2
+ENV DATETIMETZ_VERSION 1.0.6
 ENV FAKER_VERSION 5.0.0
 ENV FIREFOX_VERSION 78
 ENV FTP_LIBRARY_VERSION 1.9
@@ -63,6 +67,7 @@ RUN apk update \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
     "firefox-esr~$FIREFOX_VERSION" \
     xauth \
+    tzdata \
     "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
   && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome \
@@ -73,6 +78,7 @@ RUN apk update \
     --no-cache-dir \
     robotframework==$ROBOT_FRAMEWORK_VERSION \
     robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
+    robotframework-datetime-tz==$DATETIMETZ_VERSION \
     robotframework-faker==$FAKER_VERSION \
     robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
     robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \
@@ -99,6 +105,7 @@ RUN apk update \
     && mv geckodriver /opt/robotframework/drivers/geckodriver \
     && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
+# Clean up buildtime dependencies
   && apk del --no-cache --update-cache .build-deps
 
 # Create the default report and work folders with the default user to avoid runtime issues

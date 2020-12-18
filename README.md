@@ -17,6 +17,7 @@ The versions used are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 3.2.2
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2
+* [Robot Framework DateTimeTZ](https://github.com/testautomation/DateTimeTZ) 1.0.6
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
 * [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.3.8
@@ -91,6 +92,16 @@ RobotFramework supports many options such as `--exclude`, `--variable`, `--logle
 This project includes the IMAP library which allows Robot Framework to connect to email servers.
 
 A suggestion to automate email testing is to run a [Mailcatcher instance in Docker which allows IMAP connections](https://github.com/estelora/docker-mailcatcher-imap). This will ensure emails are discarded once the tests have been run.
+
+### Dealing with Datetimes and Timezones
+
+This project is meant to allow your tests to run anywhere. Sometimes that can be in a different timezone than your local one or of the location under test. To help solve such issues, this image includes the [DateTimeTZ Library](https://testautomation.github.io/DateTimeTZ/doc/DateTimeTZ.html).
+
+To set the timezone used inside the Docker image, you can set the `TZ` environment variable:
+
+    docker run \
+        -e TZ=America/New_York \
+        ppodgorsek/robot-framework:latest
 
 ## Security consideration
 

@@ -57,5 +57,3 @@ Can call Password
     Length Should Be    ${pass}    5823
     ${pass}=    Password    ${5823}    ${True}    ${False}    ${True}    ${True}
     Length Should Be    ${pass}    5823
-
-*** Keywords ***
