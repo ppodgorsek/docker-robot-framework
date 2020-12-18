@@ -97,7 +97,7 @@ A suggestion to automate email testing is to run a [Mailcatcher instance in Dock
 
 This project is meant to allow your tests to run anywhere. Sometimes that can be in a different timezone than your local or the location under test. To help with that this library includes the [DateTimeTZ Library](https://testautomation.github.io/DateTimeTZ/doc/DateTimeTZ.html)
 
-To set the timezone used inside the docker image, you can set env variable TZ
+To set the timezone used inside the Docker image, you can set the `TZ` environment variable:
 
     docker run \
         -e TZ=America/New_York \
