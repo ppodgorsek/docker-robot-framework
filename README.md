@@ -159,6 +159,18 @@ The pipeline stage can also rely on a Docker agent, as shown in the example belo
         }
     }
 
+## Upload test reports to an AWS S3 bucket
+
+To uplaod the test report of a test run to an S3 bucket you need to define the following environment variables:
+    
+    docker run \
+        -e AWS_ACCESS_KEY_ID=<your AWS key> \
+        -e AWS_SECRET_ACCESS_KEY=<your AWS secret> \
+        -e AWS_DEFAULT_REGION=<your AWS region e.g. eu-central-1> \
+        -e TEST_RUN_ID=<a test run id as the path in the s3 bucket> \
+        -e BUCKET_NAME=<name of your S3 bucket> \
+        ppodgorsek/robot-framework:latest
+
 ## Testing this project
 
 Not convinced yet? Simple tests have been prepared in the `test/` folder, you can run them using the following commands:

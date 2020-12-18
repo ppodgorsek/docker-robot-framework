@@ -45,6 +45,9 @@ ENV SELENIUM_LIBRARY_VERSION 4.5.0
 ENV SSH_LIBRARY_VERSION 3.5.1
 ENV XVFB_VERSION 1.20
 
+# Default to no test report upload to S3 bucket
+ENV UPLOAD_TO_S3 false
+
 # Prepare binaries to be executed
 COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
 COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
@@ -87,6 +90,9 @@ RUN apk update \
     robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
     robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
     PyYAML \
+
+# Install awscli to be able to upload test reports to S3
+    awscli==1.16.266 \
 
 # Download the glibc package for Alpine Linux from its GitHub repository
   && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
