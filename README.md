@@ -159,7 +159,7 @@ The pipeline stage can also rely on a Docker agent, as shown in the example belo
         }
     }
 
-## Defining a test run ID
+### Defining a test run ID
 
 When relying on Continuous Integration tools, it can be useful to define a test run ID such as the build number or branch name to avoid overwriting consecutive execution reports.
 
