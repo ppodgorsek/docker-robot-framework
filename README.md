@@ -183,7 +183,7 @@ To upload the report of a test run to an S3 bucket, you need to define the follo
         -e AWS_ACCESS_KEY_ID=<your AWS key> \
         -e AWS_SECRET_ACCESS_KEY=<your AWS secret> \
         -e AWS_DEFAULT_REGION=<your AWS region e.g. eu-central-1> \
-        -e BUCKET_NAME=<name of your S3 bucket> \
+        -e AWS_BUCKET_NAME=<name of your S3 bucket> \
         ppodgorsek/robot-framework:latest
 
 ## Testing this project
