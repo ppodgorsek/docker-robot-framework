@@ -30,6 +30,9 @@ else
         $ROBOT_TESTS_DIR
 fi
 
-if [ ${UPLOAD_TO_S3} = true ] ; then
-    upload_s3
+if [ ${AWS_UPLOAD_TO_S3} = true ]
+then
+    echo "Uploading report to AWS S3..."
+    aws s3 sync $ROBOT_REPORTS_FINAL_DIR/ s3://${AWS_BUCKET_NAME}/robot-reports/
+    echo "Reports have been successfully uploaded to AWS S3!"
 fi
