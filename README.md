@@ -177,7 +177,7 @@ By default, the test run ID is empty.
 
 ## Upload test reports to an AWS S3 bucket
 
-To uplaod the test report of a test run to an S3 bucket you need to define the following environment variables:
+To upload the report of a test run to an S3 bucket, you need to define the following environment variables:
     
     docker run \
         -e AWS_ACCESS_KEY_ID=<your AWS key> \
