@@ -159,6 +159,22 @@ The pipeline stage can also rely on a Docker agent, as shown in the example belo
         }
     }
 
+## Defining a test run ID
+
+When relying on Continuous Integration tools, it can be useful to define a test run ID such as the build number or branch name to avoid overwriting consecutive execution reports.
+
+For that purpose, the `ROBOT_TEST_RUN_ID` variable was introduced:
+* If the test run ID is empty, the reports folder will be: `${ROBOT_REPORTS_DIR}/`
+* If the test run ID was provided, the reports folder will be: `${ROBOT_REPORTS_DIR}/${ROBOT_TEST_RUN_ID}/`
+
+It can simply be passed during the execution, such as:
+
+    docker run \
+        -e ROBOT_TEST_RUN_ID="feature/branch-name" \
+        ppodgorsek/robot-framework:latest
+
+By default, the test run ID is empty.
+
 ## Upload test reports to an AWS S3 bucket
 
 To uplaod the test report of a test run to an S3 bucket you need to define the following environment variables:
