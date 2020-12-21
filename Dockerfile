@@ -30,6 +30,7 @@ ENV ROBOT_GID 1000
 
 # Dependency versions
 ENV ALPINE_GLIBC 2.31-r0
+ENV AWS_CLI_VERSION 1.18.200
 ENV CHROMIUM_VERSION 86.0
 ENV DATABASE_LIBRARY_VERSION 1.2
 ENV DATETIMETZ_VERSION 1.0.6
@@ -91,8 +92,8 @@ RUN apk update \
     robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
     PyYAML \
 
-# Install awscli to be able to upload test reports to S3
-    awscli==1.16.266 \
+# Install awscli to be able to upload test reports to AWS S3
+    awscli==$AWS_CLI_VERSION \
 
 # Download the glibc package for Alpine Linux from its GitHub repository
   && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
