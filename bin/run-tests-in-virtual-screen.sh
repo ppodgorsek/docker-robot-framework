@@ -9,13 +9,16 @@ else
     ROBOT_REPORTS_FINAL_DIR="${ROBOT_REPORTS_DIR}/${ROBOT_TEST_RUN_ID}/"
 fi
 
+# Ensure the output folder exists
+mkdir -p ${ROBOT_REPORTS_FINAL_DIR}
+
 # No need for the overhead of Pabot if no parallelisation is required
 if [ $ROBOT_THREADS -eq 1 ]
 then
     xvfb-run \
         --server-args="-screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_COLOUR_DEPTH} -ac" \
         robot \
-        --outputDir $ROBOT_REPORTS_DIR \
+        --outputDir $ROBOT_REPORTS_FINAL_DIR \
         ${ROBOT_OPTIONS} \
         $ROBOT_TESTS_DIR
 else
@@ -25,7 +28,7 @@ else
         --verbose \
         --processes $ROBOT_THREADS \
         ${PABOT_OPTIONS} \
-        --outputDir $ROBOT_REPORTS_DIR \
+        --outputDir $ROBOT_REPORTS_FINAL_DIR \
         ${ROBOT_OPTIONS} \
         $ROBOT_TESTS_DIR
 fi
