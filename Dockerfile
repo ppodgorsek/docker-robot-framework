@@ -45,8 +45,8 @@ ENV SELENIUM_LIBRARY_VERSION 4.5.0
 ENV SSH_LIBRARY_VERSION 3.5.1
 ENV XVFB_VERSION 1.20
 
-# Default to no test report upload to S3 bucket
-ENV UPLOAD_TO_S3 false
+# By default, no reports are uploaded to AWS S3
+ENV AWS_UPLOAD_TO_S3 false
 
 # Prepare binaries to be executed
 COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
