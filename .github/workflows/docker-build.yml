@@ -72,3 +72,6 @@ jobs:
       - name: Custom User and Group Test
         run:
           docker run --user=2000:2000 --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=$BROWSER $IMAGE_NAME
+      - name: Datetime
+        run:
+          docker run --user=2000:2000 --shm-size=1g -v `pwd`/test:/opt/robotframework/tests:Z -e BROWSER=$BROWSER -e TZ="America/New_York" $IMAGE_NAME
