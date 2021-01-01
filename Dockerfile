@@ -133,6 +133,10 @@ RUN chmod ugo+w /var/log \
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
 
+# Enable Enterprise CA certificates to be imported
+RUN echo 'pref("ImportEnterpriseRoots", true);' >> /usr/lib/firefox/browser/defaults/preferences/firefox-branding.js \
+  && echo 'pref("security.enterprise_roots.enabled", true);' >> /usr/lib/firefox/browser/defaults/preferences/firefox-branding.js
+
 # Set up a volume for the generated reports
 VOLUME ${ROBOT_REPORTS_DIR}
 
