@@ -105,7 +105,21 @@ To set the timezone used inside the Docker image, you can set the `TZ` environme
         -e TZ=America/New_York \
         ppodgorsek/robot-framework:latest
 
-## Security consideration
+## Security considerations
+
+### Relying on self-signed TLS certificates
+
+Self-signed TLS certificates cause issues in browsers, as they are not trusted.
+
+To avoid such problems, the import of Entreprise CA certificates has been enabled:
+
+* Firefox: simply mount your certificates in the `/usr/lib/mozilla/certificates/` folder:
+
+      docker run \
+          -v my-self-signed-certificate.cer:/usr/lib/mozilla/certificates/my-self-signed-certificate.cer:z \
+          ppodgorsek/robot-framework:latest
+
+### Using a different user to run the tests
 
 By default, containers are implicitly run using `--user=1000:1000`, please remember to adjust that command-line setting accordingly, for example:
 
