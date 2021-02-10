@@ -94,8 +94,8 @@ RUN apk update \
     robotframework-requests==$REQUESTS_VERSION \
     robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
     robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
+    axe-selenium-python==$AXE_SELENIUM_VERSION \
     PyYAML \
-    axe-selenium-python \
 
 # Install awscli to be able to upload test reports to AWS S3
     awscli==$AWS_CLI_VERSION \
