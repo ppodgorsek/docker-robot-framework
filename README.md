@@ -26,6 +26,7 @@ The versions used are:
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.8.0
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.5.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.5.1
+* [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.6.1
 * Firefox ESR 78
 * Chromium 86.0
 * [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.18.200
