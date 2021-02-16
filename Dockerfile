@@ -59,63 +59,66 @@ COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 RUN apk update \
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
-    gcc \
-    g++ \
-    libffi-dev \
-    linux-headers \
-    make \
-    musl-dev \
-    openssl-dev \
-    which \
-    wget \
+  rust \
+  cargo \
+  gcc \
+  g++ \
+  libffi-dev \
+  linux-headers \
+  make \
+  musl-dev \
+  openssl-dev \
+  which \
+  wget \
   && apk --no-cache add \
-    "chromium~$CHROMIUM_VERSION" \
-    "chromium-chromedriver~$CHROMIUM_VERSION" \
-    "firefox-esr~$FIREFOX_VERSION" \
-    xauth \
-    tzdata \
-    "xvfb-run~$XVFB_VERSION" \
+  "chromium~$CHROMIUM_VERSION" \
+  "chromium-chromedriver~$CHROMIUM_VERSION" \
+  "firefox-esr~$FIREFOX_VERSION" \
+  xauth \
+  tzdata \
+  "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
   && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome \
-# FIXME: above is a workaround, as the path is ignored
+  # FIXME: above is a workaround, as the path is ignored
 
-# Install Robot Framework and Selenium Library
+  # Install Robot Framework and Selenium Library
   && pip3 install \
-    --no-cache-dir \
-    robotframework==$ROBOT_FRAMEWORK_VERSION \
-    robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
-    robotframework-datadriver==$DATADRIVER_VERSION \
-    robotframework-datetime-tz==$DATETIMETZ_VERSION \
-    robotframework-faker==$FAKER_VERSION \
-    robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
-    robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \
-    robotframework-pabot==$PABOT_VERSION \
-    robotframework-requests==$REQUESTS_VERSION \
-    robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
-    robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
-    PyYAML \
+  --no-cache-dir \
+  robotframework==$ROBOT_FRAMEWORK_VERSION \
+  robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
+  robotframework-datadriver[XLS] \
+  robotframework-datadriver==$DATADRIVER_VERSION \
+  robotframework-datetime-tz==$DATETIMETZ_VERSION \
+  robotframework-faker==$FAKER_VERSION \
+  robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
+  robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \
+  robotframework-pabot==$PABOT_VERSION \
+  robotframework-requests==$REQUESTS_VERSION \
+  robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
+  robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
+  PyYAML \
 
-# Install awscli to be able to upload test reports to AWS S3
-    awscli==$AWS_CLI_VERSION \
+  # Install awscli to be able to upload test reports to AWS S3
+  awscli==$AWS_CLI_VERSION \
 
-# Download the glibc package for Alpine Linux from its GitHub repository
+  # Download the glibc package for Alpine Linux from its GitHub repository
   && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
-    && wget -q "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC/glibc-$ALPINE_GLIBC.apk" \
-    && wget -q "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC/glibc-bin-$ALPINE_GLIBC.apk" \
-    && apk add glibc-$ALPINE_GLIBC.apk \
-    && apk add glibc-bin-$ALPINE_GLIBC.apk \
-    && rm glibc-$ALPINE_GLIBC.apk \
-    && rm glibc-bin-$ALPINE_GLIBC.apk \
-    && rm /etc/apk/keys/sgerrand.rsa.pub \
+  && wget -q "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC/glibc-$ALPINE_GLIBC.apk" \
+  && wget -q "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC/glibc-bin-$ALPINE_GLIBC.apk" \
+  && apk add glibc-$ALPINE_GLIBC.apk \
+  && apk add glibc-bin-$ALPINE_GLIBC.apk \
+  && rm glibc-$ALPINE_GLIBC.apk \
+  && rm glibc-bin-$ALPINE_GLIBC.apk \
+  && rm /etc/apk/keys/sgerrand.rsa.pub \
 
-# Download Gecko drivers directly from the GitHub repository
+  # Download Gecko drivers directly from the GitHub repository
   && wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
-    && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
-    && mkdir -p /opt/robotframework/drivers/ \
-    && mv geckodriver /opt/robotframework/drivers/geckodriver \
-    && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+  && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+  && mkdir -p /opt/robotframework/drivers/ \
+  && mv geckodriver /opt/robotframework/drivers/geckodriver \
+  && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
-# Clean up buildtime dependencies
+  # Clean up buildtime dependencies
   && apk del --no-cache --update-cache .build-deps
 
 # Create the default report and work folders with the default user to avoid runtime issues
