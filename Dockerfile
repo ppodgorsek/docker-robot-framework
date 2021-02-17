@@ -59,8 +59,12 @@ COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 RUN apk update \
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
+
+  # Install dependencies for cryptography due to https://github.com/pyca/cryptography/issues/5771
   rust \
   cargo \
+
+  # Continue with system dependencies
   gcc \
   g++ \
   libffi-dev \
