@@ -87,25 +87,24 @@ RUN apk update \
 
 # Install Robot Framework and Selenium Library
   && pip3 install \
-  --no-cache-dir \
-  robotframework==$ROBOT_FRAMEWORK_VERSION \
-  robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
-  robotframework-datadriver[XLS] \
-  robotframework-datadriver==$DATADRIVER_VERSION \
-  robotframework-datetime-tz==$DATETIMETZ_VERSION \
-  robotframework-faker==$FAKER_VERSION \
-  robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
-  robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \
-  robotframework-pabot==$PABOT_VERSION \
-  robotframework-requests==$REQUESTS_VERSION \
-  robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
-  robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
-  PyYAML \
+    --no-cache-dir \
+    robotframework==$ROBOT_FRAMEWORK_VERSION \
+    robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
+    robotframework-datadriver==$DATADRIVER_VERSION \
+    robotframework-datetime-tz==$DATETIMETZ_VERSION \
+    robotframework-faker==$FAKER_VERSION \
+    robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
+    robotframework-imaplibrary2==$IMAP_LIBRARY_VERSION \
+    robotframework-pabot==$PABOT_VERSION \
+    robotframework-requests==$REQUESTS_VERSION \
+    robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
+    robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
+    PyYAML \
 
-  # Install awscli to be able to upload test reports to AWS S3
-  awscli==$AWS_CLI_VERSION \
+# Install awscli to be able to upload test reports to AWS S3
+    awscli==$AWS_CLI_VERSION \
 
-  # Download the glibc package for Alpine Linux from its GitHub repository
+# Download the glibc package for Alpine Linux from its GitHub repository
   && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
   && wget -q "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC/glibc-$ALPINE_GLIBC.apk" \
   && wget -q "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$ALPINE_GLIBC/glibc-bin-$ALPINE_GLIBC.apk" \
