@@ -83,7 +83,7 @@ RUN apk update \
     "xvfb-run~$XVFB_VERSION" \
   && mv /usr/lib/chromium/chrome /usr/lib/chromium/chrome-original \
   && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib/chromium/chrome \
-  # FIXME: above is a workaround, as the path is ignored
+# FIXME: above is a workaround, as the path is ignored
 
   # Install Robot Framework and Selenium Library
   && pip3 install \
