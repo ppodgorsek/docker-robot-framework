@@ -60,20 +60,20 @@ RUN apk update \
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
 
-  # Install dependencies for cryptography due to https://github.com/pyca/cryptography/issues/5771
-  rust \
-  cargo \
+    # Install dependencies for cryptography due to https://github.com/pyca/cryptography/issues/5771
+    cargo \
+    rust \
 
-  # Continue with system dependencies
-  gcc \
-  g++ \
-  libffi-dev \
-  linux-headers \
-  make \
-  musl-dev \
-  openssl-dev \
-  which \
-  wget \
+    # Continue with system dependencies
+    gcc \
+    g++ \
+    libffi-dev \
+    linux-headers \
+    make \
+    musl-dev \
+    openssl-dev \
+    which \
+    wget \
   && apk --no-cache add \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
