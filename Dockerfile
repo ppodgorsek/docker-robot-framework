@@ -116,10 +116,10 @@ RUN apk update \
 
 # Download Gecko drivers directly from the GitHub repository
   && wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
-  && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
-  && mkdir -p /opt/robotframework/drivers/ \
-  && mv geckodriver /opt/robotframework/drivers/geckodriver \
-  && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+    && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+    && mkdir -p /opt/robotframework/drivers/ \
+    && mv geckodriver /opt/robotframework/drivers/geckodriver \
+    && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
   # Clean up buildtime dependencies
   && apk del --no-cache --update-cache .build-deps
