@@ -121,7 +121,7 @@ RUN apk update \
     && mv geckodriver /opt/robotframework/drivers/geckodriver \
     && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
 
-  # Clean up buildtime dependencies
+# Clean up buildtime dependencies
   && apk del --no-cache --update-cache .build-deps
 
 # Create the default report and work folders with the default user to avoid runtime issues
