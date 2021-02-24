@@ -31,6 +31,7 @@ ENV ROBOT_GID 1000
 # Dependency versions
 ENV ALPINE_GLIBC 2.31-r0
 ENV AWS_CLI_VERSION 1.18.200
+ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
 ENV CHROMIUM_VERSION 86.0
 ENV DATABASE_LIBRARY_VERSION 1.2
 ENV DATADRIVER_VERSION 1.0.0
@@ -100,6 +101,7 @@ RUN apk update \
     robotframework-requests==$REQUESTS_VERSION \
     robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
     robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
+    axe-selenium-python==$AXE_SELENIUM_LIBRARY_VERSION \
     PyYAML \
 
 # Install awscli to be able to upload test reports to AWS S3
