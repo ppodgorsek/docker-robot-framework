@@ -59,6 +59,12 @@ COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 RUN apk update \
   && apk --no-cache upgrade \
   && apk --no-cache --virtual .build-deps add \
+
+    # Install dependencies for cryptography due to https://github.com/pyca/cryptography/issues/5771
+    cargo \
+    rust \
+
+    # Continue with system dependencies
     gcc \
     g++ \
     libffi-dev \
@@ -85,6 +91,7 @@ RUN apk update \
     robotframework==$ROBOT_FRAMEWORK_VERSION \
     robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
     robotframework-datadriver==$DATADRIVER_VERSION \
+    robotframework-datadriver[XLS] \
     robotframework-datetime-tz==$DATETIMETZ_VERSION \
     robotframework-faker==$FAKER_VERSION \
     robotframework-ftplibrary==$FTP_LIBRARY_VERSION \
