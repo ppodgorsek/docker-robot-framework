@@ -23,7 +23,7 @@ The versions used are:
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
 * [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.3.8
 * [Robot Framework Pabot](https://github.com/mkorpela/pabot) 1.10.0
-* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.8.0
+* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.8.1
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.5.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.6.0
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
