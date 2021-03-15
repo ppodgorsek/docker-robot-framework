@@ -15,7 +15,7 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used are:
 
-* [Robot Framework](https://github.com/robotframework/robotframework) 3.2.2
+* [Robot Framework](https://github.com/robotframework/robotframework) 4.0
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2
 * [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.0.0
 * [Robot Framework DateTimeTZ](https://github.com/testautomation/DateTimeTZ) 1.0.6
