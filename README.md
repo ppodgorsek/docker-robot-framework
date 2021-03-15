@@ -21,15 +21,15 @@ The versions used are:
 * [Robot Framework DateTimeTZ](https://github.com/testautomation/DateTimeTZ) 1.0.6
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
-* [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.3.8
-* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 1.10.0
-* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.8.0
-* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.5.0
-* [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.5.1
+* [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.4.0
+* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 1.11
+* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.8.1
+* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 5.1.1
+* [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.6.0
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
 * Firefox ESR 78
 * Chromium 86.0
-* [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.18.200
+* [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.19.27
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
 
