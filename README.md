@@ -25,7 +25,7 @@ The versions used are:
 * [Robot Framework Pabot](https://github.com/mkorpela/pabot) 1.10.0
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.8.0
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.5.0
-* [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.5.1
+* [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.6.0
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
 * Firefox ESR 78
 * Chromium 86.0
