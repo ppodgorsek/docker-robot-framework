@@ -73,6 +73,8 @@ RUN apk update \
     linux-headers \
     make \
     musl-dev \
+    nodejs \
+    nodejs-npm \
     openssl-dev \
     which \
     wget \
