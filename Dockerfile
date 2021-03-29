@@ -73,8 +73,6 @@ RUN apk update \
     linux-headers \
     make \
     musl-dev \
-    nodejs \
-    nodejs-npm \
     openssl-dev \
     which \
     wget \
@@ -82,6 +80,8 @@ RUN apk update \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
     "firefox-esr~$FIREFOX_VERSION" \
+    nodejs \
+    nodejs-npm \
     xauth \
     tzdata \
     "xvfb-run~$XVFB_VERSION" \
