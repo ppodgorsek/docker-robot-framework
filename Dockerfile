@@ -110,7 +110,7 @@ RUN apk update \
     awscli==$AWS_CLI_VERSION \
 
 # Install the node dependencies for the Browser library
-  && rfbrowser init
+  && rfbrowser init \
 
 # Download the glibc package for Alpine Linux from its GitHub repository
   && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
