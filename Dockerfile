@@ -32,6 +32,7 @@ ENV ROBOT_GID 1000
 ENV ALPINE_GLIBC 2.31-r0
 ENV AWS_CLI_VERSION 1.19.27
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
+ENV BROWSER_LIBRARY_VERSION 4.1.0
 ENV CHROMIUM_VERSION 86.0
 ENV DATABASE_LIBRARY_VERSION 1.2
 ENV DATADRIVER_VERSION 1.0.0
@@ -79,6 +80,8 @@ RUN apk update \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
     "firefox-esr~$FIREFOX_VERSION" \
+    nodejs \
+    nodejs-npm \
     xauth \
     tzdata \
     "xvfb-run~$XVFB_VERSION" \
@@ -90,6 +93,7 @@ RUN apk update \
   && pip3 install \
     --no-cache-dir \
     robotframework==$ROBOT_FRAMEWORK_VERSION \
+    robotframework-browser==$BROWSER_LIBRARY_VERSION \
     robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
     robotframework-datadriver==$DATADRIVER_VERSION \
     robotframework-datadriver[XLS] \
@@ -106,6 +110,9 @@ RUN apk update \
 
 # Install awscli to be able to upload test reports to AWS S3
     awscli==$AWS_CLI_VERSION \
+
+# Install the node dependencies for the Browser library
+  && rfbrowser init \
 
 # Download the glibc package for Alpine Linux from its GitHub repository
   && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
