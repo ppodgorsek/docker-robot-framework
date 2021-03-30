@@ -7,11 +7,6 @@ Library			Browser
 ${BROWSER}		firefox
 
 *** Test Cases ***
-Visit Baidu
-	New Browser			${BROWSER}
-	New Page			https://www.baidu.com
-	Take Screenshot
-
 Visit Bing
 	New Browser			${BROWSER}
 	New Page			https://www.bing.com
