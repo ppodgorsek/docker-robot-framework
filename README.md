@@ -31,6 +31,7 @@ The versions used are:
 * Firefox ESR 78
 * Chromium 86.0
 * [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.20.6
+* [Robot Framework Metrics Report](https://github.com/adiralashiva8/robotframework-metrics) 3.2.2
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
 
@@ -243,6 +244,12 @@ In case further investigation is required, the logs can be accessed by mounting 
 
 * Linux/Mac: ``-v `pwd`/logs:/var/log:Z``
 * Windows: ``-v ${PWD}/logs:/var/log:Z``
+
+Robot metrics logs are in the same folder and are named metrics-log.html
+
+Customize your logo by using
+    
+     -e METRICS_LOGO=https://mycompany/logo.jpg
 
 Chromium allows to set additional environment properties, which can be useful when debugging:
 
