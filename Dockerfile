@@ -48,6 +48,7 @@ ENV ROBOT_FRAMEWORK_VERSION 4.1
 ENV SELENIUM_LIBRARY_VERSION 5.1.3
 ENV SSH_LIBRARY_VERSION 3.7.0
 ENV XVFB_VERSION 1.20
+ENV METRICS_VERSION 3.2.2
 
 # By default, no reports are uploaded to AWS S3
 ENV AWS_UPLOAD_TO_S3 false
@@ -107,6 +108,7 @@ RUN apk update \
     robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
     axe-selenium-python==$AXE_SELENIUM_LIBRARY_VERSION \
     PyYAML \
+    robotframework-metrics==$METRICS_VERSION \
 
 # Install awscli to be able to upload test reports to AWS S3
     awscli==$AWS_CLI_VERSION \
