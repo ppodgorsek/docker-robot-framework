@@ -28,6 +28,8 @@ ENV ROBOT_THREADS 1
 ENV ROBOT_UID 1000
 ENV ROBOT_GID 1000
 
+ENV METRICS_LOGO https://upload.wikimedia.org/wikipedia/commons/e/e4/Robot-framework-logo.png
+
 # Dependency versions
 ENV ALPINE_GLIBC 2.31-r0
 ENV AWS_CLI_VERSION 1.20.6
