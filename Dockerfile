@@ -145,6 +145,9 @@ RUN mkdir -p ${ROBOT_REPORTS_DIR} \
 # Allow any user to write logs
 RUN chmod ugo+w /var/log \
   && chown ${ROBOT_UID}:${ROBOT_GID} /var/log
+  
+# Allow CI/CD users to make build artifacts
+RUN if [test -d /builds/] ; then chmod -R ugo+wrx /builds/ && echo "Build folder found"; else echo "Build Folder not found" ; fi
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
