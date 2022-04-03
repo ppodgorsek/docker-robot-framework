@@ -113,7 +113,7 @@ RUN dnf install -y \
 # Install the Node dependencies for the Browser library
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
 RUN rfbrowser init \
-  && RUN ln -sf /usr/lib64/libstdc++.so.6 /usr/local/lib/python3.10/site-packages/Browser/wrapper/node_modules/playwright-core/.local-browsers/firefox-1316/firefox/libstdc++.so.6
+  && ln -sf /usr/lib64/libstdc++.so.6 /usr/local/lib/python3.10/site-packages/Browser/wrapper/node_modules/playwright-core/.local-browsers/firefox-1316/firefox/libstdc++.so.6
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.
