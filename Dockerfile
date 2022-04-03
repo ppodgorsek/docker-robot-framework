@@ -79,7 +79,7 @@ RUN apk update \
   && apk --no-cache add \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
-    "firefox~$FIREFOX_VERSION" \
+    "firefox-esr~$FIREFOX_VERSION" \
     nodejs \
     nodejs-npm \
     xauth \
