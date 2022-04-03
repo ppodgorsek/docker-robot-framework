@@ -80,8 +80,8 @@ RUN apk update \
     "chromium~$CHROMIUM_VERSION" \
     "chromium-chromedriver~$CHROMIUM_VERSION" \
     "firefox-esr~$FIREFOX_VERSION" \
+    npm \
     nodejs \
-    nodejs-npm \
     xauth \
     tzdata \
     "xvfb-run~$XVFB_VERSION" \
