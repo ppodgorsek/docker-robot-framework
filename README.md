@@ -1,4 +1,4 @@
-# Robot Framework in Docker Alpine, with Firefox and Chrome
+# Robot Framework in Docker, with Firefox and Chrome
 
 ## What is it?
 
@@ -15,17 +15,22 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used are:
 
-* [Robot Framework](https://github.com/robotframework/robotframework) 3.2.2
-* [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2
+* [Robot Framework](https://github.com/robotframework/robotframework) 5.0
+* [Robot Framework Browser Library](https://github.com/MarketSquare/robotframework-browser) 12.2.0
+* [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2.4
+* [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.6.0
+* [Robot Framework DateTimeTZ](https://github.com/testautomation/DateTimeTZ) 1.0.6
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
-* [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.3.8
-* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 1.10.0
-* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.7.2
-* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 4.5.0
-* [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.5.1
-* Firefox ESR 78
-* Chromium 86.0
+* [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.4.2
+* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 2.5.2
+* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.9.2
+* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.0.0
+* [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.8.0
+* [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
+* Firefox 91.7
+* Chromium 99.0
+* [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.22.87
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
 
@@ -92,6 +97,16 @@ This project includes the IMAP library which allows Robot Framework to connect t
 
 A suggestion to automate email testing is to run a [Mailcatcher instance in Docker which allows IMAP connections](https://github.com/estelora/docker-mailcatcher-imap). This will ensure emails are discarded once the tests have been run.
 
+### Dealing with Datetimes and Timezones
+
+This project is meant to allow your tests to run anywhere. Sometimes that can be in a different timezone than your local one or of the location under test. To help solve such issues, this image includes the [DateTimeTZ Library](https://testautomation.github.io/DateTimeTZ/doc/DateTimeTZ.html).
+
+To set the timezone used inside the Docker image, you can set the `TZ` environment variable:
+
+    docker run \
+        -e TZ=America/New_York \
+        ppodgorsek/robot-framework:latest
+
 ## Security consideration
 
 By default, containers are implicitly run using `--user=1000:1000`, please remember to adjust that command-line setting accordingly, for example:
@@ -147,6 +162,33 @@ The pipeline stage can also rely on a Docker agent, as shown in the example belo
             }
         }
     }
+
+### Defining a test run ID
+
+When relying on Continuous Integration tools, it can be useful to define a test run ID such as the build number or branch name to avoid overwriting consecutive execution reports.
+
+For that purpose, the `ROBOT_TEST_RUN_ID` variable was introduced:
+* If the test run ID is empty, the reports folder will be: `${ROBOT_REPORTS_DIR}/`
+* If the test run ID was provided, the reports folder will be: `${ROBOT_REPORTS_DIR}/${ROBOT_TEST_RUN_ID}/`
+
+It can simply be passed during the execution, such as:
+
+    docker run \
+        -e ROBOT_TEST_RUN_ID="feature/branch-name" \
+        ppodgorsek/robot-framework:latest
+
+By default, the test run ID is empty.
+
+### Upload test reports to an AWS S3 bucket
+
+To upload the report of a test run to an S3 bucket, you need to define the following environment variables:
+    
+    docker run \
+        -e AWS_ACCESS_KEY_ID=<your AWS key> \
+        -e AWS_SECRET_ACCESS_KEY=<your AWS secret> \
+        -e AWS_DEFAULT_REGION=<your AWS region e.g. eu-central-1> \
+        -e AWS_BUCKET_NAME=<name of your S3 bucket> \
+        ppodgorsek/robot-framework:latest
 
 ## Testing this project
 

@@ -1,6 +1,7 @@
 *~
 
 .git/
+.github/
 test/
 
 .gitignore
