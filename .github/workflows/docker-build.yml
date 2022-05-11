@@ -28,6 +28,7 @@ jobs:
         include:
           - browser: "chrome"
           - browser: "firefox"
+          - browser: "edge"
     env:
       BROWSER: ${{ matrix.browser }}
     steps:
