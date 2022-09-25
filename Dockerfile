@@ -30,21 +30,21 @@ ENV ROBOT_GID 1000
 
 # Dependency versions
 ENV ALPINE_GLIBC 2.35-r0
-ENV AWS_CLI_VERSION 1.22.87
+ENV AWS_CLI_VERSION 1.25.81
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
-ENV BROWSER_LIBRARY_VERSION 12.2.0
-ENV CHROMIUM_VERSION 99.0
+ENV BROWSER_LIBRARY_VERSION 14.0.0
+ENV CHROMIUM_VERSION 103.0
 ENV DATABASE_LIBRARY_VERSION 1.2.4
 ENV DATADRIVER_VERSION 1.6.0
 ENV DATETIMETZ_VERSION 1.0.6
 ENV FAKER_VERSION 5.0.0
-ENV FIREFOX_VERSION 98.0
+ENV FIREFOX_VERSION 104.0
 ENV FTP_LIBRARY_VERSION 1.9
 ENV GECKO_DRIVER_VERSION v0.30.0
-ENV IMAP_LIBRARY_VERSION 0.4.2
-ENV PABOT_VERSION 2.5.2
-ENV REQUESTS_VERSION 0.9.2
-ENV ROBOT_FRAMEWORK_VERSION 5.0
+ENV IMAP_LIBRARY_VERSION 0.4.5
+ENV PABOT_VERSION 2.7.0
+ENV REQUESTS_VERSION 0.9.3
+ENV ROBOT_FRAMEWORK_VERSION 5.0.1
 ENV SELENIUM_LIBRARY_VERSION 6.0.0
 ENV SSH_LIBRARY_VERSION 3.8.0
 ENV XVFB_VERSION 1.20
@@ -112,8 +112,7 @@ RUN dnf install -y \
 
 # Install the Node dependencies for the Browser library
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
-RUN rfbrowser init \
-  && ln -sf /usr/lib64/libstdc++.so.6 /usr/local/lib/python3.10/site-packages/Browser/wrapper/node_modules/playwright-core/.local-browsers/firefox-1316/firefox/libstdc++.so.6
+RUN rfbrowser init
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.
