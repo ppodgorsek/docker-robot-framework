@@ -15,7 +15,7 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used are:
 
-* [Robot Framework](https://github.com/robotframework/robotframework) 5.0.1
+* [Robot Framework](https://github.com/robotframework/robotframework) 6.0.2
 * [Robot Framework Browser Library](https://github.com/MarketSquare/robotframework-browser) 14.0.0
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2.4
 * [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.6.0
@@ -23,9 +23,9 @@ The versions used are:
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
 * [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.4.5
-* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 2.7.0
+* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 2.15.0
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.9.3
-* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.0.0
+* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.1.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.8.0
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
 * Firefox 104.0
