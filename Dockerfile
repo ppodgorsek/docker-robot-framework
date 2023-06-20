@@ -1,4 +1,4 @@
-FROM fedora:36
+FROM fedora:39
 
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
