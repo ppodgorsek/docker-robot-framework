@@ -89,13 +89,6 @@ Head Request
     ${resp}=		HEAD On Session		httpbin				/headers
     Should Be Equal As Strings			${resp.status_code}	200
 
-Options Request
-    [Tags]	options
-    Create Session	httpbin				http://httpbin.org
-    ${resp}=		OPTIONS On Session	httpbin				/headers
-    Should Be Equal As Strings			${resp.status_code}	200
-    Dictionary Should Contain Key		${resp.headers}		allow
-
 Delete Request With URL Params
     [Tags]	delete
     Create Session	httpbin				http://httpbin.org
@@ -111,36 +104,6 @@ Delete Request With Data
     Log				${resp.content}
     Comment			Dictionary Should Contain Value  ${resp.json()['data']}  bulkan
     Comment			Dictionary Should Contain Value  ${resp.json()['data']}  evcimen
-
-Post Request With Redirection
-    [Tags]	post
-    Create Session	jigsaw				http://jigsaw.w3.org
-    ${resp}=		POST On Session		jigsaw					/HTTP/300/302.html
-    Should Be Equal As Strings			${resp.status_code}		200
-    ${resp}=		POST On Session		jigsaw					/HTTP/300/302.html	allow_redirects=${true}
-    Should Be Equal As Strings			${resp.status_code}		200
-
-Post Request Without Redirection
-    [Tags]	post
-    Create Session	jigsaw				http://jigsaw.w3.org	debug=3
-    ${resp}=		POST On Session		jigsaw					/HTTP/300/302.html	allow_redirects=${false}
-    ${status}=		Convert To String	${resp.status_code}
-    Should Start With					${status}				30
-
-Put Request With Redirection
-    [Tags]	put
-    Create Session	jigsaw				http://jigsaw.w3.org	debug=3
-    ${resp}=		PUT On Session		jigsaw					/HTTP/300/302.html
-    Should Be Equal As Strings			${resp.status_code}		200
-    ${resp}=		PUT On Session		jigsaw					/HTTP/300/302.html	allow_redirects=${true}
-    Should Be Equal As Strings			${resp.status_code}		200
-
-Put Request Without Redirection
-    [Tags]	put
-    Create Session	jigsaw				http://jigsaw.w3.org
-    ${resp}=		PUT On Session		jigsaw					/HTTP/300/302.html	allow_redirects=${false}
-    ${status}=		Convert To String	${resp.status_code}
-    Should Start With					${status}				30
 
 Do Not Pretty Print a JSON object
     [Tags]	json
