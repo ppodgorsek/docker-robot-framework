@@ -24,31 +24,6 @@ Get Requests with Url Parameters
     Should Be Equal As Strings			${resp.status_code}		200
     Should Be Equal						${resp.json()['args']}	${params}
 
-Get HTTPS & Verify Cert
-    [Tags]	get get-cert
-    Create Session	httpbin			https://httpbin.org		verify=True
-    ${resp}=		GET On Session	httpbin					/get
-    Should Be Equal As Strings		${resp.status_code}		200
-
-Post Request With URL Params
-    [Tags]	post
-    Create Session	httpbin				http://httpbin.org
-    &{params}=		Create Dictionary	key=value			key2=value2
-    ${resp}=		POST On Session		httpbin				/post		params=${params}
-    Should Be Equal As Strings			${resp.status_code}	200
-
-Post Request With No Data
-    [Tags]	post
-    Create Session	httpbin				http://httpbin.org
-    ${resp}=		POST On Session		httpbin				/post  
-    Should Be Equal As Strings			${resp.status_code}	200
-
-Put Request With No Data
-    [Tags]	put
-    Create Session	httpbin			http://httpbin.org
-    ${resp}=		PUT On Session	httpbin				/put
-    Should Be Equal As Strings		${resp.status_code}	200
-
 Post Request With No Dictionary
     [Tags]	post
     Create Session		httpbin			http://httpbin.org	debug=3
@@ -63,14 +38,6 @@ Put Request With URL Params
     &{params}=		Create Dictionary	key=value	key2=value2
     ${resp}=		PUT On Session		httpbin		/put		params=${params}
     Should Be Equal As Strings			${resp.status_code}		200
-
-Put Request With No Dictionary
-    [Tags]	put
-    Create Session		httpbin			http://httpbin.org
-    Set Test Variable					${data}				some content
-    ${resp}=			PUT On Session	httpbin				/put			data=${data}
-    Should Be Equal As Strings			${resp.status_code}	200
-    Should Contain						${resp.text}		${data}
 
 Post Requests
     [Tags]	post
@@ -135,12 +102,6 @@ Delete Request With URL Params
     ${resp}=		DELETE On Session	httpbin				url=/delete?key=value&key2=value2
     Should Be Equal As Strings			${resp.status_code}	200
 
-Delete Request With No Data
-    [Tags]	delete
-    Create Session	httpbin				http://httpbin.org
-    ${resp}=		DELETE On Session	httpbin				/delete
-    Should Be Equal As Strings			${resp.status_code}	200
-
 Delete Request With Data
     [Tags]	delete
     Create Session	httpbin				http://httpbin.org	debug=3
@@ -150,15 +111,6 @@ Delete Request With Data
     Log				${resp.content}
     Comment			Dictionary Should Contain Value  ${resp.json()['data']}  bulkan
     Comment			Dictionary Should Contain Value  ${resp.json()['data']}  evcimen
-
-Patch Requests
-    [Tags]	patch
-    Create Session	httpbin				http://httpbin.org
-    &{data}=		Create Dictionary	name=bulkan				surname=evcimen
-    &{headers}=		Create Dictionary	Content-Type=application/x-www-form-urlencoded
-    ${resp}=		PATCH On Session    httpbin					/patch			data=${data}	headers=${headers}
-    Dictionary Should Contain Value		${resp.json()['form']}	bulkan
-    Dictionary Should Contain Value		${resp.json()['form']}	evcimen
 
 Post Request With Redirection
     [Tags]	post

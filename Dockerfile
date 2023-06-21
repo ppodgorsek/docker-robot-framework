@@ -93,7 +93,10 @@ RUN pip3 install \
   axe-selenium-python==$AXE_SELENIUM_LIBRARY_VERSION \
   PyYAML \
   # Install awscli to be able to upload test reports to AWS S3
-  awscli==$AWS_CLI_VERSION
+  awscli==$AWS_CLI_VERSION \
+  # Install an older Selenium version to avoid issues when running tests
+  # https://github.com/robotframework/SeleniumLibrary/issues/1835
+  selenium==4.9.0
 
 # Gecko drivers
 RUN dnf install -y \
