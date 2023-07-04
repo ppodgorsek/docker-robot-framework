@@ -12,7 +12,3 @@ Visit Bing
 Visit Google
 	Open Browser			https://www.google.com		${BROWSER}
 	Capture Page Screenshot
-
-Visit Yahoo
-	Open Browser			https://search.yahoo.com	${BROWSER}
-	Capture Page Screenshot
