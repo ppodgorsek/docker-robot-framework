@@ -31,7 +31,8 @@ ENV ROBOT_GID 1000
 # Dependency versions
 ENV AWS_CLI_VERSION 1.27.157
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
-ENV BROWSER_LIBRARY_VERSION 16.2.0
+ENV BROWSER_LIBRARY_VERSION 17.2.0
+ENV ALLURE_LIBRARY_VERSION 2.3.2
 ENV CHROMIUM_VERSION 114.0
 ENV DATABASE_LIBRARY_VERSION 1.2.4
 ENV DATADRIVER_VERSION 1.8.1
@@ -78,6 +79,7 @@ RUN pip3 install \
   --no-cache-dir \
   robotframework==$ROBOT_FRAMEWORK_VERSION \
   robotframework-browser==$BROWSER_LIBRARY_VERSION \
+  robotframework-allure==$ALLURE_LIBRARY_VERSION \
   robotframework-databaselibrary==$DATABASE_LIBRARY_VERSION \
   robotframework-datadriver==$DATADRIVER_VERSION \
   robotframework-datadriver[XLS] \
