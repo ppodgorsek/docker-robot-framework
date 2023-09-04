@@ -1,4 +1,4 @@
-FROM fedora:39
+FROM fedora:38
 
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
@@ -29,15 +29,15 @@ ENV ROBOT_UID 1000
 ENV ROBOT_GID 1000
 
 # Dependency versions
-ENV AWS_CLI_VERSION 1.27.157
+ENV AWS_CLI_VERSION 1.29.40
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
 ENV BROWSER_LIBRARY_VERSION 16.2.0
-ENV CHROMIUM_VERSION 114.0
+ENV CHROMIUM_VERSION 116.0
 ENV DATABASE_LIBRARY_VERSION 1.2.4
 ENV DATADRIVER_VERSION 1.8.1
 ENV DATETIMETZ_VERSION 1.0.6
 ENV FAKER_VERSION 5.0.0
-ENV FIREFOX_VERSION 114.0
+ENV FIREFOX_VERSION 117.0
 ENV FTP_LIBRARY_VERSION 1.9
 ENV GECKO_DRIVER_VERSION v0.33.0
 ENV IMAP_LIBRARY_VERSION 0.4.6
@@ -62,9 +62,12 @@ RUN dnf upgrade -y --refresh \
     chromedriver-${CHROMIUM_VERSION}* \
     chromium-${CHROMIUM_VERSION}* \
     firefox-${FIREFOX_VERSION}* \
+    gcc \
+    gcc-c++ \
     npm \
     nodejs \
     python3-pip \
+    python3-pyyaml \
     tzdata \
     xorg-x11-server-Xvfb-${XVFB_VERSION}* \
   && dnf clean all
@@ -90,7 +93,6 @@ RUN pip3 install \
   robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
   robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
   axe-selenium-python==$AXE_SELENIUM_LIBRARY_VERSION \
-  PyYAML \
   # Install awscli to be able to upload test reports to AWS S3
   awscli==$AWS_CLI_VERSION \
   # Install an older Selenium version to avoid issues when running tests
