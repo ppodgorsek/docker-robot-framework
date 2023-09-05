@@ -1,4 +1,4 @@
-FROM fedora:36
+FROM fedora:38
 
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
@@ -29,24 +29,23 @@ ENV ROBOT_UID 1000
 ENV ROBOT_GID 1000
 
 # Dependency versions
-ENV ALPINE_GLIBC 2.35-r0
-ENV AWS_CLI_VERSION 1.22.87
+ENV AWS_CLI_VERSION 1.29.40
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
-ENV BROWSER_LIBRARY_VERSION 12.2.0
-ENV CHROMIUM_VERSION 99.0
+ENV BROWSER_LIBRARY_VERSION 16.2.0
+ENV CHROMIUM_VERSION 116.0
 ENV DATABASE_LIBRARY_VERSION 1.2.4
-ENV DATADRIVER_VERSION 1.6.0
+ENV DATADRIVER_VERSION 1.8.1
 ENV DATETIMETZ_VERSION 1.0.6
 ENV EDGE_VERSION 101.0.1210.39
 ENV FAKER_VERSION 5.0.0
-ENV FIREFOX_VERSION 100.0
+ENV FIREFOX_VERSION 117.0
 ENV FTP_LIBRARY_VERSION 1.9
-ENV GECKO_DRIVER_VERSION v0.30.0
-ENV IMAP_LIBRARY_VERSION 0.4.2
-ENV PABOT_VERSION 2.5.2
-ENV REQUESTS_VERSION 0.9.2
-ENV ROBOT_FRAMEWORK_VERSION 5.0
-ENV SELENIUM_LIBRARY_VERSION 6.0.0
+ENV GECKO_DRIVER_VERSION v0.33.0
+ENV IMAP_LIBRARY_VERSION 0.4.6
+ENV PABOT_VERSION 2.16.0
+ENV REQUESTS_VERSION 0.9.5
+ENV ROBOT_FRAMEWORK_VERSION 6.1
+ENV SELENIUM_LIBRARY_VERSION 6.1.0
 ENV SSH_LIBRARY_VERSION 3.8.0
 ENV XVFB_VERSION 1.20
 
@@ -64,9 +63,12 @@ RUN dnf upgrade -y --refresh \
     chromedriver-${CHROMIUM_VERSION}* \
     chromium-${CHROMIUM_VERSION}* \
     firefox-${FIREFOX_VERSION}* \
+    gcc \
+    gcc-c++ \
     npm \
     nodejs \
     python3-pip \
+    python3-pyyaml \
     tzdata \
     xorg-x11-server-Xvfb-${XVFB_VERSION}* \
     dnf-plugins-core \
@@ -93,9 +95,11 @@ RUN pip3 install \
   robotframework-seleniumlibrary==$SELENIUM_LIBRARY_VERSION \
   robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
   axe-selenium-python==$AXE_SELENIUM_LIBRARY_VERSION \
-  PyYAML \
   # Install awscli to be able to upload test reports to AWS S3
-  awscli==$AWS_CLI_VERSION
+  awscli==$AWS_CLI_VERSION \
+  # Install an older Selenium version to avoid issues when running tests
+  # https://github.com/robotframework/SeleniumLibrary/issues/1835
+  selenium==4.9.0
 
 # Gecko drivers
 RUN dnf install -y \
@@ -133,8 +137,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
 
 # Install the Node dependencies for the Browser library
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
-RUN rfbrowser init \
-  && ln -sf /usr/lib64/libstdc++.so.6 /usr/local/lib/python3.10/site-packages/Browser/wrapper/node_modules/playwright-core/.local-browsers/firefox-1316/firefox/libstdc++.so.6
+RUN rfbrowser init
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.

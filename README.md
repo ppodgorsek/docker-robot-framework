@@ -15,23 +15,23 @@ The versioning of this image follows the one of Robot Framework:
 
 The versions used are:
 
-* [Robot Framework](https://github.com/robotframework/robotframework) 5.0
-* [Robot Framework Browser Library](https://github.com/MarketSquare/robotframework-browser) 12.2.0
+* [Robot Framework](https://github.com/robotframework/robotframework) 6.1
+* [Robot Framework Browser Library](https://github.com/MarketSquare/robotframework-browser) 16.2.0
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2.4
-* [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.6.0
+* [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.8.1
 * [Robot Framework DateTimeTZ](https://github.com/testautomation/DateTimeTZ) 1.0.6
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
-* [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.4.2
-* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 2.5.2
-* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.9.2
-* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.0.0
+* [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.4.6
+* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 2.16.0
+* [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.9.5
+* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.1.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.8.0
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
-* Firefox 100.0
-* Chromium 99.0
+* Firefox 117.0
+* Chromium 116.0
 * Edge 101.0.1210.39
-* [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.22.87
+* [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.29.40
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
 
