@@ -1,10 +1,10 @@
-# Robot Framework in Docker, with Firefox and Chrome
+# Robot Framework in Docker, with Firefox, Chrome and Microsoft Edge
 
 ## What is it?
 
 This project consists of a Docker image containing a Robot Framework installation.
 
-This installation also contains Firefox, Chrome and the Selenium library for Robot Framework. The test cases and reports should be mounted as volumes.
+This installation also contains Firefox, Chrome, Microsoft Edge and the Selenium library for Robot Framework. The test cases and reports should be mounted as volumes.
 
 ## Versioning
 
@@ -30,6 +30,7 @@ The versions used are:
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
 * Firefox 117.0
 * Chromium 116.0
+* Microsoft Edge 116.0.1938.69
 * [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.29.40
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
@@ -47,7 +48,9 @@ This container can be run using the following command:
 
 Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWSER}` in your Robot variables and to use `${BROWSER}` in your test cases. This allows to set the browser in a single place if needed.
 
-When running your tests, simply add `-e BROWSER=chrome` or `-e BROWSER=firefox` to the run command.
+When running your tests, simply add `-e BROWSER=chrome`, `-e BROWSER=firefox` or `-e BROWSER=edge`to the run command.
+
+Please note: `edge` will work with Selenium but not the Browser Library, as the latter currently doesn't have an easy mechanism to install additional browsers. Playwright, on which the Browser library relies, cannot install additional browsers on Linux platforms other than Ubuntu/Debian and [suggests using Chromium to test Microsoft Edge scenarios](https://playwright.dev/docs/browsers), unless you require Edge-specific capabilities.
 
 ### Changing the container's screen resolution
 
