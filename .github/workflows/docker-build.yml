@@ -97,7 +97,7 @@ jobs:
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
             -v `pwd`/test/timezones.robot:/opt/robotframework/tests/timezones.robot:Z \
             -e BROWSER=$BROWSER \
-            test
+            $IMAGE_NAME
       - name: Colour Depth 16 Test
         run: |
           podman run --shm-size=1g \
