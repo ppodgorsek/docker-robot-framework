@@ -1,10 +1,10 @@
-# Robot Framework in Docker, with Firefox, Chrome and Edge
+# Robot Framework in Docker, with Firefox, Chrome and Microsoft Edge
 
 ## What is it?
 
 This project consists of a Docker image containing a Robot Framework installation.
 
-This installation also contains Firefox, Chrome, Edge and the Selenium library for Robot Framework. The test cases and reports should be mounted as volumes.
+This installation also contains Firefox, Chrome, Microsoft Edge and the Selenium library for Robot Framework. The test cases and reports should be mounted as volumes.
 
 ## Versioning
 
