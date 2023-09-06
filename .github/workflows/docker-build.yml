@@ -90,7 +90,7 @@ jobs:
         run:
           docker build . --tag $IMAGE_NAME --file Dockerfile
       - name: Basic Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -99,7 +99,7 @@ jobs:
             -e BROWSER=$BROWSER \
             test
       - name: Colour Depth 16 Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -109,7 +109,7 @@ jobs:
             -e SCREEN_COLOUR_DEPTH=16 \
             $IMAGE_NAME
       - name: Screen Width 800x600 Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -120,7 +120,7 @@ jobs:
             -e SCREEN_HEIGHT=600 \
             $IMAGE_NAME
       - name: Screen Width 1024x768 Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -131,7 +131,7 @@ jobs:
             -e SCREEN_HEIGHT=768 \
             $IMAGE_NAME
       - name: Screen Width 1280x1024 Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -142,7 +142,7 @@ jobs:
             -e SCREEN_HEIGHT=1024 \
             $IMAGE_NAME
       - name: Screen Width 2560x1440 Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -153,7 +153,7 @@ jobs:
             -e SCREEN_HEIGHT=1440 \
             $IMAGE_NAME
       - name: Screen Width 3840x2160 Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -164,7 +164,7 @@ jobs:
             -e SCREEN_HEIGHT=2160 \
             $IMAGE_NAME
       - name: Debug Log Level Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -174,7 +174,7 @@ jobs:
             -e ROBOT_OPTIONS="--loglevel DEBUG" \
             $IMAGE_NAME
       - name: Basic Multithreaded Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -184,7 +184,7 @@ jobs:
             -e ROBOT_THREADS=4 \
             $IMAGE_NAME
       - name: Test Level Multithreaded Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -195,7 +195,7 @@ jobs:
             -e PABOT_OPTIONS="--testlevelsplit" \
             $IMAGE_NAME
       - name: Custom User Test
-        run:
+        run: |
           podman run --user=2000 --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -204,7 +204,7 @@ jobs:
             -e BROWSER=$BROWSER \
             $IMAGE_NAME
       - name: Custom User and Group Test
-        run:
+        run: |
           podman run --user=2000:2000 --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
@@ -213,7 +213,7 @@ jobs:
             -e BROWSER=$BROWSER \
             $IMAGE_NAME
       - name: Datetime
-        run:
+        run: |
           podman run --user=2000:2000 --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
