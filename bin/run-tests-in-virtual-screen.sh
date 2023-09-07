@@ -6,7 +6,7 @@ if [ "${ROBOT_TEST_RUN_ID}" = "" ]
 then
     ROBOT_REPORTS_FINAL_DIR="${ROBOT_REPORTS_DIR}"
 else
-    REPORTS_DIR_HAS_TRAILING_SLASH=`echo ${ROBOT_REPORTS_DIR} | grep '/$'`
+    REPORTS_DIR_HAS_TRAILING_SLASH=`echo ${ROBOT_REPORTS_DIR} | grep -c '/$'`
 
     if [ ${REPORTS_DIR_HAS_TRAILING_SLASH} -eq 0 ]
     then
