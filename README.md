@@ -1,5 +1,33 @@
 # Robot Framework in Docker, with Firefox, Chrome and Microsoft Edge
 
+## Table of contents
+
+* [What is it?](#what-is-it)
+* [Versioning](#versioning)
+* [Running the container](#running-the-container)
+    * [Switching browsers](#switching-browsers)
+    * [Changing the container's screen resolution](#changing-the-containers-screen-resolution)
+    * [Changing the container's tests and reports directories](#changing-the-containers-tests-and-reports-directories)
+    * [Parallelisation](#parallelisation)
+        * [Parallelisation options](#parallelisation-options)
+    * [Passing additional options](#passing-additional-options)
+    * [Testing emails](#testing-emails)
+    * [Dealing with Datetimes and Timezones](#dealing-with-datetimes-and-timezones)
+* [Security consideration](#security-consideration)
+* [Continuous integration](#continuous-integration)
+    * [Defining a test run ID](#defining-a-test-run-id)
+    * [Upload test reports to an AWS S3 bucket](#upload-test-reports-to-an-aws-s3-bucket)
+* [Testing this project](#testing-this-project)
+* [Troubleshooting](#troubleshooting)
+    * [Chromium is crashing](#chromium-is-crashing)
+    * [Accessing the logs](#accessing-the-logs)
+    * [Error: Suite contains no tests](#error-suite-contains-no-tests)
+    * [Database tests are failing in spite of the DatabaseLibrary being present](#database-tests-are-failing-in-spite-of-the-databaselibrary-being-present)
+    * [Supported devices and architectures](#supported-devices-and-architectures)
+* [Please contribute!](#please-contribute)
+
+-----
+
 ## What is it?
 
 This project consists of a Docker image containing a Robot Framework installation.
