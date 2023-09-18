@@ -282,7 +282,7 @@ It is anyway mandatory to extend the container image to install the specific dat
 
 ### Supported devices and architectures
 
-As mentioned on the [Docker Hub](https://hub.docker.com/r/ppodgorsek/robot-framework), the project has been built and uploaded as a linux/amd64 image. This means ARM devices won't be able to run the image with the default configuration.
+As mentioned on the [Docker Hub](https://hub.docker.com/r/ppodgorsek/robot-framework), the project has been built and uploaded as a `linux/amd64` image. This means ARM devices won't be able to run the image with the default configuration.
 
 Podman and Docker provide a `--platform` option which emulates a given application architecture, such as:
 
