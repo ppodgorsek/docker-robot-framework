@@ -29,7 +29,7 @@ The versions used are:
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.8.0
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
 * Firefox 117.0
-* Chromium 116.0
+* Chromium 117.0
 * Microsoft Edge 116.0.1938.69
 * [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.29.40
 
