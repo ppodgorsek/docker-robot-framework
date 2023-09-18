@@ -280,6 +280,22 @@ It is anyway mandatory to extend the container image to install the specific dat
 * [Oracle](https://www.oracle.com/uk/database/technologies/appdev/python.html): `pip install py2oracle`
 * [PostgreSQL](http://pybrary.net/pg8000/index.html): `pip install pg8000`
 
+### Supported devices and architectures
+
+As mentioned on the [Docker Hub](https://hub.docker.com/r/ppodgorsek/robot-framework), the project has been built and uploaded as a linux/amd64 image. This means ARM devices won't be able to run the image with the default configuration.
+
+Podman and Docker provide a `--platform` option which emulates a given application architecture, such as:
+
+    docker run \
+        --platform linux/amd64 \
+        -v <local path to the reports' folder>:/opt/robotframework/reports:Z \
+        -v <local path to the test suites' folder>:/opt/robotframework/tests:Z \
+        ppodgorsek/robot-framework:<version>
+
+Please note: such emulation might not work, depending on your device and operating system.
+
+If this does not solve your platform-related issues, you will have to rebuild the image for your device/platform.
+
 ## Please contribute!
 
 Have you found an issue? Do you have an idea for an improvement? Feel free to contribute by submitting it [on the GitHub project](https://github.com/ppodgorsek/docker-robot-framework/issues).
