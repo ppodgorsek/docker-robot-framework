@@ -99,7 +99,8 @@ RUN pip3 install \
   awscli==$AWS_CLI_VERSION \
   # Install an older Selenium version to avoid issues when running tests
   # https://github.com/robotframework/SeleniumLibrary/issues/1835
-  selenium==4.9.0
+  selenium==4.9.0 \
+  robotframework-docker
 
 # Gecko drivers
 RUN dnf install -y \
