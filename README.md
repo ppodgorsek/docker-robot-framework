@@ -29,11 +29,15 @@
 
 -----
 
+<a name="what-is-it"></a>
+
 ## What is it?
 
 This project consists of a Docker image containing a Robot Framework installation.
 
 This installation also contains Firefox, Chrome, Microsoft Edge and the Selenium library for Robot Framework. The test cases and reports should be mounted as volumes.
+
+<a name="versioning"></a>
 
 ## Versioning
 
@@ -64,6 +68,8 @@ The versions used are:
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
 
+<a name="running-the-container"></a>
+
 ## Running the container
 
 This container can be run using the following command:
@@ -73,6 +79,8 @@ This container can be run using the following command:
         -v <local path to the test suites' folder>:/opt/robotframework/tests:Z \
         ppodgorsek/robot-framework:<version>
 
+<a name="switching-browsers"></a>
+
 ### Switching browsers
 
 Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWSER}` in your Robot variables and to use `${BROWSER}` in your test cases. This allows to set the browser in a single place if needed.
@@ -80,6 +88,8 @@ Browsers can be easily switched. It is recommended to define `${BROWSER} %{BROWS
 When running your tests, simply add `-e BROWSER=chrome`, `-e BROWSER=firefox` or `-e BROWSER=edge`to the run command.
 
 Please note: `edge` will work with Selenium but not the Browser Library, as the latter currently doesn't have an easy mechanism to install additional browsers. Playwright, on which the Browser library relies, cannot install additional browsers on Linux platforms other than Ubuntu/Debian and [suggests using Chromium to test Microsoft Edge scenarios](https://playwright.dev/docs/browsers), unless you require Edge-specific capabilities.
+
+<a name="changing-the-containers-screen-resolution"></a>
 
 ### Changing the container's screen resolution
 
@@ -89,12 +99,16 @@ It is possible to define the settings of the virtual screen in which the browser
 * `SCREEN_HEIGHT` (default: 1080)
 * `SCREEN_WIDTH` (default: 1920)
 
+<a name="changing-the-containers-tests-and-reports-directories"></a>
+
 ### Changing the container's tests and reports directories
 
 It is possible to use different directories to read tests from and to generate reports to. This is useful when using a complex test file structure. To change the defaults, set the following environment variables:
 
 * `ROBOT_REPORTS_DIR` (default: /opt/robotframework/reports)
 * `ROBOT_TESTS_DIR` (default: /opt/robotframework/tests)
+
+<a name="parallelisation"></a>
 
 ### Parallelisation
 
@@ -106,6 +120,8 @@ It is possible to parallelise the execution of your test suites. Simply define t
 
 By default, there is no parallelisation.
 
+<a name="parallelisation-options"></a>
+
 #### Parallelisation options
 
 When using parallelisation, it is possible to pass additional [pabot options](https://github.com/mkorpela/pabot#command-line-options), such as `--testlevelsplit`, `--argumentfile`, `--ordering`, etc. These can be passed by using the `PABOT_OPTIONS` environment variable, for example:
@@ -115,6 +131,8 @@ When using parallelisation, it is possible to pass additional [pabot options](ht
         -e PABOT_OPTIONS="--testlevelsplit" \
         ppodgorsek/robot-framework:latest
 
+<a name="passing-additional-options"></a>
+
 ### Passing additional options
 
 RobotFramework supports many options such as `--exclude`, `--variable`, `--loglevel`, etc. These can be passed by using the `ROBOT_OPTIONS` environment variable, for example:
@@ -123,11 +141,15 @@ RobotFramework supports many options such as `--exclude`, `--variable`, `--logle
         -e ROBOT_OPTIONS="--loglevel DEBUG" \
         ppodgorsek/robot-framework:latest
 
+<a name="testing-emails"></a>
+
 ### Testing emails
 
 This project includes the IMAP library which allows Robot Framework to connect to email servers.
 
 A suggestion to automate email testing is to run a [Mailcatcher instance in Docker which allows IMAP connections](https://github.com/estelora/docker-mailcatcher-imap). This will ensure emails are discarded once the tests have been run.
+
+<a name="dealing-with-datetimes-and-timezones"></a>
 
 ### Dealing with Datetimes and Timezones
 
@@ -138,6 +160,8 @@ To set the timezone used inside the Docker image, you can set the `TZ` environme
     docker run \
         -e TZ=America/New_York \
         ppodgorsek/robot-framework:latest
+
+<a name="installing-additional-dependencies"></a>
 
 ### Installing additional dependencies
 
@@ -161,6 +185,8 @@ rpa==1.50.0
 
 **For large dependencies, it is still recommended to extend the project's image and to add them there, to avoid delaying the CI/CD pipelines with repeated dependency installations.**
 
+<a name="security-considerations"></a>
+
 ## Security consideration
 
 By default, containers are implicitly run using `--user=1000:1000`, please remember to adjust that command-line setting accordingly, for example:
@@ -177,6 +203,8 @@ Additionally, it is possible to rely on user namespaces to further secure the ex
 * Podman: [Running rootless Podman as a non-root user](https://www.redhat.com/sysadmin/rootless-podman-makes-sense)
 
 This is a good security practice to make sure containers cannot perform unwanted changes on the host. In that sense, Podman is probably well ahead of Docker by not relying on a root daemon to run its containers.
+
+<a name="continuous-integration"></a>
 
 ## Continuous integration
 
@@ -217,6 +245,8 @@ The pipeline stage can also rely on a Docker agent, as shown in the example belo
         }
     }
 
+<a name="defining-a-test-run-id"></a>
+
 ### Defining a test run ID
 
 When relying on Continuous Integration tools, it can be useful to define a test run ID such as the build number or branch name to avoid overwriting consecutive execution reports.
@@ -233,6 +263,8 @@ It can simply be passed during the execution, such as:
 
 By default, the test run ID is empty.
 
+<a name="upload-test-reports-to-an-aws-s3-bucket"></a>
+
 ### Upload test reports to an AWS S3 bucket
 
 To upload the report of a test run to an S3 bucket, you need to define the following environment variables:
@@ -243,6 +275,8 @@ To upload the report of a test run to an S3 bucket, you need to define the follo
         -e AWS_DEFAULT_REGION=<your AWS region e.g. eu-central-1> \
         -e AWS_BUCKET_NAME=<name of your S3 bucket> \
         ppodgorsek/robot-framework:latest
+
+<a name="testing-this-project"></a>
 
 ## Testing this project
 
@@ -280,7 +314,11 @@ For Windows users who use **PowerShell**, the commands are slightly different:
 
 Screenshots of the results will be available in the `reports/` folder.
 
+<a name="troubleshooting"></a>
+
 ## Troubleshooting
+
+<a name="chromium-is-crashing"></a>
 
 ### Chromium is crashing
 
@@ -290,6 +328,8 @@ Chrome drivers might crash due to the small size of `/dev/shm` in the docker con
 This is [a known bug of Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=715363).
 
 To avoid this error, please change the shm size when starting the container by adding the following parameter: `--shm-size=1g` (or any other size more suited to your tests)
+
+<a name="accessing-the-logs"></a>
 
 ### Accessing the logs
 
@@ -302,6 +342,8 @@ Chromium allows to set additional environment properties, which can be useful wh
 
 * `webdriver.chrome.verboseLogging=true`: enables the verbose logging mode
 * `webdriver.chrome.logfile=/path/to/chromedriver.log`: sets the path to Chromium's log file
+
+<a name="error-suite-contains-no-tests"></a>
 
 ### Error: Suite contains no tests
 
@@ -321,6 +363,8 @@ It is also important to check if Robot Framework is allowed to access the resour
 * The folder where the tests are located,
 * The test files themselves.
 
+<a name="database-tests-are-failing-in-spite-of-the-databaselibrary-being-present"></a>
+
 ### Database tests are failing in spite of the DatabaseLibrary being present
 
 As per their official project page, the [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) contains utilities meant for Robot Framework's usage. This can allow you to query your database after an action has been made to verify the results. This is compatible with any Database API Specification 2.0 module.
@@ -330,6 +374,8 @@ It is anyway mandatory to extend the container image to install the specific dat
 * [MySQL](https://dev.mysql.com/downloads/connector/python/): `pip install pymysql`
 * [Oracle](https://www.oracle.com/uk/database/technologies/appdev/python.html): `pip install py2oracle`
 * [PostgreSQL](http://pybrary.net/pg8000/index.html): `pip install pg8000`
+
+<a name="supported-devices-and-architectures"></a>
 
 ### Supported devices and architectures
 
@@ -346,6 +392,8 @@ As mentioned in the official documentation, [Podman](https://docs.podman.io/en/l
 Please note: builds and automated tests of this project will remain performed on a `linux/amd64` architecture so such emulation might not work, depending on your device and operating system.
 
 If this does not solve your platform-related issues, you will have to rebuild the image for your device/platform, specifying that `--platform` option during the build and run.
+
+<a name="please-contribute"></a>
 
 ## Please contribute!
 
