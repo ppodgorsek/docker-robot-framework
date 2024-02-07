@@ -19,6 +19,17 @@ fi
 # Ensure the output folder exists
 mkdir -p ${ROBOT_REPORTS_FINAL_DIR}
 
+# Check if additional dependencies should be installed via pip
+if [ -e "/opt/robotframework/pip-requirements.txt" ]
+then
+    echo "Installing pip dependencies..."
+
+    mkdir -p ${ROBOT_DEPENDENCY_DIR}
+    pip install -r /opt/robotframework/pip-requirements.txt -t ${ROBOT_DEPENDENCY_DIR}
+
+    export PYTHONPATH=${ROBOT_DEPENDENCY_DIR}:${PYTHONPATH}
+fi
+
 # No need for the overhead of Pabot if no parallelisation is required
 if [ $ROBOT_THREADS -eq 1 ]
 then
