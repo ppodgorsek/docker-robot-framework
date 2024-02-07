@@ -62,7 +62,7 @@ RUN dnf upgrade -y --refresh \
   && dnf install -y \
     chromedriver-${CHROMIUM_VERSION}* \
     chromium-${CHROMIUM_VERSION}* \
-    dbus-devel \
+    dbus-glib \
     firefox-${FIREFOX_VERSION}* \
     gcc \
     gcc-c++ \
