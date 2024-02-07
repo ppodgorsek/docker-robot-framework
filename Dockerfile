@@ -137,7 +137,8 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
 ENV PATH=/opt/microsoft/msedge:$PATH
 
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
-RUN rfbrowser init
+RUN rfbrowser init \
+  && npx playwright install-deps
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.
