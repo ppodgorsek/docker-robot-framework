@@ -107,7 +107,7 @@ jobs:
             -e SCREEN_HEIGHT=2160 \
             $IMAGE_NAME
       - name: Debug Log Level Test
-        run:
+        run: |
           podman run --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -e BROWSER=$BROWSER \
