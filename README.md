@@ -59,7 +59,7 @@ The versions used are:
 * Firefox 117.0
 * Chromium 117.0
 * Microsoft Edge 116.0.1938.69
-* [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.29.40
+* [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.32.36
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
 
