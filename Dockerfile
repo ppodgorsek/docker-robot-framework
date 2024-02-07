@@ -160,7 +160,8 @@ ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
 
 # Ensure the directory for Python dependencies exists
 RUN mkdir -p ${ROBOT_DEPENDENCY_DIR} \
-  && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_DEPENDENCY_DIR}
+  && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_DEPENDENCY_DIR} \
+  && chmod 777 ${ROBOT_DEPENDENCY_DIR}
 
 # Set up a volume for the generated reports
 VOLUME ${ROBOT_REPORTS_DIR}
