@@ -1,0 +1,2 @@
+pyotp==2.9.0
+robotframework-otp==1.1.0

@@ -3,6 +3,9 @@ FROM fedora:39
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
 
+# Set the Python dependencies' directory environment variable
+ENV ROBOT_DEPENDENCY_DIR /opt/robotframework/dependencies
+
 # Set the reports directory environment variable
 ENV ROBOT_REPORTS_DIR /opt/robotframework/reports
 
@@ -154,6 +157,10 @@ RUN chmod ugo+w /var/log \
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
+
+# Ensure the directory for Python dependencies exists
+RUN mkdir -p ${ROBOT_DEPENDENCY_DIR} \
+  && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_DEPENDENCY_DIR}
 
 # Set up a volume for the generated reports
 VOLUME ${ROBOT_REPORTS_DIR}

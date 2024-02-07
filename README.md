@@ -13,6 +13,7 @@
     * [Passing additional options](#passing-additional-options)
     * [Testing emails](#testing-emails)
     * [Dealing with Datetimes and Timezones](#dealing-with-datetimes-and-timezones)
+    * [Installing additional dependencies](#installing-additional-dependencies)
 * [Security consideration](#security-consideration)
 * [Continuous integration](#continuous-integration)
     * [Defining a test run ID](#defining-a-test-run-id)
@@ -137,6 +138,28 @@ To set the timezone used inside the Docker image, you can set the `TZ` environme
     docker run \
         -e TZ=America/New_York \
         ppodgorsek/robot-framework:latest
+
+### Installing additional dependencies
+
+It is possible to install additional dependencies dynamically at runtime rather than having to extend this image.
+
+To do so, simply mount a text file containing the list of dependencies you would like to install using `pip`: (by default, this file is empty if not mounted)
+
+    docker run \
+        -v <local path to the dependency file>:/opt/robotframework/pip-requirements.txt:Z \
+        -v <local path to the test suites' folder>:/opt/robotframework/tests:Z \
+        ppodgorsek/robot-framework:latest
+
+The file must follow [Pip's official requirements file format](https://pip.pypa.io/en/stable/reference/requirements-file-format/).
+
+Here is a example of what such a file could contain:
+
+```
+robotframework-docker==1.4.2
+rpa==1.50.0
+```
+
+**For large dependencies, it is still recommended to extend the project's image and to add them there, to avoid delaying the CI/CD pipelines with repeated dependency installations.**
 
 ## Security consideration
 
