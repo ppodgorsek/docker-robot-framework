@@ -62,6 +62,7 @@ RUN dnf upgrade -y --refresh \
   && dnf install -y \
     chromedriver-${CHROMIUM_VERSION}* \
     chromium-${CHROMIUM_VERSION}* \
+    dbus-devel \
     firefox-${FIREFOX_VERSION}* \
     gcc \
     gcc-c++ \
@@ -137,8 +138,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
 ENV PATH=/opt/microsoft/msedge:$PATH
 
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
-RUN rfbrowser init \
-  && npx playwright install-deps
+RUN rfbrowser init
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.
