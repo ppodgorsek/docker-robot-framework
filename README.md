@@ -45,7 +45,7 @@ The versions used are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 7.0
 * [Robot Framework Browser Library](https://github.com/MarketSquare/robotframework-browser) 18.0.0
-* [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.2.4
+* [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.4.3
 * [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.8.1
 * [Robot Framework DateTimeTZ](https://github.com/testautomation/DateTimeTZ) 1.0.6
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
