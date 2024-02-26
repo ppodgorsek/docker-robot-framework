@@ -61,7 +61,7 @@ The versions used are:
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.2.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.8.0
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
-* Firefox 122.0
+* Firefox 123.0
 * Chromium 121.0
 * Microsoft Edge 121.0.2277.106
 * [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.32.36
@@ -268,7 +268,7 @@ By default, the test run ID is empty.
 ### Upload test reports to an AWS S3 bucket
 
 To upload the report of a test run to an S3 bucket, you need to define the following environment variables:
-    
+
     docker run \
         -e AWS_ACCESS_KEY_ID=<your AWS key> \
         -e AWS_SECRET_ACCESS_KEY=<your AWS secret> \
@@ -323,6 +323,7 @@ Screenshots of the results will be available in the `reports/` folder.
 ### Chromium is crashing
 
 Chrome drivers might crash due to the small size of `/dev/shm` in the docker container:
+
 > UnknownError: session deleted because of page crash
 
 This is [a known bug of Chromium](https://bugs.chromium.org/p/chromium/issues/detail?id=715363).
