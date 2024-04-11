@@ -35,13 +35,13 @@ ENV ROBOT_GID 1000
 ENV AWS_CLI_VERSION 1.32.36
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
 ENV BROWSER_LIBRARY_VERSION 18.0.0
-ENV CHROMIUM_VERSION 122.0
+ENV CHROME_VERSION 123.0.6312.122
 ENV DATABASE_LIBRARY_VERSION 1.4.3
 ENV DATADRIVER_VERSION 1.10.0
 ENV DATETIMETZ_VERSION 1.0.6
 ENV MICROSOFT_EDGE_VERSION 121.0.2277.106
 ENV FAKER_VERSION 5.0.0
-ENV FIREFOX_VERSION 123.0
+ENV FIREFOX_VERSION 124.0
 ENV FTP_LIBRARY_VERSION 1.9
 ENV GECKO_DRIVER_VERSION v0.33.0
 ENV IMAP_LIBRARY_VERSION 0.4.6
@@ -56,15 +56,13 @@ ENV XVFB_VERSION 1.20
 ENV AWS_UPLOAD_TO_S3 false
 
 # Prepare binaries to be executed
-COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
-COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
+COPY bin/chromedriver.sh /opt/robotframework/drivers/chromedriver
+COPY bin/chrome.sh /opt/robotframework/bin/chrome
 COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
 # Install system dependencies
 RUN dnf upgrade -y --refresh \
   && dnf install -y \
-    chromedriver-${CHROMIUM_VERSION}* \
-    chromium-${CHROMIUM_VERSION}* \
     dbus-glib \
     firefox-${FIREFOX_VERSION}* \
     gcc \
@@ -78,9 +76,28 @@ RUN dnf upgrade -y --refresh \
     dnf-plugins-core \
   && dnf clean all
 
-# FIXME: below is a workaround, as the path is ignored
-RUN mv /usr/lib64/chromium-browser/chromium-browser /usr/lib64/chromium-browser/chromium-browser-original \
-  && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib64/chromium-browser/chromium-browser
+# Install Chrome for Testing with dependencies
+RUN dnf install -y \
+    zip \
+
+  # Exclude bash dependency to avoid conflicts
+  && dnf deplist https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm | \
+       grep provider | grep -v "bash" | \
+       sort --unique | \
+       awk '{print $2}' | \
+       xargs dnf install --best --allowerasing --skip-broken -y \
+  && wget -q "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chrome-linux64.zip" \
+  && wget -q "https://storage.googleapis.com/chrome-for-testing-public/${CHROME_VERSION}/linux64/chromedriver-linux64.zip" \
+  && unzip chrome-linux64.zip \
+  && unzip chromedriver-linux64.zip \
+  && mkdir -p /opt/chrome-for-testing/ \
+  && mv chrome-linux64 /opt/chrome-for-testing \
+  && mv chromedriver-linux64 /opt/chrome-for-testing \
+  && rm chrome-linux64.zip chromedriver-linux64.zip \
+
+  && dnf remove -y \
+    zip \
+  && dnf clean all
 
 # Install Robot Framework and associated libraries
 RUN pip3 install \
