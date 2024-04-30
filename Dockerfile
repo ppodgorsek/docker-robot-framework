@@ -104,6 +104,7 @@ RUN pip3 install \
   # Install an older Selenium version to avoid issues when running tests
   # https://github.com/robotframework/SeleniumLibrary/issues/1835
   selenium==4.9.0
+  docutils==0.21.2
 
 # Gecko drivers
 RUN dnf install -y \
