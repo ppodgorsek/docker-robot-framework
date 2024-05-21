@@ -76,6 +76,7 @@ RUN dnf upgrade -y --refresh \
     tzdata \
     xorg-x11-server-Xvfb-${XVFB_VERSION}* \
     dnf-plugins-core \
+    zlib-devel \
   && dnf clean all
 
 # FIXME: below is a workaround, as the path is ignored
