@@ -49,7 +49,7 @@ The versioning of this image follows the one of Robot Framework:
 The versions used are:
 
 * [Robot Framework](https://github.com/robotframework/robotframework) 7.0.1
-* [Robot Framework Browser (Playwright) Library](https://github.com/MarketSquare/robotframework-browser) 18.0.0
+* [Robot Framework Browser (Playwright) Library](https://github.com/MarketSquare/robotframework-browser) 18.6.3
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 1.4.3
 * [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.10.0
 * [Robot Framework DateTimeTZ](https://github.com/testautomation/DateTimeTZ) 1.0.6
