@@ -58,7 +58,7 @@ The versions used are:
 * [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.4.6
 * [Robot Framework Pabot](https://github.com/mkorpela/pabot) 2.18.0
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.9.7
-* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.2.0
+* [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.4.0
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.8.0
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
 * Firefox 123.0
