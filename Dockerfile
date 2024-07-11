@@ -39,7 +39,7 @@ ENV CHROMIUM_VERSION 126.0
 ENV DATABASE_LIBRARY_VERSION 1.4.4
 ENV DATADRIVER_VERSION 1.11.2
 ENV DATETIMETZ_VERSION 1.0.6
-ENV MICROSOFT_EDGE_VERSION 124.0.2477.0
+ENV MICROSOFT_EDGE_VERSION 126.0.2592.87
 ENV FAKER_VERSION 5.0.0
 ENV FIREFOX_VERSION 127.0
 ENV FTP_LIBRARY_VERSION 1.9
@@ -66,16 +66,17 @@ RUN dnf upgrade -y --refresh \
     chromedriver-${CHROMIUM_VERSION}* \
     chromium-${CHROMIUM_VERSION}* \
     dbus-glib \
+    dnf-plugins-core \
     firefox-${FIREFOX_VERSION}* \
     gcc \
     gcc-c++ \
-    npm \
     nodejs \
+    npm \
     python3-pip \
     python3-pyyaml \
     tzdata \
+    wget \
     xorg-x11-server-Xvfb-${XVFB_VERSION}* \
-    dnf-plugins-core \
   && dnf clean all
 
 # FIXME: below is a workaround, as the path is ignored
@@ -106,26 +107,18 @@ RUN pip3 install \
   selenium==4.9.0
 
 # Gecko drivers
-RUN dnf install -y \
-    wget \
-
-  # Download Gecko drivers directly from the GitHub repository
-  && wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
+# Download Gecko drivers directly from the GitHub repository
+RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
   && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
   && mkdir -p /opt/robotframework/drivers/ \
   && mv geckodriver /opt/robotframework/drivers/geckodriver \
-  && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
-
-  && dnf remove -y \
-    wget \
-  && dnf clean all
+  && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz
 
 # Install Microsoft Edge & webdriver
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
   && dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
-    wget \
     zip \
 
   && wget -q "https://msedgedriver.azureedge.net/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
