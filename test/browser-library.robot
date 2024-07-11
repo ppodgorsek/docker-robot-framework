@@ -3,33 +3,25 @@ Library			Browser
 
 *** Variables ***
 # There is a conflict between browser names used by Selenium (using "chrome") and Browser (using "chromium")
-# This is why the browser is currently fixed for the Browser Library.
+# Additionally, the Browser library isn't flexible at all and forbids any branded browser
+# See SupportedBrowsers: https://marketsquare.github.io/robotframework-browser/Browser.html#New%20Browser
 ${BROWSER}		%{BROWSER}
 
 *** Test Cases ***
 Visit Bing
-	IF	"${BROWSER}" == 'chrome'
-		New Browser		chromium
-	ELSE
-		New Browser		${BROWSER}
-	END
+	Run Keyword If		"${BROWSER}" == 'chrome' or "${BROWSER}" == 'edge'		New Browser		chromium
+	Run Keyword If		"${BROWSER}" != 'chrome' and "${BROWSER}" != 'edge'		New Browser		browser=${BROWSER}
 	New Page			https://www.bing.com
 	Take Screenshot
 
 Visit Google
-	IF	"${BROWSER}" == 'chrome'
-		New Browser		chromium
-	ELSE
-		New Browser		${BROWSER}
-	END
+	Run Keyword If		"${BROWSER}" == 'chrome' or "${BROWSER}" == 'edge'		New Browser		chromium
+	Run Keyword If		"${BROWSER}" != 'chrome' and "${BROWSER}" != 'edge'		New Browser		browser=${BROWSER}
 	New Page			https://www.google.com
 	Take Screenshot
 
 Visit Yahoo
-	IF	"${BROWSER}" == 'chrome'
-		New Browser		chromium
-	ELSE
-		New Browser		${BROWSER}
-	END
+	Run Keyword If		"${BROWSER}" == 'chrome' or "${BROWSER}" == 'edge'		New Browser		chromium
+	Run Keyword If		"${BROWSER}" != 'chrome' and "${BROWSER}" != 'edge'		New Browser		browser=${BROWSER}
 	New Page			https://search.yahoo.com
 	Take Screenshot

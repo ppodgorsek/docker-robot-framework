@@ -1,4 +1,4 @@
-FROM fedora:39
+FROM fedora:40
 
 MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
 LABEL description Robot Framework in Docker.
@@ -32,22 +32,22 @@ ENV ROBOT_UID 1000
 ENV ROBOT_GID 1000
 
 # Dependency versions
-ENV AWS_CLI_VERSION 1.32.36
+ENV AWS_CLI_VERSION 1.33.23
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
-ENV BROWSER_LIBRARY_VERSION 18.0.0
+ENV BROWSER_LIBRARY_VERSION 18.6.3
 ENV CHROME_VERSION 123.0.6312.122
-ENV DATABASE_LIBRARY_VERSION 1.4.3
-ENV DATADRIVER_VERSION 1.10.0
+ENV DATABASE_LIBRARY_VERSION 1.4.4
+ENV DATADRIVER_VERSION 1.11.2
 ENV DATETIMETZ_VERSION 1.0.6
-ENV MICROSOFT_EDGE_VERSION 121.0.2277.106
+ENV MICROSOFT_EDGE_VERSION 126.0.2592.87
 ENV FAKER_VERSION 5.0.0
-ENV FIREFOX_VERSION 125.0
+ENV FIREFOX_VERSION 128.0
 ENV FTP_LIBRARY_VERSION 1.9
 ENV GECKO_DRIVER_VERSION v0.33.0
 ENV IMAP_LIBRARY_VERSION 0.4.6
 ENV PABOT_VERSION 2.18.0
-ENV REQUESTS_VERSION 0.9.6
-ENV ROBOT_FRAMEWORK_VERSION 7.0
+ENV REQUESTS_VERSION 0.9.7
+ENV ROBOT_FRAMEWORK_VERSION 7.0.1
 ENV SELENIUM_LIBRARY_VERSION 6.2.0
 ENV SSH_LIBRARY_VERSION 3.8.0
 ENV XVFB_VERSION 1.20
@@ -64,16 +64,17 @@ COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 RUN dnf upgrade -y --refresh \
   && dnf install -y \
     dbus-glib \
+    dnf-plugins-core \
     firefox-${FIREFOX_VERSION}* \
     gcc \
     gcc-c++ \
-    npm \
     nodejs \
+    npm \
     python3-pip \
     python3-pyyaml \
     tzdata \
+    wget \
     xorg-x11-server-Xvfb-${XVFB_VERSION}* \
-    dnf-plugins-core \
   && dnf clean all
 
 # Install Chrome for Testing with dependencies
@@ -123,26 +124,18 @@ RUN pip3 install \
   selenium==4.9.0
 
 # Gecko drivers
-RUN dnf install -y \
-    wget \
-
-  # Download Gecko drivers directly from the GitHub repository
-  && wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
+# Download Gecko drivers directly from the GitHub repository
+RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
   && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
   && mkdir -p /opt/robotframework/drivers/ \
   && mv geckodriver /opt/robotframework/drivers/geckodriver \
-  && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
-
-  && dnf remove -y \
-    wget \
-  && dnf clean all
+  && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz
 
 # Install Microsoft Edge & webdriver
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
   && dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
-    wget \
     zip \
 
   && wget -q "https://msedgedriver.azureedge.net/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
@@ -158,7 +151,8 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
 ENV PATH=/opt/microsoft/msedge:$PATH
 
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
-RUN rfbrowser init
+# Additionally, it cannot run fully on any OS due to https://github.com/microsoft/playwright/issues/29559
+RUN rfbrowser init chromium firefox
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.
