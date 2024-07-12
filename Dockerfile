@@ -1,6 +1,6 @@
 FROM fedora:40
 
-MAINTAINER Paul Podgorsek <ppodgorsek@users.noreply.github.com>
+LABEL authors     Paul Podgorsek
 LABEL description Robot Framework in Docker.
 
 # Set the Python dependencies' directory environment variable
@@ -35,7 +35,7 @@ ENV ROBOT_GID 1000
 ENV AWS_CLI_VERSION 1.33.23
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
 ENV BROWSER_LIBRARY_VERSION 18.6.3
-ENV CHROMIUM_VERSION 126.0
+ENV CHROME_VERSION 126.0.6478.126
 ENV DATABASE_LIBRARY_VERSION 1.4.4
 ENV DATADRIVER_VERSION 1.11.2
 ENV DATETIMETZ_VERSION 1.0.6
@@ -56,15 +56,13 @@ ENV XVFB_VERSION 1.20
 ENV AWS_UPLOAD_TO_S3 false
 
 # Prepare binaries to be executed
-COPY bin/chromedriver.sh /opt/robotframework/bin/chromedriver
-COPY bin/chromium-browser.sh /opt/robotframework/bin/chromium-browser
+COPY bin/chromedriver.sh /opt/robotframework/drivers/chromedriver
+COPY bin/chrome.sh /opt/robotframework/bin/chrome
 COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
 # Install system dependencies
 RUN dnf upgrade -y --refresh \
   && dnf install -y \
-    chromedriver-${CHROMIUM_VERSION}* \
-    chromium-${CHROMIUM_VERSION}* \
     dbus-glib \
     dnf-plugins-core \
     firefox-${FIREFOX_VERSION}* \
@@ -79,9 +77,10 @@ RUN dnf upgrade -y --refresh \
     xorg-x11-server-Xvfb-${XVFB_VERSION}* \
   && dnf clean all
 
-# FIXME: below is a workaround, as the path is ignored
-RUN mv /usr/lib64/chromium-browser/chromium-browser /usr/lib64/chromium-browser/chromium-browser-original \
-  && ln -sfv /opt/robotframework/bin/chromium-browser /usr/lib64/chromium-browser/chromium-browser
+# Install Chrome for Testing
+# https://developer.chrome.com/blog/chrome-for-testing/
+RUN npx @puppeteer/browsers install chrome@${CHROME_VERSION} \
+  && npx @puppeteer/browsers install chromedriver@${CHROME_VERSION}
 
 # Install Robot Framework and associated libraries
 RUN pip3 install \
@@ -120,12 +119,10 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
     zip \
-
   && wget -q "https://msedgedriver.azureedge.net/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
   && unzip edgedriver_linux64.zip -d edge \
   && mv edge/msedgedriver /opt/robotframework/drivers/msedgedriver \
   && rm -Rf edgedriver_linux64.zip edge/ \
-
   # IMPORTANT: don't remove the wget package because it's a dependency of Microsoft Edge
   && dnf remove -y \
     zip \
