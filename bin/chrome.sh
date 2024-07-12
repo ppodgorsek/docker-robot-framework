@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec /opt/chrome-for-testing/chrome-linux64/chrome --disable-gpu --no-sandbox "$@"
+exec /chrome/linux-${CHROME_VERSION}/chrome-linux64/chrome --disable-gpu --no-sandbox "$@"
