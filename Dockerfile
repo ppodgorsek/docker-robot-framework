@@ -75,6 +75,7 @@ RUN dnf upgrade -y --refresh \
     tzdata \
     wget \
     xorg-x11-server-Xvfb-${XVFB_VERSION}* \
+    git-all \
   && dnf clean all
 
 # Install Chrome for Testing
@@ -101,6 +102,11 @@ RUN pip3 install \
   axe-selenium-python==$AXE_SELENIUM_LIBRARY_VERSION \
   # Install awscli to be able to upload test reports to AWS S3
   awscli==$AWS_CLI_VERSION
+
+# Install RPA Framework libraries
+RUN pip3 install \
+  --no-cache-dir \
+  "git+https://github.com/andy-kru/rpaframework.git#egg=rpaframework&subdirectory=packages/main"
 
 # Gecko drivers
 # Download Gecko drivers directly from the GitHub repository
