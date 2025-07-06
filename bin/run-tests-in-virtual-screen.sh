@@ -53,6 +53,35 @@ fi
 
 ROBOT_EXIT_CODE=$?
 
+if [[ ${ROBOT_EXIT_CODE} -gt 0 ]]
+then
+    for ((i = 0 ; i < ${ROBOT_RERUN_FAILED} ; i++ ))
+    do
+        echo "Rerunning failed tests, round ${i}..."
+        xvfb-run \
+            --server-args="-screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_COLOUR_DEPTH} -ac" \
+            robot \
+            --rerunfailed $ROBOT_REPORTS_FINAL_DIR/output.xml \
+            --output $ROBOT_REPORTS_FINAL_DIR/output_rerun.xml \
+            --outputDir $ROBOT_REPORTS_FINAL_DIR \
+            ${ROBOT_OPTIONS} \
+            $ROBOT_TESTS_DIR
+
+        ROBOT_EXIT_CODE=$?
+
+        rebot \
+        --outputDir $ROBOT_REPORTS_FINAL_DIR \
+        --merge $ROBOT_REPORTS_FINAL_DIR/output_rerun.xml \
+        $ROBOT_REPORTS_FINAL_DIR/output.xml
+
+        if [ ${ROBOT_EXIT_CODE} -eq 0 ]
+        then
+            break
+        fi
+
+    done
+fi
+
 if [ ${AWS_UPLOAD_TO_S3} = true ]
 then
     echo "Uploading report to AWS S3..."
