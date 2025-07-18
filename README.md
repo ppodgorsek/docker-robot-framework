@@ -202,10 +202,10 @@ rpa==1.50.0
 ### Rerunning tests
 
 Failing tests can be rerun by setting the environment variable `ROBOT_RERUN_FAILED` to a value above 0. All reruns of failed tests are executed without parallelization.
-The number in environment variable `ROBOT_RERUN_FAILED` dictates how many rerun-rounds are made at maximum. All rerun-rounds will only test what failed in previous round.
-The report-files are combined to represent the result of the last round combined.
+The number in environment variable `ROBOT_RERUN_FAILED` dictates how many rerun-rounds are made at maximum. All rerun-rounds will only test what failed in the previous round.
+The report files combine the results of all rounds, the last round providing the final result.
 
-Default is 0 for the `ROBOT_RERUN_FAILED`.
+The default value for `ROBOT_RERUN_FAILED` is 0, meaning that tests will not be executed again if they fail.
 
 ```sh
 docker run \

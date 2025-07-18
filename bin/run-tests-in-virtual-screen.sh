@@ -70,15 +70,14 @@ then
         ROBOT_EXIT_CODE=$?
 
         rebot \
-        --outputDir $ROBOT_REPORTS_FINAL_DIR \
-        --merge $ROBOT_REPORTS_FINAL_DIR/output_rerun.xml \
-        $ROBOT_REPORTS_FINAL_DIR/output.xml
+            --outputDir $ROBOT_REPORTS_FINAL_DIR \
+            --merge $ROBOT_REPORTS_FINAL_DIR/output_rerun.xml \
+            $ROBOT_REPORTS_FINAL_DIR/output.xml
 
         if [ ${ROBOT_EXIT_CODE} -eq 0 ]
         then
             break
         fi
-
     done
 fi
 
