@@ -1,4 +1,4 @@
-FROM fedora:40
+FROM fedora:42
 
 LABEL authors     Paul Podgorsek
 LABEL description Robot Framework in Docker.
@@ -32,25 +32,25 @@ ENV ROBOT_UID 1000
 ENV ROBOT_GID 1000
 
 # Dependency versions
-ENV AWS_CLI_VERSION 1.38.31
+ENV AWS_CLI_VERSION 1.42.11
 ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
-ENV BROWSER_LIBRARY_VERSION 19.4.0
-ENV CHROME_VERSION 135.0.7049.84
-ENV DATABASE_LIBRARY_VERSION 2.1.3
+ENV BROWSER_LIBRARY_VERSION 19.7.0
+ENV CHROME_VERSION 139.0.7258.68
+ENV DATABASE_LIBRARY_VERSION 2.1.4
 ENV DATADRIVER_VERSION 1.11.2
 ENV DATETIMETZ_VERSION 1.0.6
-ENV MICROSOFT_EDGE_VERSION 135.0.3179.54
-ENV FAKER_VERSION 5.0.0
-ENV FIREFOX_VERSION 137.0
+ENV MICROSOFT_EDGE_VERSION 139.0.3405.86
+ENV FAKER_VERSION 6.0.0
+ENV FIREFOX_VERSION 141.0
 ENV FTP_LIBRARY_VERSION 1.9
 ENV GECKO_DRIVER_VERSION v0.36.0
 ENV IMAP_LIBRARY_VERSION 0.4.11
-ENV PABOT_VERSION 4.1.1
+ENV PABOT_VERSION 5.0.0
 ENV REQUESTS_VERSION 0.9.7
-ENV ROBOT_FRAMEWORK_VERSION 7.2.2
+ENV ROBOT_FRAMEWORK_VERSION 7.3.2
 ENV SELENIUM_LIBRARY_VERSION 6.7.1
 ENV SSH_LIBRARY_VERSION 3.8.0
-ENV XVFB_VERSION 1.20
+ENV XVFB_VERSION 21.1.18
 
 # By default, no reports are uploaded to AWS S3
 ENV AWS_UPLOAD_TO_S3 false
@@ -112,11 +112,11 @@ RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRI
 
 # Install Microsoft Edge & webdriver
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
-  && dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge \
+  && dnf config-manager addrepo --from-repofile=https://packages.microsoft.com/yumrepos/edge/config.repo \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
     zip \
-  && wget -q "https://msedgedriver.azureedge.net/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
+  && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
   && unzip edgedriver_linux64.zip -d edge \
   && mv edge/msedgedriver /opt/robotframework/drivers/msedgedriver \
   && rm -Rf edgedriver_linux64.zip edge/ \
