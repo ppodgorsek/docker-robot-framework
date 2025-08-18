@@ -1,4 +1,4 @@
-FROM fedora:40
+FROM fedora:42
 
 LABEL authors     Paul Podgorsek
 LABEL description Robot Framework in Docker.
@@ -50,7 +50,7 @@ ENV REQUESTS_VERSION 0.9.7
 ENV ROBOT_FRAMEWORK_VERSION 7.3.2
 ENV SELENIUM_LIBRARY_VERSION 6.7.1
 ENV SSH_LIBRARY_VERSION 3.8.0
-ENV XVFB_VERSION 1.20
+ENV XVFB_VERSION 21.1.18
 
 # By default, no reports are uploaded to AWS S3
 ENV AWS_UPLOAD_TO_S3 false
@@ -112,7 +112,7 @@ RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRI
 
 # Install Microsoft Edge & webdriver
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
-  && dnf config-manager --add-repo https://packages.microsoft.com/yumrepos/edge \
+  && dnf config-manager addrepo --from-repofile=https://packages.microsoft.com/yumrepos/edge/config.repo \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
     zip \
