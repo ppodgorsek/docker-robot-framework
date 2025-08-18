@@ -116,7 +116,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
     zip \
-  && wget -q "https://msedgedriver.azureedge.net/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
+  && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
   && unzip edgedriver_linux64.zip -d edge \
   && mv edge/msedgedriver /opt/robotframework/drivers/msedgedriver \
   && rm -Rf edgedriver_linux64.zip edge/ \
