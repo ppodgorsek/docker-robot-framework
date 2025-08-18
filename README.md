@@ -55,7 +55,7 @@ The versions used are:
 * [Robot Framework DatabaseLibrary](https://github.com/franz-see/Robotframework-Database-Library) 2.1.4
 * [Robot Framework Datadriver](https://github.com/Snooz82/robotframework-datadriver) 1.11.2
 * [Robot Framework DateTimeTZ](https://github.com/testautomation/DateTimeTZ) 1.0.6
-* [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 5.0.0
+* [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 6.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
 * [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.4.11
 * [Robot Framework Pabot](https://github.com/mkorpela/pabot) 4.1.1
