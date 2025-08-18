@@ -199,6 +199,20 @@ rpa==1.50.0
 
 **For large dependencies, it is still recommended to extend the project's image and to add them there, to avoid delaying the CI/CD pipelines with repeated dependency installations.**
 
+### Rerunning tests
+
+Failing tests can be rerun by setting the environment variable `ROBOT_RERUN_FAILED` to a value above 0. All reruns of failed tests are executed without parallelization.
+The number in environment variable `ROBOT_RERUN_FAILED` dictates how many rerun-rounds are made at maximum. All rerun-rounds will only test what failed in the previous round.
+The report files combine the results of all rounds, the last round providing the final result.
+
+The default value for `ROBOT_RERUN_FAILED` is 0, meaning that tests will not be executed again if they fail.
+
+```sh
+docker run \
+    -e ROBOT_RERUN_FAILED=1 \
+    ppodgorsek/robot-framework:latest
+```
+
 <a name="security-considerations"></a>
 
 ## Security consideration

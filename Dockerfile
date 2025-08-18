@@ -15,6 +15,9 @@ ENV ROBOT_TESTS_DIR /opt/robotframework/tests
 # Set the working directory environment variable
 ENV ROBOT_WORK_DIR /opt/robotframework/temp
 
+# Set the maximum number of rounds to rerun failed tests
+ENV ROBOT_RERUN_FAILED 0
+
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
 ENV SCREEN_HEIGHT 1080
@@ -54,11 +57,6 @@ ENV XVFB_VERSION 21.1.18
 
 # By default, no reports are uploaded to AWS S3
 ENV AWS_UPLOAD_TO_S3 false
-
-# Prepare binaries to be executed
-COPY bin/chromedriver.sh /opt/robotframework/drivers/chromedriver
-COPY bin/chrome.sh /opt/robotframework/bin/chrome
-COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
 # Install system dependencies
 RUN dnf upgrade -y --refresh \
@@ -130,6 +128,11 @@ ENV PATH=/opt/microsoft/msedge:$PATH
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
 # Additionally, it cannot run fully on any OS due to https://github.com/microsoft/playwright/issues/29559
 RUN rfbrowser init chromium firefox
+
+# Prepare binaries to be executed
+COPY bin/chromedriver.sh /opt/robotframework/drivers/chromedriver
+COPY bin/chrome.sh /opt/robotframework/bin/chrome
+COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.

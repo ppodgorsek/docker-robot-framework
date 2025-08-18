@@ -154,3 +154,9 @@ jobs:
             -e BROWSER=$BROWSER \
             -e TZ="America/New_York" \
             $IMAGE_NAME
+      - name: Rerun Test
+        run: |
+          podman run --user=2000:2000 --shm-size=1g \
+            -v `pwd`/test/rerun.robot:/opt/robotframework/tests/rerun.robot:Z \
+            -e ROBOT_RERUN_FAILED=20 \
+            $IMAGE_NAME
