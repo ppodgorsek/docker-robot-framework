@@ -65,7 +65,7 @@ The versions used are:
 * [Axe Selenium Library](https://github.com/mozilla-services/axe-selenium-python) 2.1.6
 * Firefox 137.0
 * [Chrome for Testing](https://googlechromelabs.github.io/chrome-for-testing/) 139.0
-* Microsoft Edge 135.0
+* Microsoft Edge 139.0
 * [Amazon AWS CLI](https://pypi.org/project/awscli/) 1.42.11
 
 As stated by [the official GitHub project](https://github.com/robotframework/Selenium2Library), starting from version 3.0, Selenium2Library is renamed to SeleniumLibrary and this project exists mainly to help with transitioning. The Selenium2Library 3.0.0 is also the last release and for new releases, please look at the [SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) project.
