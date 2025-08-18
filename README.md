@@ -58,7 +58,7 @@ The versions used are:
 * [Robot Framework Faker](https://github.com/guykisel/robotframework-faker) 6.0.0
 * [Robot Framework FTPLibrary](https://github.com/kowalpy/Robot-Framework-FTP-Library) 1.9
 * [Robot Framework IMAPLibrary 2](https://pypi.org/project/robotframework-imaplibrary2/) 0.4.11
-* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 4.1.1
+* [Robot Framework Pabot](https://github.com/mkorpela/pabot) 5.0.0
 * [Robot Framework Requests](https://github.com/bulkan/robotframework-requests) 0.9.7
 * [Robot Framework SeleniumLibrary](https://github.com/robotframework/SeleniumLibrary) 6.7.1
 * [Robot Framework SSHLibrary](https://github.com/robotframework/SSHLibrary) 3.8.0
