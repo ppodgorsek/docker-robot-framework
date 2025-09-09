@@ -1,7 +1,25 @@
 *** Test Cases ***
 
-Randomly Fail Test
-    ${rand}=    Evaluate    random.randint(0,3) 
-	IF    ${rand} > 0
+Roll Dice 1
+    ${rand}=    Evaluate    random.randint(1,6) 
+	IF    ${rand} > 1
+        Fail
+	END
+
+Roll Dice 2
+    ${rand}=    Evaluate    random.randint(1,6) 
+	IF    ${rand} > 1
+        Fail
+	END
+
+Roll Dice 3
+    ${rand}=    Evaluate    random.randint(1,6) 
+	IF    ${rand} > 1
+        Fail
+	END
+
+Roll Dice 4
+    ${rand}=    Evaluate    random.randint(1,6) 
+	IF    ${rand} > 1
         Fail
 	END

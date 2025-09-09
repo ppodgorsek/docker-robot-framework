@@ -53,11 +53,15 @@ fi
 
 ROBOT_EXIT_CODE=$?
 
-if [[ ${ROBOT_EXIT_CODE} -gt 0 ]]
+if [ ${ROBOT_EXIT_CODE} -gt 0 ]
 then
     for ((i = 0 ; i < ${ROBOT_RERUN_FAILED} ; i++ ))
     do
-        echo "Rerunning failed tests, round ${i}..."
+        echo "Rerunning failed tests, round $((i+1))..."
+
+        # Store previous run into a tarball as screenshots etc from the previous run are removed by rebot
+        (cd $ROBOT_REPORTS_FINAL_DIR && tar czf report_run_${i}.tar.gz browser *.html *.xml *.log *.png)
+
         xvfb-run \
             --server-args="-screen 0 ${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_COLOUR_DEPTH} -ac" \
             robot \
@@ -68,11 +72,16 @@ then
             $ROBOT_TESTS_DIR
 
         ROBOT_EXIT_CODE=$?
-
+       
         rebot \
             --outputDir $ROBOT_REPORTS_FINAL_DIR \
-            --merge $ROBOT_REPORTS_FINAL_DIR/output_rerun.xml \
-            $ROBOT_REPORTS_FINAL_DIR/output.xml
+            --output $ROBOT_REPORTS_FINAL_DIR/output.xml \
+            --merge $ROBOT_REPORTS_FINAL_DIR/output.xml \
+            ${ROBOT_RERUN_REBOT_OPTIONS} \
+            $ROBOT_REPORTS_FINAL_DIR/output_rerun.xml \
+            > /dev/null
+        
+        rm $ROBOT_REPORTS_FINAL_DIR/output_rerun.xml
 
         if [ ${ROBOT_EXIT_CODE} -eq 0 ]
         then

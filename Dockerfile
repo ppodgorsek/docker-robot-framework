@@ -18,6 +18,9 @@ ENV ROBOT_WORK_DIR /opt/robotframework/temp
 # Set the maximum number of rounds to rerun failed tests
 ENV ROBOT_RERUN_FAILED 0
 
+# Options to the rebot command when rerunning failed tests
+ENV ROBOT_RERUN_REBOT_OPTIONS ""
+
 # Setup X Window Virtual Framebuffer
 ENV SCREEN_COLOUR_DEPTH 24
 ENV SCREEN_HEIGHT 1080

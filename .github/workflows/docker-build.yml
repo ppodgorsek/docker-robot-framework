@@ -158,5 +158,5 @@ jobs:
         run: |
           podman run --user=2000:2000 --shm-size=1g \
             -v `pwd`/test/rerun.robot:/opt/robotframework/tests/rerun.robot:Z \
-            -e ROBOT_RERUN_FAILED=20 \
+            -e ROBOT_RERUN_FAILED=50 \
             $IMAGE_NAME

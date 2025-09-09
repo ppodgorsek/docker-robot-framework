@@ -14,6 +14,7 @@
     * [Testing emails](#testing-emails)
     * [Dealing with Datetimes and Timezones](#dealing-with-datetimes-and-timezones)
     * [Installing additional dependencies](#installing-additional-dependencies)
+    * [Rerunning tests](#rerunning-tests)
 * [Security consideration](#security-consideration)
 * [Continuous integration](#continuous-integration)
     * [Azure DevOps pipeline](#ci-azure-devops)
