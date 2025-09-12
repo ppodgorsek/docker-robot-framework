@@ -33,8 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Build image
-        run:
-          podman build . --tag $IMAGE_NAME --file Dockerfile
+        run: podman build . --tag $IMAGE_NAME --file Dockerfile
       - name: Basic Test
         run: |
           podman run --shm-size=1g \
@@ -158,5 +157,5 @@ jobs:
         run: |
           podman run --user=2000:2000 --shm-size=1g \
             -v `pwd`/test/rerun.robot:/opt/robotframework/tests/rerun.robot:Z \
-            -e ROBOT_RERUN_FAILED=50 \
+            -e ROBOT_RERUN_MAX_ROUNDS=50 \
             $IMAGE_NAME

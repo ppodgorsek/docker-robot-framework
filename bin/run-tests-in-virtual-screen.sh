@@ -55,7 +55,7 @@ ROBOT_EXIT_CODE=$?
 
 if [ ${ROBOT_EXIT_CODE} -gt 0 ]
 then
-    for ((i = 0 ; i < ${ROBOT_RERUN_FAILED} ; i++ ))
+    for ((i = 0 ; i < ${ROBOT_RERUN_MAX_ROUNDS} ; i++ ))
     do
         echo "Rerunning failed tests, round $((i+1))..."
 

@@ -16,7 +16,7 @@ ENV ROBOT_TESTS_DIR /opt/robotframework/tests
 ENV ROBOT_WORK_DIR /opt/robotframework/temp
 
 # Set the maximum number of rounds to rerun failed tests
-ENV ROBOT_RERUN_FAILED 0
+ENV ROBOT_RERUN_MAX_ROUNDS 0
 
 # Options to the rebot command when rerunning failed tests
 ENV ROBOT_RERUN_REBOT_OPTIONS ""
