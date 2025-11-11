@@ -42,7 +42,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           # Only build one platform in order to run tests (additional platforms will be built afterwards, before push)
-          platforms: linux/amd64
+          # platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           push: false
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache

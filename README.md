@@ -479,9 +479,11 @@ docker run \
     ppodgorsek/robot-framework:<version>
 ```
 
-Please note: builds and automated tests of this project will remain performed on a `linux/amd64` architecture so such emulation might not work, depending on your device and operating system.
+Please note that builds and automated tests of this project are only performed on `linux/amd64` and `linux/arm64` architectures so such emulation might not work, depending on your device and operating system.
 
-If this does not solve your platform-related issues, you will have to rebuild the image for your device/platform, specifying that `--platform` option during the build and run.
+**It is to be noted that Microsoft Edge is not available for Linux ARM. Please visit [the official Microsoft Edge website](https://www.microsoft.com/en-us/edge/business/download) and [the Arm developer website](https://learn.arm.com/install-guides/browsers/edge/) for more information.**
+
+If this does not solve your platform-related issues, you might have to rebuild the image for your device/platform, specifying that `--platform` option during the build and run.
 
 <a name="please-contribute"></a>
 
