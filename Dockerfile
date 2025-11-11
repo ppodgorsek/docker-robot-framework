@@ -119,6 +119,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
   && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
   && unzip edgedriver_linux64.zip -d edge \
   && mv edge/msedgedriver /opt/robotframework/drivers/msedgedriver \
+  && chmod ugo+x /opt/robotframework/drivers/msedgedriver \
   && rm -Rf edgedriver_linux64.zip edge/ \
   # IMPORTANT: don't remove the wget package because it's a dependency of Microsoft Edge
   && dnf remove -y \
