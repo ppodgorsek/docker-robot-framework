@@ -2,13 +2,13 @@
 Library         SeleniumLibrary
 
 *** Variables ***
-${BROWSER}		%{BROWSER}
+${BROWSER}      %{BROWSER}
 
 *** Test Cases ***
 Visit Bing
-	Open Browser			https://www.bing.com		${BROWSER}
-	Capture Page Screenshot
+  Open Browser      https://www.bing.com      ${BROWSER}
+  Capture Page Screenshot
 
 Visit Google
-	Open Browser			https://www.google.com		${BROWSER}
-	Capture Page Screenshot
+  Open Browser      https://www.google.com    ${BROWSER}
+  Capture Page Screenshot
