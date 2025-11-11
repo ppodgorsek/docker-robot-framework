@@ -3,6 +3,10 @@ FROM fedora:42
 LABEL authors="Paul Podgorsek"
 LABEL description="Robot Framework in Docker"
 
+# This image is intended to be built using one of the following platforms:
+# * linux/arm64
+# * linux/amd64"
+
 # Set the Python dependencies' directory environment variable
 ENV ROBOT_DEPENDENCY_DIR="/opt/robotframework/dependencies"
 
@@ -104,23 +108,38 @@ RUN pip3 install \
 
 # Gecko drivers
 # Download Gecko drivers directly from the GitHub repository
-RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz" \
-  && tar xzf geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
+RUN if [ `uname --machine` == "x86_64" ]; \
+  then \
+    export PLATFORM="linux64"; \
+  else \
+    export PLATFORM="linux-aarch64"; \
+  fi \
+  && wget -q "https://github.com/mozilla/geckodriver/releases/download/${GECKO_DRIVER_VERSION}/geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz" \
+  && tar xzf geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz \
   && mkdir -p /opt/robotframework/drivers/ \
   && mv geckodriver /opt/robotframework/drivers/geckodriver \
-  && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz
+  && rm geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz
 
 # Install Microsoft Edge & webdriver
-RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
+RUN if [ `uname --machine` == "x86_64" ]; \
+  then \
+    export PLATFORM="linux64"; \
+  else \
+    echo "Microsoft Edge is not available for Linux ARM."; \
+    echo "Please visit the official Microsoft Edge website for more information: https://www.microsoft.com/en-us/edge/business/download"; \
+    echo "The Arm developer website is also a useful source: https://learn.arm.com/install-guides/browsers/edge/"; \
+    exit 0; \
+  fi \
+  && rpm --import https://packages.microsoft.com/keys/microsoft.asc \
   && dnf config-manager addrepo --from-repofile=https://packages.microsoft.com/yumrepos/edge/config.repo \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
     zip \
-  && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
-  && unzip edgedriver_linux64.zip -d edge \
+  && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_${PLATFORM}.zip" \
+  && unzip edgedriver_${PLATFORM}.zip -d edge \
   && mv edge/msedgedriver /opt/robotframework/drivers/msedgedriver \
   && chmod ugo+x /opt/robotframework/drivers/msedgedriver \
-  && rm -Rf edgedriver_linux64.zip edge/ \
+  && rm -Rf edgedriver_${PLATFORM}.zip edge/ \
   # IMPORTANT: don't remove the wget package because it's a dependency of Microsoft Edge
   && dnf remove -y \
     zip \
