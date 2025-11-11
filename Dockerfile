@@ -155,7 +155,7 @@ ENV "webdriver.edge.driver"="${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge/msedged
 RUN rfbrowser init chromium firefox
 
 # Prepare binaries to be executed
-COPY bin/chromedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/chromedriver
+# COPY bin/chromedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/chromedriver
 COPY bin/chrome.sh                      ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/chrome
 COPY bin/msedgedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge/msedgedriver
 COPY bin/run-tests-in-virtual-screen.sh ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/

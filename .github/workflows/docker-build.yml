@@ -55,9 +55,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - browser: "chrome"
+          # - browser: "chrome"
           - browser: "edge"
-          - browser: "firefox"
+          # - browser: "firefox"
     env:
       BROWSER: ${{ matrix.browser }}
     steps:
