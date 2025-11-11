@@ -148,7 +148,7 @@ RUN if [ `uname --machine` == "x86_64" ]; \
   && dnf clean all
 
 ENV PATH=/opt/microsoft/msedge:$PATH
-ENV "webdriver.edge.driver"="${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/msedgedriver"
+ENV "webdriver.edge.driver"="${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge/msedgedriver"
 
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
 # Additionally, it cannot run fully on any OS due to https://github.com/microsoft/playwright/issues/29559
