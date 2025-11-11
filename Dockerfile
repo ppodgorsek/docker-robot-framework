@@ -112,13 +112,13 @@ RUN if [ `uname --machine` == "x86_64" ]; \
   then \
     export PLATFORM="linux64"; \
   else \
-    export PLATFORM="aarch64"; \
+    export PLATFORM="linux-aarch64"; \
   fi \
-  && wget -q "https://github.com/mozilla/geckodriver/releases/download/$GECKO_DRIVER_VERSION/geckodriver-$GECKO_DRIVER_VERSION-${PLATFORM}.tar.gz" \
-  && tar xzf geckodriver-$GECKO_DRIVER_VERSION-${PLATFORM}.tar.gz \
+  && wget -q "https://github.com/mozilla/geckodriver/releases/download/${GECKO_DRIVER_VERSION}/geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz" \
+  && tar xzf geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz \
   && mkdir -p /opt/robotframework/drivers/ \
   && mv geckodriver /opt/robotframework/drivers/geckodriver \
-  && rm geckodriver-$GECKO_DRIVER_VERSION-${PLATFORM}.tar.gz
+  && rm geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz
 
 # Install Microsoft Edge & webdriver
 RUN if [ `uname --machine` == "x86_64" ]; \
