@@ -157,7 +157,7 @@ RUN rfbrowser init chromium firefox
 # Prepare binaries to be executed
 COPY bin/chromedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/chromedriver
 COPY bin/chrome.sh                      ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/chrome
-COPY bin/msedgedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/msedgedriver
+COPY bin/msedgedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge/msedgedriver
 COPY bin/run-tests-in-virtual-screen.sh ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/
 
 # Create the default report and work folders with the default user to avoid runtime issues
@@ -180,7 +180,7 @@ RUN mkdir -p ${ROBOT_REPORTS_DIR} \
   && chmod 777 ${ROBOT_DEPENDENCY_DIR}
 
 # Update system path
-ENV PATH=${ROBOT_FRAMEWORK_BASE_FOLDER}/bin:${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers:$PATH
+ENV PATH=${ROBOT_FRAMEWORK_BASE_FOLDER}/bin:${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge:${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers:$PATH
 
 # Set up a volume for the generated reports
 VOLUME ${ROBOT_REPORTS_DIR}
