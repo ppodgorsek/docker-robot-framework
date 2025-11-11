@@ -1,5 +1,6 @@
 *** Settings ***
-Library			SeleniumLibrary
+Library         SeleniumLibrary
+Test Teardown   Close All Browsers
 
 *** Variables ***
 ${BROWSER}		%{BROWSER}
