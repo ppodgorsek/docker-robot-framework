@@ -1,5 +1,5 @@
 *** Settings ***
-Library			SeleniumLibrary
+Library         SeleniumLibrary
 
 *** Variables ***
 ${BROWSER}		%{BROWSER}

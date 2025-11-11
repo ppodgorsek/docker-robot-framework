@@ -1,64 +1,64 @@
 FROM fedora:42
 
-LABEL authors     Paul Podgorsek
-LABEL description Robot Framework in Docker.
+LABEL authors="Paul Podgorsek"
+LABEL description="Robot Framework in Docker"
 
 # Set the Python dependencies' directory environment variable
-ENV ROBOT_DEPENDENCY_DIR /opt/robotframework/dependencies
+ENV ROBOT_DEPENDENCY_DIR="/opt/robotframework/dependencies"
 
 # Set the reports directory environment variable
-ENV ROBOT_REPORTS_DIR /opt/robotframework/reports
+ENV ROBOT_REPORTS_DIR="/opt/robotframework/reports"
 
 # Set the tests directory environment variable
-ENV ROBOT_TESTS_DIR /opt/robotframework/tests
+ENV ROBOT_TESTS_DIR="/opt/robotframework/tests"
 
 # Set the working directory environment variable
-ENV ROBOT_WORK_DIR /opt/robotframework/temp
+ENV ROBOT_WORK_DIR="/opt/robotframework/temp"
 
 # Set the maximum number of rounds to rerun failed tests
-ENV ROBOT_RERUN_MAX_ROUNDS 0
+ENV ROBOT_RERUN_MAX_ROUNDS=0
 
 # Options to the rebot command when rerunning failed tests
-ENV ROBOT_RERUN_REBOT_OPTIONS ""
+ENV ROBOT_RERUN_REBOT_OPTIONS=""
 
 # Setup X Window Virtual Framebuffer
-ENV SCREEN_COLOUR_DEPTH 24
-ENV SCREEN_HEIGHT 1080
-ENV SCREEN_WIDTH 1920
+ENV SCREEN_COLOUR_DEPTH=24
+ENV SCREEN_HEIGHT=1080
+ENV SCREEN_WIDTH=1920
 
 # Setup the timezone to use, defaults to UTC
-ENV TZ UTC
+ENV TZ="UTC"
 
 # Set number of threads for parallel execution
 # By default, no parallelisation
-ENV ROBOT_THREADS 1
+ENV ROBOT_THREADS=1
 
 # Define the default user who'll run the tests
-ENV ROBOT_UID 1000
-ENV ROBOT_GID 1000
+ENV ROBOT_UID=1000
+ENV ROBOT_GID=1000
 
 # Dependency versions
-ENV AWS_CLI_VERSION 1.42.11
-ENV AXE_SELENIUM_LIBRARY_VERSION 2.1.6
-ENV BROWSER_LIBRARY_VERSION 19.7.0
-ENV CHROME_VERSION 139.0.7258.68
-ENV DATABASE_LIBRARY_VERSION 2.1.4
-ENV DATADRIVER_VERSION 1.11.2
-ENV DATETIMETZ_VERSION 1.0.6
-ENV MICROSOFT_EDGE_VERSION 139.0.3405.86
-ENV FAKER_VERSION 6.0.0
-ENV FIREFOX_VERSION 144.0
-ENV FTP_LIBRARY_VERSION 1.9
-ENV GECKO_DRIVER_VERSION v0.36.0
-ENV IMAP_LIBRARY_VERSION 0.4.11
-ENV PABOT_VERSION 5.0.0
-ENV REQUESTS_VERSION 0.9.7
-ENV ROBOT_FRAMEWORK_VERSION 7.3.2
-ENV SELENIUM_LIBRARY_VERSION 6.7.1
-ENV SSH_LIBRARY_VERSION 3.8.0
+ENV AWS_CLI_VERSION="1.42.11"
+ENV AXE_SELENIUM_LIBRARY_VERSION="2.1.6"
+ENV BROWSER_LIBRARY_VERSION="19.7.0"
+ENV CHROME_VERSION="139.0.7258.68"
+ENV DATABASE_LIBRARY_VERSION="2.1.4"
+ENV DATADRIVER_VERSION="1.11.2"
+ENV DATETIMETZ_VERSION="1.0.6"
+ENV MICROSOFT_EDGE_VERSION="142.0.3595.65"
+ENV FAKER_VERSION="6.0.0"
+ENV FIREFOX_VERSION="144.0"
+ENV FTP_LIBRARY_VERSION="1.9"
+ENV GECKO_DRIVER_VERSION="v0.36.0"
+ENV IMAP_LIBRARY_VERSION="0.4.11"
+ENV PABOT_VERSION="5.0.0"
+ENV REQUESTS_VERSION="0.9.7"
+ENV ROBOT_FRAMEWORK_VERSION="7.3.2"
+ENV SELENIUM_LIBRARY_VERSION="6.7.1"
+ENV SSH_LIBRARY_VERSION="3.8.0"
 
 # By default, no reports are uploaded to AWS S3
-ENV AWS_UPLOAD_TO_S3 false
+ENV AWS_UPLOAD_TO_S3="false"
 
 # Install system dependencies
 RUN dnf upgrade -y --refresh \
@@ -119,6 +119,7 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc \
   && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_linux64.zip" \
   && unzip edgedriver_linux64.zip -d edge \
   && mv edge/msedgedriver /opt/robotframework/drivers/msedgedriver \
+  && chmod ugo+x /opt/robotframework/drivers/msedgedriver \
   && rm -Rf edgedriver_linux64.zip edge/ \
   # IMPORTANT: don't remove the wget package because it's a dependency of Microsoft Edge
   && dnf remove -y \

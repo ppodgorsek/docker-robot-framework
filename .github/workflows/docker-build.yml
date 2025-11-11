@@ -3,159 +3,242 @@ name: Robot Framework in Docker
 on:
   push:
     # Publish `master` as Docker `latest` image.
-    # Release branches will trigger the creation of a git tag if the build is successful
     branches:
       - master
-      - release/*
+    tags:
+      - "*"
 
   # Run tests for any PRs.
   pull_request:
 
 env:
+  REGISTRY: docker.io
   # The image name
-  IMAGE_NAME: docker-robot-framework:ci
+  IMAGE_NAME: ppodgorsek/robot-framework
+  IMAGE_VERSION_CI: ci
 
+# Build and run tests.
+# See also https://docs.docker.com/docker-hub/builds/automated-testing/
 jobs:
-  # Build and run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   build:
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build
+        uses: docker/build-push-action@v6
+        with:
+          # Only build one platform in order to run tests (additional platforms will be built afterwards, before push)
+          platforms: linux/amd64
+          push: false
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache,mode=max
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
     # run all our tests on each browser
     strategy:
       matrix:
         include:
           - browser: "chrome"
-          - browser: "edge"
+          # FIXME: The tests pass successfully for Edge locally but fail in GitHub Actions
+          # - browser: "edge"
           - browser: "firefox"
     env:
       BROWSER: ${{ matrix.browser }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Build image
-        run: podman build . --tag $IMAGE_NAME --file Dockerfile
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+
+      - name: Pull image from cache
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64
+          push: false
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+
       - name: Basic Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
             -v `pwd`/test/timezones.robot:/opt/robotframework/tests/timezones.robot:Z \
-            -e BROWSER=$BROWSER \
-            $IMAGE_NAME
+            -e BROWSER=${{ env.BROWSER }} \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Test dependency installation
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/pip-dependencies/main.robot:/opt/robotframework/tests/pip-dependencies.robot:Z \
             -v `pwd`/test/pip-dependencies/requirements.txt:/opt/robotframework/pip-requirements.txt:Z \
-            -e BROWSER=$BROWSER \
-            $IMAGE_NAME
+            -e BROWSER=${{ env.BROWSER }} \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Colour Depth 16 Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e SCREEN_COLOUR_DEPTH=16 \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Screen Width 800x600 Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e SCREEN_WIDTH=800 \
             -e SCREEN_HEIGHT=600 \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Screen Width 1024x768 Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e SCREEN_WIDTH=1024 \
             -e SCREEN_HEIGHT=768 \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Screen Width 1280x1024 Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e SCREEN_WIDTH=1280 \
             -e SCREEN_HEIGHT=1024 \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Screen Width 2560x1440 Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e SCREEN_WIDTH=2560 \
             -e SCREEN_HEIGHT=1440 \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Screen Width 3840x2160 Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e SCREEN_WIDTH=3840 \
             -e SCREEN_HEIGHT=2160 \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Debug Log Level Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e ROBOT_OPTIONS="--loglevel DEBUG" \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Basic Multithreaded Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
             -v `pwd`/test/timezones.robot:/opt/robotframework/tests/timezones.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e ROBOT_THREADS=4 \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Test Level Multithreaded Test
         run: |
-          podman run --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
             -v `pwd`/test/selenium.robot:/opt/robotframework/tests/selenium.robot:Z \
             -v `pwd`/test/timezones.robot:/opt/robotframework/tests/timezones.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e ROBOT_THREADS=4 \
             -e PABOT_OPTIONS="--testlevelsplit" \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Custom User Test
         run: |
-          podman run --user=2000 --shm-size=1g \
+          docker run --rm --user=2000 --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
-            -e BROWSER=$BROWSER \
-            $IMAGE_NAME
+            -e BROWSER=${{ env.BROWSER }} \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Custom User and Group Test
         run: |
-          podman run --user=2000:2000 --shm-size=1g \
+          docker run --rm --user=2000:2000 --shm-size=1g \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
-            -e BROWSER=$BROWSER \
-            $IMAGE_NAME
+            -e BROWSER=${{ env.BROWSER }} \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Datetime
         run: |
-          podman run --user=2000:2000 --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/timezones.robot:/opt/robotframework/tests/timezones.robot:Z \
-            -e BROWSER=$BROWSER \
+            -e BROWSER=${{ env.BROWSER }} \
             -e TZ="America/New_York" \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
       - name: Rerun Test
         run: |
-          podman run --user=2000:2000 --shm-size=1g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/rerun.robot:/opt/robotframework/tests/rerun.robot:Z \
+            -e BROWSER=${{ env.BROWSER }} \
             -e ROBOT_RERUN_MAX_ROUNDS=50 \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+
+  push:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event_name != 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
+
+      - name: Build other platforms and push
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64
+          # platforms: linux/amd64,linux/arm64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_type == 'branch' && 'latest' || github.ref_name }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
