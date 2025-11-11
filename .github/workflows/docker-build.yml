@@ -15,7 +15,7 @@ env:
   REGISTRY: docker.io
   # The image name
   IMAGE_NAME: ppodgorsek/robot-framework
-  IMAGE_VERSION_CI: ci
+  IMAGE_VERSION_CI: cache
 
 # Build and run tests.
 # See also https://docs.docker.com/docker-hub/builds/automated-testing/
@@ -45,8 +45,8 @@ jobs:
           platforms: linux/amd64
           push: false
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }},mode=max
 
   test:
     runs-on: ubuntu-latest
@@ -232,4 +232,4 @@ jobs:
           # platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_type == 'branch' && 'latest' || github.ref_name }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:cache
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_VERSION_CI }}
