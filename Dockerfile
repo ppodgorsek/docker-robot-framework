@@ -137,8 +137,8 @@ RUN if [ `uname --machine` == "x86_64" ]; \
     zip \
   && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_${PLATFORM}.zip" \
   && unzip edgedriver_${PLATFORM}.zip -d edge \
-  && mv edge/msedgedriver /opt/robotframework/drivers/msedgedriver \
-  && chmod ugo+x /opt/robotframework/drivers/msedgedriver \
+  && mv edge/msedgedriver /opt/robotframework/drivers/msedgedriver-original \
+  && chmod ugo+x /opt/robotframework/drivers/msedgedriver-original \
   && rm -Rf edgedriver_${PLATFORM}.zip edge/ \
   # IMPORTANT: don't remove the wget package because it's a dependency of Microsoft Edge
   && dnf remove -y \
@@ -152,8 +152,9 @@ ENV PATH=/opt/microsoft/msedge:$PATH
 RUN rfbrowser init chromium firefox
 
 # Prepare binaries to be executed
-COPY bin/chromedriver.sh /opt/robotframework/drivers/chromedriver
-COPY bin/chrome.sh /opt/robotframework/bin/chrome
+COPY bin/chromedriver.sh                /opt/robotframework/drivers/chromedriver
+COPY bin/chrome.sh                      /opt/robotframework/bin/chrome
+COPY bin/msedgedriver.sh                /opt/robotframework/drivers/msedgedriver
 COPY bin/run-tests-in-virtual-screen.sh /opt/robotframework/bin/
 
 # Create the default report and work folders with the default user to avoid runtime issues
@@ -162,19 +163,20 @@ RUN mkdir -p ${ROBOT_REPORTS_DIR} \
   && mkdir -p ${ROBOT_WORK_DIR} \
   && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_REPORTS_DIR} \
   && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_WORK_DIR} \
-  && chmod ugo+w ${ROBOT_REPORTS_DIR} ${ROBOT_WORK_DIR}
-
-# Allow any user to write logs
-RUN chmod ugo+w /var/log \
-  && chown ${ROBOT_UID}:${ROBOT_GID} /var/log
+  && chmod ugo+w ${ROBOT_REPORTS_DIR} ${ROBOT_WORK_DIR} \
+  \
+  # Allow any user to run the drivers and write logs
+  && chmod ugo+x /opt/robotframework/drivers \
+  && chmod ugo+w /var/log \
+  && chown ${ROBOT_UID}:${ROBOT_GID} /var/log \
+  \
+  # Ensure the directory for Python dependencies exists
+  && mkdir -p ${ROBOT_DEPENDENCY_DIR} \
+  && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_DEPENDENCY_DIR} \
+  && chmod 777 ${ROBOT_DEPENDENCY_DIR}
 
 # Update system path
 ENV PATH=/opt/robotframework/bin:/opt/robotframework/drivers:$PATH
-
-# Ensure the directory for Python dependencies exists
-RUN mkdir -p ${ROBOT_DEPENDENCY_DIR} \
-  && chown ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_DEPENDENCY_DIR} \
-  && chmod 777 ${ROBOT_DEPENDENCY_DIR}
 
 # Set up a volume for the generated reports
 VOLUME ${ROBOT_REPORTS_DIR}

@@ -74,7 +74,7 @@ jobs:
 
       - name: Basic Test
         run: |
-          docker run --rm --shm-size=2g \
+          docker run --rm --shm-size=1g \
             -v `pwd`/test/browser-library.robot:/opt/robotframework/tests/browser-library.robot:Z \
             -v `pwd`/test/faker.robot:/opt/robotframework/tests/faker.robot:Z \
             -v `pwd`/test/requests.robot:/opt/robotframework/tests/requests.robot:Z \
