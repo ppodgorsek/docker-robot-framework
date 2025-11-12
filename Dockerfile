@@ -85,8 +85,8 @@ RUN dnf upgrade -y --refresh \
 
 # Install Chrome for Testing
 # https://developer.chrome.com/blog/chrome-for-testing/
-RUN npx @puppeteer/browsers install chrome@${CHROME_VERSION} \
-  && npx @puppeteer/browsers install chromedriver@${CHROME_VERSION}
+# RUN npx @puppeteer/browsers install chrome@${CHROME_VERSION} \
+#   && npx @puppeteer/browsers install chromedriver@${CHROME_VERSION}
 
 # Install Robot Framework and associated libraries
 RUN pip3 install \
@@ -110,17 +110,17 @@ RUN pip3 install \
 
 # Gecko drivers
 # Download Gecko drivers directly from the GitHub repository
-RUN if [ `uname --machine` == "x86_64" ]; \
-  then \
-    export PLATFORM="linux64"; \
-  else \
-    export PLATFORM="linux-aarch64"; \
-  fi \
-  && wget -q "https://github.com/mozilla/geckodriver/releases/download/${GECKO_DRIVER_VERSION}/geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz" \
-  && tar xzf geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz \
-  && mkdir -p ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/ \
-  && mv geckodriver ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/geckodriver \
-  && rm geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz
+# RUN if [ `uname --machine` == "x86_64" ]; \
+#   then \
+#     export PLATFORM="linux64"; \
+#   else \
+#     export PLATFORM="linux-aarch64"; \
+#   fi \
+#   && wget -q "https://github.com/mozilla/geckodriver/releases/download/${GECKO_DRIVER_VERSION}/geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz" \
+#   && tar xzf geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz \
+#   && mkdir -p ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/ \
+#   && mv geckodriver ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/geckodriver \
+#   && rm geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz
 
 # Install Microsoft Edge & webdriver
 RUN if [ `uname --machine` == "x86_64" ]; \
@@ -152,11 +152,11 @@ ENV "webdriver.edge.driver"="${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge/msedged
 
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
 # Additionally, it cannot run fully on any OS due to https://github.com/microsoft/playwright/issues/29559
-RUN rfbrowser init chromium firefox
+# RUN rfbrowser init chromium firefox
 
 # Prepare binaries to be executed
 # COPY bin/chromedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/chromedriver
-COPY bin/chrome.sh                      ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/chrome
+# COPY bin/chrome.sh                      ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/chrome
 COPY bin/msedgedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge/msedgedriver
 COPY bin/run-tests-in-virtual-screen.sh ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/
 
