@@ -55,9 +55,10 @@ jobs:
     strategy:
       matrix:
         include:
-          # - browser: "chrome"
+          - browser: "chrome"
+          # FIXME: The tests pass successfully for Edge locally but fail in GitHub Actions
           - browser: "edge"
-          # - browser: "firefox"
+          - browser: "firefox"
     env:
       BROWSER: ${{ matrix.browser }}
     steps:

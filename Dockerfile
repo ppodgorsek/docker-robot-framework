@@ -85,8 +85,8 @@ RUN dnf upgrade -y --refresh \
 
 # Install Chrome for Testing
 # https://developer.chrome.com/blog/chrome-for-testing/
-# RUN npx @puppeteer/browsers install chrome@${CHROME_VERSION} \
-#   && npx @puppeteer/browsers install chromedriver@${CHROME_VERSION}
+RUN npx @puppeteer/browsers install chrome@${CHROME_VERSION} \
+  && npx @puppeteer/browsers install chromedriver@${CHROME_VERSION}
 
 # Install Robot Framework and associated libraries
 RUN pip3 install \
@@ -110,17 +110,17 @@ RUN pip3 install \
 
 # Gecko drivers
 # Download Gecko drivers directly from the GitHub repository
-# RUN if [ `uname --machine` == "x86_64" ]; \
-#   then \
-#     export PLATFORM="linux64"; \
-#   else \
-#     export PLATFORM="linux-aarch64"; \
-#   fi \
-#   && wget -q "https://github.com/mozilla/geckodriver/releases/download/${GECKO_DRIVER_VERSION}/geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz" \
-#   && tar xzf geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz \
-#   && mkdir -p ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/ \
-#   && mv geckodriver ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/geckodriver \
-#   && rm geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz
+RUN if [ `uname --machine` == "x86_64" ]; \
+  then \
+    export PLATFORM="linux64"; \
+  else \
+    export PLATFORM="linux-aarch64"; \
+  fi \
+  && wget -q "https://github.com/mozilla/geckodriver/releases/download/${GECKO_DRIVER_VERSION}/geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz" \
+  && tar xzf geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz \
+  && mkdir -p ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/ \
+  && mv geckodriver ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/geckodriver \
+  && rm geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz
 
 # Install Microsoft Edge & webdriver
 RUN if [ `uname --machine` == "x86_64" ]; \
@@ -137,7 +137,6 @@ RUN if [ `uname --machine` == "x86_64" ]; \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
     zip \
-  && mkdir -p ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/ \
   && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_${PLATFORM}.zip" \
   && unzip edgedriver_${PLATFORM}.zip -d edge \
   && mv edge/msedgedriver ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/msedgedriver-original \
@@ -149,23 +148,21 @@ RUN if [ `uname --machine` == "x86_64" ]; \
   && dnf clean all
 
 ENV PATH=/opt/microsoft/msedge:$PATH
-ENV "webdriver.edge.driver"="${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge/msedgedriver"
 
 # FIXME: Playright currently doesn't support relying on system browsers, which is why the `--skip-browsers` parameter cannot be used here.
 # Additionally, it cannot run fully on any OS due to https://github.com/microsoft/playwright/issues/29559
-# RUN rfbrowser init chromium firefox
+RUN rfbrowser init chromium firefox
 
 # Prepare binaries to be executed
-# COPY bin/chromedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/chromedriver
-# COPY bin/chrome.sh                      ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/chrome
-COPY bin/msedgedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge/msedgedriver
+COPY bin/chromedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/chromedriver
+COPY bin/chrome.sh                      ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/chrome
+COPY bin/msedgedriver.sh                ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/msedgedriver
 COPY bin/run-tests-in-virtual-screen.sh ${ROBOT_FRAMEWORK_BASE_FOLDER}/bin/
 
 # Create the default report and work folders with the default user to avoid runtime issues
 # These folders are writeable by anyone, to ensure the user can be changed on the command line.
 RUN mkdir -p ${ROBOT_REPORTS_DIR} \
   && mkdir -p ${ROBOT_WORK_DIR} \
-  && mkdir -p ${ROBOT_WORK_DIR}/msedge \
   && chown -R ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_REPORTS_DIR} \
   && chown -R ${ROBOT_UID}:${ROBOT_GID} ${ROBOT_WORK_DIR} \
   && chmod -R ugo+w ${ROBOT_REPORTS_DIR} ${ROBOT_WORK_DIR} \
@@ -181,7 +178,7 @@ RUN mkdir -p ${ROBOT_REPORTS_DIR} \
   && chmod 777 ${ROBOT_DEPENDENCY_DIR}
 
 # Update system path
-ENV PATH=${ROBOT_FRAMEWORK_BASE_FOLDER}/bin:${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/edge:${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers:$PATH
+ENV PATH=${ROBOT_FRAMEWORK_BASE_FOLDER}/bin:${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers:$PATH
 
 # Set up a volume for the generated reports
 VOLUME ${ROBOT_REPORTS_DIR}
