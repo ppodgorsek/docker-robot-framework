@@ -12,6 +12,9 @@ ENV ROBOT_FRAMEWORK_BASE_FOLDER="/opt/robotframework"
 # Set the Python dependencies' directory environment variable
 ENV ROBOT_DEPENDENCY_DIR="${ROBOT_FRAMEWORK_BASE_FOLDER}/dependencies"
 
+# Set the browser drivers' directory environment variable
+ENV ROBOT_DRIVER_DIR="${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers"
+
 # Set the reports directory environment variable
 ENV ROBOT_REPORTS_DIR="${ROBOT_FRAMEWORK_BASE_FOLDER}/reports"
 
@@ -118,8 +121,8 @@ RUN if [ `uname --machine` == "x86_64" ]; \
   fi \
   && wget -q "https://github.com/mozilla/geckodriver/releases/download/${GECKO_DRIVER_VERSION}/geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz" \
   && tar xzf geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz \
-  && mkdir -p ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/ \
-  && mv geckodriver ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/geckodriver \
+  && mkdir -p ${ROBOT_DRIVER_DIR}/ \
+  && mv geckodriver ${ROBOT_DRIVER_DIR}/geckodriver \
   && rm geckodriver-${GECKO_DRIVER_VERSION}-${PLATFORM}.tar.gz
 
 # Install Microsoft Edge & webdriver
@@ -139,8 +142,8 @@ RUN if [ `uname --machine` == "x86_64" ]; \
     zip \
   && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_${PLATFORM}.zip" \
   && unzip edgedriver_${PLATFORM}.zip -d edge \
-  && mv edge/msedgedriver ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/msedgedriver-original \
-  && chmod ugo+x ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/msedgedriver-original \
+  && mv edge/msedgedriver ${ROBOT_DRIVER_DIR}/msedgedriver-original \
+  && chmod ugo+x ${ROBOT_DRIVER_DIR}/msedgedriver-original \
   && rm -Rf edgedriver_${PLATFORM}.zip edge/ \
   # IMPORTANT: don't remove the wget package because it's a dependency of Microsoft Edge
   && dnf remove -y \
@@ -168,7 +171,7 @@ RUN mkdir -p ${ROBOT_REPORTS_DIR} \
   && chmod -R ugo+w ${ROBOT_REPORTS_DIR} ${ROBOT_WORK_DIR} \
   \
   # Allow any user to run the drivers and write logs
-  && chmod ugo+x ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers \
+  && chmod ugo+x ${ROBOT_DRIVER_DIR} \
   && chmod ugo+w /var/log \
   && chown ${ROBOT_UID}:${ROBOT_GID} /var/log \
   \
@@ -178,7 +181,7 @@ RUN mkdir -p ${ROBOT_REPORTS_DIR} \
   && chmod 777 ${ROBOT_DEPENDENCY_DIR}
 
 # Update system path
-ENV PATH=${ROBOT_FRAMEWORK_BASE_FOLDER}/bin:${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers:$PATH
+ENV PATH=${ROBOT_FRAMEWORK_BASE_FOLDER}/bin:${ROBOT_DRIVER_DIR}:$PATH
 
 # Set up a volume for the generated reports
 VOLUME ${ROBOT_REPORTS_DIR}
