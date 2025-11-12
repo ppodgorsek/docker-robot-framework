@@ -28,6 +28,7 @@
     * [Error: Suite contains no tests](#error-suite-contains-no-tests)
     * [Database tests are failing in spite of the DatabaseLibrary being present](#database-tests-are-failing-in-spite-of-the-databaselibrary-being-present)
     * [Supported devices and architectures](#supported-devices-and-architectures)
+    * [Container image is too large](#troubleshooting-image-too-large)
 * [Please contribute!](#please-contribute)
 
 -----
@@ -199,6 +200,8 @@ rpa==1.50.0
 ```
 
 **For large dependencies, it is still recommended to extend the project's image and to add them there, to avoid delaying the CI/CD pipelines with repeated dependency installations.**
+
+<a name="rerunning-tests"></a>
 
 ### Rerunning tests
 
@@ -467,7 +470,7 @@ It is anyway mandatory to extend the container image to install the specific dat
 
 ### Supported devices and architectures
 
-As mentioned on the [Docker Hub](https://hub.docker.com/r/ppodgorsek/robot-framework), the project has been built and uploaded as a `linux/amd64` image only. This means ARM devices such as MacBook M1/M2 and Amazon EC2 Graviton won't be able to run the image with the default configuration.
+As mentioned on the [Docker Hub](https://hub.docker.com/r/ppodgorsek/robot-framework), the project has been built and uploaded for `linux/amd64` and `linux/arm64` architectures only.
 
 As mentioned in the official documentation, [Podman](https://docs.podman.io/en/latest/markdown/podman-run.1.html#platform-os-arch) and [Docker](https://docs.docker.com/build/building/multi-platform/) provide a `--platform` option which selects a given application architecture, such as:
 
@@ -479,11 +482,21 @@ docker run \
     ppodgorsek/robot-framework:<version>
 ```
 
-Please note that builds and automated tests of this project are only performed on `linux/amd64` and `linux/arm64` architectures so such emulation might not work, depending on your device and operating system.
-
 **It is to be noted that Microsoft Edge is not available for Linux ARM. Please visit [the official Microsoft Edge website](https://www.microsoft.com/en-us/edge/business/download) and [the Arm developer website](https://learn.arm.com/install-guides/browsers/edge/) for more information.**
 
 If this does not solve your platform-related issues, you might have to rebuild the image for your device/platform, specifying that `--platform` option during the build and run.
+
+<a name="troubleshooting-image-too-large"></a>
+
+### Container image is too large
+
+Unfortunately, the image size is due to the presence of both Selenium and Playwright. (the latter requiring its own set of browsers)
+
+Should you need to use Robot Framework in embedded devices, this is too much.
+
+Instead, a basic multi-arch container (under 200MB) can be found in this public container registry: [Robot Framework for Embedded Multi-Arch Container](https://gitlab.com/gitlab-accelerates-embedded/comp/robot-for-embdd/container_registry).
+
+It is built as part of the [Robot Framework for Embedded](https://gitlab.com/explore/catalog/gitlab-accelerates-embedded/comp/robot-for-embdd).
 
 <a name="please-contribute"></a>
 
