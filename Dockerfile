@@ -137,6 +137,7 @@ RUN if [ `uname --machine` == "x86_64" ]; \
   && dnf install -y \
     microsoft-edge-stable-${MICROSOFT_EDGE_VERSION} \
     zip \
+  && mkdir -p ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/ \
   && wget -q "https://msedgedriver.microsoft.com/${MICROSOFT_EDGE_VERSION}/edgedriver_${PLATFORM}.zip" \
   && unzip edgedriver_${PLATFORM}.zip -d edge \
   && mv edge/msedgedriver ${ROBOT_FRAMEWORK_BASE_FOLDER}/drivers/msedgedriver-original \
